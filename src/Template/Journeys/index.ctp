@@ -6,25 +6,25 @@
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Journey'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Requests'), ['controller' => 'Requests', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Request'), ['controller' => 'Requests', 'action' => 'add']) ?></li>
+        <li class="heading"><?= __('OPCIONES') ?></li>
+        <li><?= $this->Html->link(__('Nueva Jornada'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('Solicitudes'), ['controller' => 'Requests', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="journeys index large-9 medium-8 columns content">
-    <h3><?= __('Journeys') ?></h3>
+    <h3><?= __('Jornadas') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('municipio') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('from') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('to') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('map') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('date','Fecha') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('from','Inicio') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('to','Termina') ?></th>
+                <!-- <th scope="col"><?= $this->Paginator->sort('map') ?></th> -->
+                <!-- <th scope="col"><?= $this->Paginator->sort('created') ?></th> -->
+                <!-- <th scope="col"><?= $this->Paginator->sort('modified') ?></th> -->
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
