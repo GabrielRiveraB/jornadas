@@ -95,6 +95,7 @@ class Application extends BaseApplication
         }
 
         $this->addPlugin('Migrations');
+        $this->addPlugin('Proffer');
 
         // Load more plugins here
     }

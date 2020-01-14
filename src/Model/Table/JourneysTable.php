@@ -40,6 +40,25 @@ class JourneysTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->addBehavior('Proffer.Proffer', [
+            'photo' => [	// The name of your upload field
+                'root' => WWW_ROOT . 'files', // Customise the root upload folder here, or omit to use the default
+                'dir' => 'photo_dir',	// The name of the field to store the folder
+                'thumbnailSizes' => [ // Declare your thumbnails
+                    'square' => [	// Define the prefix of your thumbnail
+                        'w' => 200,	// Width
+                        'h' => 200,	// Height
+                        'jpeg_quality'	=> 100
+                    ],
+                    'portrait' => [		// Define a second thumbnail
+                        'w' => 100,
+                        'h' => 300
+                    ],
+                ],
+                'thumbnailMethod' => 'gd'	// Options are Imagick or Gd
+            ]
+        ]);
+
         $this->hasMany('Requests', [
             'foreignKey' => 'journey_id',
         ]);
@@ -63,21 +82,29 @@ class JourneysTable extends Table
             ->allowEmptyString('municipio');
 
         $validator
-            ->dateTime('date')
-            ->allowEmptyDateTime('date');
+            ->scalar('ubicacion')
+            ->maxLength('ubicacion', 50)
+            ->allowEmptyString('ubicacion');            
 
         $validator
-            ->time('from')
-            ->allowEmptyTime('from');
+            ->date('date')
+            ->allowEmptyDate('date');
 
         $validator
-            ->time('to')
-            ->allowEmptyTime('to');
+            ->time('horainicio')
+            ->allowEmptyTime('horainicio');
 
         $validator
-            ->scalar('map')
-            ->maxLength('map', 250)
-            ->allowEmptyString('map');
+            ->time('horatermino')
+            ->allowEmptyDateTime('horatermino');
+
+        $validator
+            ->allowEmptyString('photo');
+
+        $validator
+            ->scalar('photo_dir')
+            ->maxLength('photo_dir', 255)
+            ->allowEmptyString('photo_dir');
 
         return $validator;
     }

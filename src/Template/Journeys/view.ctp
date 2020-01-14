@@ -6,53 +6,26 @@
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Journey'), ['action' => 'edit', $journey->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Journey'), ['action' => 'delete', $journey->id], ['confirm' => __('Are you sure you want to delete # {0}?', $journey->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Journeys'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Journey'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Requests'), ['controller' => 'Requests', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Request'), ['controller' => 'Requests', 'action' => 'add']) ?> </li>
+        <li class="heading"><?= __('MENU') ?></li>
+        <li><?= $this->Html->link(__('Editar jornada'), ['action' => 'edit', $journey->id]) ?> </li>
+        <li><?= $this->Form->postLink(__('Eliminar jornada'), ['action' => 'delete', $journey->id], ['confirm' => __('Are you sure you want to delete # {0}?', $journey->id)]) ?> </li>
+        <li><?= $this->Html->link(__('Jornadas'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('Nueva jornada'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('Solicitudes'), ['controller' => 'Requests', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="journeys view large-9 medium-8 columns content">
-    <h3><?= h($journey->id) ?></h3>
+    <h3><?= h($journey->municipio) ?></h3>
+    <p><?= "Del día " . date("d-m-y", strtotime($journey->date)) . " | Desde las " . date("H:i A", strtotime($journey->horainicio)) . " hasta las " . date("H:i A", strtotime($journey->horatermino)) ?></p>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('Municipio') ?></th>
-            <td><?= h($journey->municipio) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Map') ?></th>
-            <td><?= h($journey->map) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($journey->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Date') ?></th>
-            <td><?= h($journey->date) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('From') ?></th>
-            <td><?= h($journey->from) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('To') ?></th>
-            <td><?= h($journey->to) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Created') ?></th>
-            <td><?= h($journey->created) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Modified') ?></th>
-            <td><?= h($journey->modified) ?></td>
+            <th scope="row"><?= __('Mapa') ?></th>
+            <td><?= h($journey->photo) ?></td>
         </tr>
     </table>
     <div class="related">
-        <h4><?= __('Related Requests') ?></h4>
+        <h4><?= __('Solicitudes') ?></h4>
         <?php if (!empty($journey->requests)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
@@ -64,13 +37,14 @@
                 <th scope="col"><?= __('Petitioner Id') ?></th>
                 <th scope="col"><?= __('Folio') ?></th>
                 <th scope="col"><?= __('Description') ?></th>
-                <th scope="col"><?= __('Sibao') ?></th>
+                <th scope="col"><?= __('Sibso') ?></th>
                 <th scope="col"><?= __('Cespt') ?></th>
                 <th scope="col"><?= __('Educacion') ?></th>
                 <th scope="col"><?= __('Municipio') ?></th>
                 <th scope="col"><?= __('Dif') ?></th>
                 <th scope="col"><?= __('Juventud') ?></th>
                 <th scope="col"><?= __('Other') ?></th>
+                <th scope="col"><?= __('Gobernador') ?></th>
                 <th scope="col"><?= __('Priority') ?></th>
                 <th scope="col"><?= __('Request Status Id') ?></th>
                 <th scope="col"><?= __('Created') ?></th>
@@ -87,13 +61,14 @@
                 <td><?= h($requests->petitioner_id) ?></td>
                 <td><?= h($requests->folio) ?></td>
                 <td><?= h($requests->description) ?></td>
-                <td><?= h($requests->sibao) ?></td>
+                <td><?= h($requests->sibso) ?></td>
                 <td><?= h($requests->cespt) ?></td>
                 <td><?= h($requests->educacion) ?></td>
                 <td><?= h($requests->municipio) ?></td>
                 <td><?= h($requests->dif) ?></td>
                 <td><?= h($requests->juventud) ?></td>
                 <td><?= h($requests->other) ?></td>
+                <td><?= h($requests->gobernador) ?></td>
                 <td><?= h($requests->priority) ?></td>
                 <td><?= h($requests->request_status_id) ?></td>
                 <td><?= h($requests->created) ?></td>

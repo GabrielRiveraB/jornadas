@@ -13,17 +13,63 @@
     </ul>
 </nav>
 <div class="journeys form large-9 medium-8 columns content">
-    <?= $this->Form->create($journey) ?>
+    <?= $this->Form->create($journey,['type' => 'file']) ?>
     <fieldset>
-        <legend><?= __('Add Journey') ?></legend>
+        <legend><?= __('Datos de la jornada') ?></legend>
         <?php
             echo $this->Form->control('municipio');
-            echo $this->Form->control('date', ['empty' => true]);
-            echo $this->Form->control('from', ['empty' => true]);
-            echo $this->Form->control('to', ['empty' => true]);
-            echo $this->Form->control('map');
+            echo $this->Form->control('ubicacion');
+            echo $this->Form->control('fecha', ['empty' => true]);
+            echo $this->Form->control('inicio', ['empty' => true]);
+            echo $this->Form->control('termino', ['empty' => true]);
+            echo $this->Form->control('photo', ['type'=>'file']);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Crear Jornada')) ?>
     <?= $this->Form->end() ?>
 </div>
+
+<script>
+// http://www.daterangepicker.com/
+
+$('input[name="fecha"]').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    minYear: 1901,
+    locale: {
+        "format": "YYYY/MM/DD",
+        "separator": " - ",
+        "applyLabel": "Aplicar",
+        "cancelLabel": "Cancelar",
+        "fromLabel": "De",
+        "toLabel": "Hasta",
+        "customRangeLabel": "Custom",
+        "weekLabel": "S",
+        "daysOfWeek": [
+            "Do",
+            "Lu",
+            "Ma",
+            "Mi",
+            "Ju",
+            "Vi",
+            "Sa"
+        ],
+        "monthNames": [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre"
+        ]}
+  });
+
+  $('#inicio').timepicker({ 'timeFormat': 'h:i A', 'minTime': '06:00',	'maxTime': '20:00' });
+  $('#termino').timepicker({ 'timeFormat': 'h:i A', 'minTime': '06:00',	'maxTime': '20:00' });
+</script>

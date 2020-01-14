@@ -8,10 +8,11 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string|null $municipio
- * @property \Cake\I18n\FrozenTime|null $date
- * @property \Cake\I18n\FrozenTime|null $from
- * @property \Cake\I18n\FrozenTime|null $to
- * @property string|null $map
+ * @property \Cake\I18n\FrozenDate|null $date
+ * @property \Cake\I18n\FrozenTime|null $horainicio
+ * @property \Cake\I18n\FrozenTime|null $horatermino
+ * @property |null $photo
+ * @property string|null $photo_dir
  * @property \Cake\I18n\FrozenDate|null $created
  * @property \Cake\I18n\FrozenDate|null $modified
  *
@@ -30,10 +31,12 @@ class Journey extends Entity
      */
     protected $_accessible = [
         'municipio' => true,
+        'ubicacion' => true,
         'date' => true,
-        'from' => true,
-        'to' => true,
-        'map' => true,
+        'horainicio' => true,
+        'horatermino' => true,
+        'photo' => true,
+        'photo_dir' => true,
         'created' => true,
         'modified' => true,
         'requests' => true,

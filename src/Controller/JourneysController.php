@@ -48,16 +48,26 @@ class JourneysController extends AppController
     public function add()
     {
         $journey = $this->Journeys->newEntity();
+
+        $journey->date = $this->request->data('fecha');
+        $journey->horatermino = $this->request->data('termino');
+        $journey->horainicio = $this->request->data('inicio');
+
         if ($this->request->is('post')) {
             $journey = $this->Journeys->patchEntity($journey, $this->request->getData());
             if ($this->Journeys->save($journey)) {
                 $this->Flash->success(__('The journey has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
+            } else {
+                debug($this->validationErrors);  
+
             }
             $this->Flash->error(__('The journey could not be saved. Please, try again.'));
         }
-        $this->set(compact('journey'));
+        $municipios = array('Mexicali'=>'Mexicali','Tijuana'=>'Tijuana','Ensenada'=>'Ensenada','Tecate'=>'Tecate','Playas de Rosarito'=>'Playas de Rosarito');
+        
+        $this->set(compact('journey','municipios'));
     }
 
     /**
@@ -72,8 +82,14 @@ class JourneysController extends AppController
         $journey = $this->Journeys->get($id, [
             'contain' => [],
         ]);
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $journey = $this->Journeys->patchEntity($journey, $this->request->getData());
+
+            $journey->date = $this->request->data('fecha');
+            $journey->horatermino = $this->request->data('termino');
+            $journey->horainicio = $this->request->data('inicio');
+
             if ($this->Journeys->save($journey)) {
                 $this->Flash->success(__('The journey has been saved.'));
 
