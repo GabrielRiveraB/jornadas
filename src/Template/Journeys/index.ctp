@@ -17,6 +17,7 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
+                <th scope="col"><?= $this->Paginator->sort('ubicacion') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('municipio') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('date','Fecha') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('horainicio','Hora') ?></th>
@@ -26,6 +27,7 @@
         <tbody>
             <?php foreach ($journeys as $journey): ?>
             <tr>
+            <td><?= h($journey->ubicacion) ?></td>
                 <td><?= h($journey->municipio) ?></td>
                 <td><?= h(date("d-m-y", strtotime($journey->date))) ?></td>
                 <td><?= "De las ". date("H:i A", strtotime($journey->horainicio))." a las " . date("H:i A", strtotime($journey->horatermino)) ?></td>
@@ -38,14 +40,5 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-    </div>
+    <?php echo $this->element('table_paginate'); ?>
 </div>

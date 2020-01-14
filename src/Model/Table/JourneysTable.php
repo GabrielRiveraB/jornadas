@@ -35,7 +35,7 @@ class JourneysTable extends Table
         parent::initialize($config);
 
         $this->setTable('journeys');
-        $this->setDisplayField('id');
+        $this->setDisplayField('ubicacion');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
@@ -79,12 +79,12 @@ class JourneysTable extends Table
         $validator
             ->scalar('municipio')
             ->maxLength('municipio', 20)
-            ->allowEmptyString('municipio');
+            ->requirePresence('municipio');
 
         $validator
             ->scalar('ubicacion')
             ->maxLength('ubicacion', 50)
-            ->allowEmptyString('ubicacion');            
+            ->requirePresence('ubicacion');         
 
         $validator
             ->date('date')

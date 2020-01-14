@@ -48,7 +48,7 @@ class RequestsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($jid = null)
     {
         $request = $this->Requests->newEntity();
         if ($this->request->is('post')) {
@@ -60,7 +60,13 @@ class RequestsController extends AppController
             }
             $this->Flash->error(__('The request could not be saved. Please, try again.'));
         }
-        $journeys = $this->Requests->Journeys->find('list', ['limit' => 200]);
+
+        if(!$jid){
+            $journeys = $this->Requests->Journeys->find('list', ['limit' => 200]);
+        } else {
+            $journeys = $this->Requests->Journeys->find('list', ['conditions' => ['id' => $jid]]);
+        }
+        
         $promoters = $this->Requests->Promoters->find('list', ['limit' => 200]);
         $concepts = $this->Requests->Concepts->find('list', ['limit' => 200]);
         $types = $this->Requests->Types->find('list', ['limit' => 200]);

@@ -6,25 +6,25 @@
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Petitioners'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Requests'), ['controller' => 'Requests', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Request'), ['controller' => 'Requests', 'action' => 'add']) ?></li>
+        <li class="heading"><?= __('MENU') ?></li>
+        <li><?= $this->Html->link(__('Solicitantes'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('Solicitudes'), ['controller' => 'Requests', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="petitioners form large-9 medium-8 columns content">
     <?= $this->Form->create($petitioner) ?>
     <fieldset>
-        <legend><?= __('Add Petitioner') ?></legend>
+        <legend><?= __('Datos del solicitante') ?></legend>
         <?php
-            echo $this->Form->control('name');
-            echo $this->Form->control('age');
-            echo $this->Form->control('civilstatus');
-            echo $this->Form->control('address');
-            echo $this->Form->control('phone');
-            echo $this->Form->control('email');
+            echo $this->Form->control('name',['label'=>'Nombre']);
+            echo $this->Form->control('age',['label'=>'Edad']);
+            echo $this->Form->control('civilstatus',['label'=>'Estado civil']);
+            echo $this->Form->control('address',['label'=>'Dirección']);
+            echo $this->Form->control('phone',['label'=>'Teléfono']);
+            echo $this->Form->control('email',['label'=>'Correo electrónico']);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Agregar solicitante')) ?>
     <?= $this->Form->end() ?>
 </div>

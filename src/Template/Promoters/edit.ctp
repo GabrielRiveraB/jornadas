@@ -8,27 +8,27 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Form->postLink(
-                __('Delete'),
+                __('Eliminar'),
                 ['action' => 'delete', $promoter->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $promoter->id)]
+                ['confirm' => __('Se eliminará el promotor del sistema si presiona Aceptar', $promoter->id)]
             )
         ?></li>
-        <li><?= $this->Html->link(__('List Promoters'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Requests'), ['controller' => 'Requests', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Request'), ['controller' => 'Requests', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('Promotores'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('Solicitudes'), ['controller' => 'Requests', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="promoters form large-9 medium-8 columns content">
     <?= $this->Form->create($promoter) ?>
     <fieldset>
-        <legend><?= __('Edit Promoter') ?></legend>
+    <legend><?= __('Datos del promotor') ?></legend>
         <?php
-            echo $this->Form->control('name');
-            echo $this->Form->control('position');
-            echo $this->Form->control('dependency');
-            echo $this->Form->control('status');
+            echo $this->Form->control('name',['label'=>'Nombre']);
+            echo $this->Form->control('position',['label'=>'Puesto']);
+            echo $this->Form->control('dependency',['label'=>'Dependencia']);
+            echo $this->Form->control('status',['label'=>'Activo']);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Guardar cambios')) ?>
     <?= $this->Form->end() ?>
 </div>

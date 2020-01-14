@@ -12,12 +12,12 @@
         <li><?= $this->Html->link(__('Jornadas'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('Nueva jornada'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('Solicitudes'), ['controller' => 'Requests', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add', $journey->id ]) ?> </li>
     </ul>
 </nav>
 <div class="journeys view large-9 medium-8 columns content">
-    <h3><?= h($journey->municipio) ?></h3>
-    <p><?= "Del día " . date("d-m-y", strtotime($journey->date)) . " | Desde las " . date("H:i A", strtotime($journey->horainicio)) . " hasta las " . date("H:i A", strtotime($journey->horatermino)) ?></p>
+    <h3><?= h($journey->ubicacion . ", " .$journey->municipio) ?></h3>
+    <p><?= "El día " . date("d-m-y", strtotime($journey->date)) . " | Desde las " . date("H:i A", strtotime($journey->horainicio)) . " hasta las " . date("H:i A", strtotime($journey->horatermino)) ?></p>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Mapa') ?></th>

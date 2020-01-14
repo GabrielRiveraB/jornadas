@@ -57,7 +57,11 @@ class PetitionersController extends AppController
             }
             $this->Flash->error(__('The petitioner could not be saved. Please, try again.'));
         }
-        $this->set(compact('petitioner'));
+        
+        $civilstatuses = array('Soltero/a'=>'Soltero/a','Casado/a'=>'Casado/a','Unión libre'=>'Unión libre','Separado/a'=>'Separado/a',
+        'Divorciado/a'=>'Divorciado/a','Viudo/a'=>'Viudo/a');
+
+        $this->set(compact('petitioner','civilstatuses'));
     }
 
     /**

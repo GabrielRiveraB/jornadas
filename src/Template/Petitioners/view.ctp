@@ -6,57 +6,42 @@
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Petitioner'), ['action' => 'edit', $petitioner->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Petitioner'), ['action' => 'delete', $petitioner->id], ['confirm' => __('Are you sure you want to delete # {0}?', $petitioner->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Petitioners'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Petitioner'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Requests'), ['controller' => 'Requests', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Request'), ['controller' => 'Requests', 'action' => 'add']) ?> </li>
+        <li class="heading"><?= __('MENU') ?></li>
+        <li><?= $this->Html->link(__('Editar'), ['action' => 'edit', $petitioner->id]) ?> </li>
+        <li><?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $petitioner->id], ['confirm' => __('Se eliminará al solicitante si presiona Aceptar', $petitioner->id)]) ?> </li>
+        <li><?= $this->Html->link(__('Solicitantes'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('Nuevo solicitante'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('Solicitudes'), ['controller' => 'Requests', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="petitioners view large-9 medium-8 columns content">
     <h3><?= h($petitioner->name) ?></h3>
     <table class="vertical-table">
+
         <tr>
-            <th scope="row"><?= __('Name') ?></th>
-            <td><?= h($petitioner->name) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Civilstatus') ?></th>
+            <th scope="row"><?= __('Estado civil') ?></th>
             <td><?= h($petitioner->civilstatus) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Address') ?></th>
+            <th scope="row"><?= __('Dirección') ?></th>
             <td><?= h($petitioner->address) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Phone') ?></th>
+            <th scope="row"><?= __('Teléfono') ?></th>
             <td><?= h($petitioner->phone) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Email') ?></th>
+            <th scope="row"><?= __('Correo electrónico') ?></th>
             <td><?= h($petitioner->email) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($petitioner->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Age') ?></th>
+            <th scope="row"><?= __('Edad') ?></th>
             <td><?= $this->Number->format($petitioner->age) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Created') ?></th>
-            <td><?= h($petitioner->created) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Modified') ?></th>
-            <td><?= h($petitioner->modified) ?></td>
         </tr>
     </table>
     <div class="related">
-        <h4><?= __('Related Requests') ?></h4>
+        <h4><?= __('Solicitudes') ?></h4>
         <?php if (!empty($petitioner->requests)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>

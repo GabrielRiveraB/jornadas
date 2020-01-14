@@ -13,7 +13,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'Jornadas de la paz | Gobierno de Baja California';
 ?>
 <!DOCTYPE html>
 <html>

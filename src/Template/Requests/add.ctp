@@ -6,7 +6,7 @@
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
+        <li class="heading"><?= __('MENU') ?></li>
         <li><?= $this->Html->link(__('List Requests'), ['action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Journeys'), ['controller' => 'Journeys', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Journey'), ['controller' => 'Journeys', 'action' => 'add']) ?></li>
@@ -27,9 +27,9 @@
 <div class="requests form large-9 medium-8 columns content">
     <?= $this->Form->create($request) ?>
     <fieldset>
-        <legend><?= __('Add Request') ?></legend>
+        <legend><?= __('Agregar solicitud') ?></legend>
         <?php
-            echo $this->Form->control('journey_id', ['options' => $journeys]);
+            echo $this->Form->control('journey_id', ['value'=>]);
             echo $this->Form->control('promoter_id', ['options' => $promoters]);
             echo $this->Form->control('concept_id', ['options' => $concepts, 'empty' => true]);
             echo $this->Form->control('type_id', ['options' => $types, 'empty' => true]);

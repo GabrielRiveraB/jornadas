@@ -6,23 +6,23 @@
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Promoters'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Requests'), ['controller' => 'Requests', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Request'), ['controller' => 'Requests', 'action' => 'add']) ?></li>
+        <li class="heading"><?= __('MENU') ?></li>
+        <li><?= $this->Html->link(__('Promotores'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('Solicitudes'), ['controller' => 'Requests', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="promoters form large-9 medium-8 columns content">
     <?= $this->Form->create($promoter) ?>
     <fieldset>
-        <legend><?= __('Add Promoter') ?></legend>
+        <legend><?= __('Datos del promotor') ?></legend>
         <?php
-            echo $this->Form->control('name');
-            echo $this->Form->control('position');
-            echo $this->Form->control('dependency');
-            echo $this->Form->control('status');
+            echo $this->Form->control('name',['label'=>'Nombre']);
+            echo $this->Form->control('position',['label'=>'Puesto']);
+            echo $this->Form->control('dependency',['label'=>'Dependencia']);
+            echo $this->Form->control('status',['label'=>'Activo']);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Agregar promotor')) ?>
     <?= $this->Form->end() ?>
 </div>
