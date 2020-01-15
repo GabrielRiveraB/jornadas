@@ -8,24 +8,29 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('List Works'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Journeys'), ['controller' => 'Journeys', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Journey'), ['controller' => 'Journeys', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Work Statuses'), ['controller' => 'Workstatuses', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Work Status'), ['controller' => 'Workstatuses', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="works form large-9 medium-8 columns content">
     <?= $this->Form->create($work) ?>
     <fieldset>
-        <legend><?= __('Add Work') ?></legend>
+        <legend><?= __('Datos de la acción') ?></legend>
         <?php
+            echo $this->Form->control('journey_id', ['options' => $journeys,'label'=>'Jornada']);
             echo $this->Form->control('name');
-            echo $this->Form->control('description');
-            echo $this->Form->control('folio');
-            echo $this->Form->control('start', ['empty' => true]);
-            echo $this->Form->control('end', ['empty' => true]);
-            echo $this->Form->control('cost');
-            echo $this->Form->control('completed');
-            echo $this->Form->control('paid');
-            echo $this->Form->control('workStatus_id');
-            echo $this->Form->control('latitude');
-            echo $this->Form->control('longitude');
+            // echo $this->Form->control('description');
+            echo $this->Form->control('responsables');
+            // echo $this->Form->control('folio');
+            echo $this->Form->control('fecha_compromiso', ['empty' => true]);
+            // echo $this->Form->control('start', ['empty' => true]);
+            // echo $this->Form->control('end', ['empty' => true]);
+            // echo $this->Form->control('cost');
+            // echo $this->Form->control('completed');
+            // echo $this->Form->control('paid');
+            // echo $this->Form->control('workStatus_id', ['options' => $workStatuses, 'empty' => true]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

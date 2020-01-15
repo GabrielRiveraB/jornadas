@@ -34,10 +34,24 @@ class JourneysController extends AppController
     public function view($id = null)
     {
         $journey = $this->Journeys->get($id, [
-            'contain' => ['Requests'],
+            'contain' => ['Requests','Requests.Petitioners','Requests.requeststatuses'],
         ]);
 
         $this->set('journey', $journey);
+       
+        /* EMPIEZO A OBTENER LA INFORMACION PARA EL REPORTE DE SOLICITUDES DE LA JORNADA */
+
+        $this->loadModel('Requests');
+        
+        $requests = $this->Requests->find('all', ['conditions' => ['journey_id' =>$id]]);
+
+        $total_solicitudes = count($requests->toArray());                    // Obtendo el total de solicitudes en la jornada
+        
+        $requestsByStatus = $requests->countBy('request_status_id');
+        
+        $this->set('requestsByStatus', $requestsByStatus);
+
+        $this->set(compact('total_solicitudes'));
     }
 
     /**

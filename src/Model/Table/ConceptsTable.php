@@ -55,7 +55,7 @@ class ConceptsTable extends Table
 
         $validator
             ->scalar('name')
-            ->maxLength('name', 30)
+            ->maxLength('name', 50)
             ->allowEmptyString('name');
 
         return $validator;

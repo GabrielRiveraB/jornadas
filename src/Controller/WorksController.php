@@ -20,7 +20,7 @@ class WorksController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['WorkStatuses'],
+            'contain' => ['Journeys', 'WorkStatuses'],
         ];
         $works = $this->paginate($this->Works);
 
@@ -37,7 +37,7 @@ class WorksController extends AppController
     public function view($id = null)
     {
         $work = $this->Works->get($id, [
-            'contain' => ['WorkStatuses'],
+            'contain' => ['Journeys', 'WorkStatuses'],
         ]);
 
         $this->set('work', $work);
@@ -60,8 +60,9 @@ class WorksController extends AppController
             }
             $this->Flash->error(__('The work could not be saved. Please, try again.'));
         }
+        $journeys = $this->Works->Journeys->find('list', ['limit' => 200]);
         $workStatuses = $this->Works->WorkStatuses->find('list', ['limit' => 200]);
-        $this->set(compact('work', 'workStatuses'));
+        $this->set(compact('work', 'journeys', 'workStatuses'));
     }
 
     /**
@@ -85,8 +86,9 @@ class WorksController extends AppController
             }
             $this->Flash->error(__('The work could not be saved. Please, try again.'));
         }
+        $journeys = $this->Works->Journeys->find('list', ['limit' => 200]);
         $workStatuses = $this->Works->WorkStatuses->find('list', ['limit' => 200]);
-        $this->set(compact('work', 'workStatuses'));
+        $this->set(compact('work', 'journeys', 'workStatuses'));
     }
 
     /**

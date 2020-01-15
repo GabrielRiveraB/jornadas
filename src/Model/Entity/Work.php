@@ -7,9 +7,12 @@ use Cake\ORM\Entity;
  * Work Entity
  *
  * @property int $id
+ * @property int $journey_id
  * @property string $name
  * @property string $description
+ * @property string|null $responsables
  * @property string $folio
+ * @property \Cake\I18n\FrozenDate|null $fecha_compromiso
  * @property \Cake\I18n\FrozenDate|null $start
  * @property \Cake\I18n\FrozenDate|null $end
  * @property float|null $cost
@@ -21,7 +24,8 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenDate|null $created
  * @property \Cake\I18n\FrozenDate|null $modified
  *
- * @property \App\Model\Entity\WorkStatus $work_status
+ * @property \App\Model\Entity\Journey $journey
+ * @property \App\Model\Entity\Workstatus $work_status
  */
 class Work extends Entity
 {
@@ -35,9 +39,12 @@ class Work extends Entity
      * @var array
      */
     protected $_accessible = [
+        'journey_id' => true,
         'name' => true,
         'description' => true,
+        'responsables' => true,
         'folio' => true,
+        'fecha_compromiso' => true,
         'start' => true,
         'end' => true,
         'cost' => true,
@@ -48,6 +55,7 @@ class Work extends Entity
         'longitude' => true,
         'created' => true,
         'modified' => true,
+        'journey' => true,
         'work_status' => true,
     ];
 }

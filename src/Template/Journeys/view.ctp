@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Journey $journey
  */
+//   debug($requestsByStatus);
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -24,19 +25,47 @@
             <td><?= h($journey->photo) ?></td>
         </tr>
     </table>
+    <div>
+        <p><strong>Existen un total de <?php echo $total_solicitudes; ?> solicitudes</strong></p>
+        <?php 
+        foreach($requestsByStatus as $status => $cantidad)
+        {
+            if($status == '1') echo $cantidad . " solicitudes capturadas.<br>";
+            if($status == '2') echo $cantidad . " solicitudes clasificadas.<br>";
+            if($status == '3') echo $cantidad . " solicitudes atendidas.<br>";
+            if($status == '4') echo $cantidad . " solicitudes turnadas.<br>";
+            if($status == '5') echo $cantidad . " solicitudes completadas.<br>";
+        }
+        ?>
+    </div>
+    <br>
     <div class="related">
-        <h4><?= __('Solicitudes') ?></h4>
         <?php if (!empty($journey->requests)): ?>
+    <div id="accordion">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Ver las Solicitudes de la jornada
+            </button>
+        </h5>
+        </div>
+
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('Folio') ?></th>
+                <th scope="col"><?= __('Solicitante') ?></th>
+                <th scope="col"><?= __('Petición') ?></th>
+                <th scope="col"><?= __('Estado') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>                                
+                <!-- <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Journey Id') ?></th>
                 <th scope="col"><?= __('Promoter Id') ?></th>
                 <th scope="col"><?= __('Concept Id') ?></th>
                 <th scope="col"><?= __('Type Id') ?></th>
-                <th scope="col"><?= __('Petitioner Id') ?></th>
-                <th scope="col"><?= __('Folio') ?></th>
-                <th scope="col"><?= __('Description') ?></th>
+
                 <th scope="col"><?= __('Sibso') ?></th>
                 <th scope="col"><?= __('Cespt') ?></th>
                 <th scope="col"><?= __('Educacion') ?></th>
@@ -46,21 +75,22 @@
                 <th scope="col"><?= __('Other') ?></th>
                 <th scope="col"><?= __('Gobernador') ?></th>
                 <th scope="col"><?= __('Priority') ?></th>
-                <th scope="col"><?= __('Request Status Id') ?></th>
+
                 <th scope="col"><?= __('Created') ?></th>
                 <th scope="col"><?= __('Modified') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                 -->
             </tr>
             <?php foreach ($journey->requests as $requests): ?>
             <tr>
-                <td><?= h($requests->id) ?></td>
+                <td><?= h($requests->folio) ?></td>
+                <td><?= h($requests->petitioner->name) ?></td>
+                <td><?= h($requests->description) ?></td>
+                <td><?= h($requests->RequestStatuses['name']) ?></td>
+                <!-- <td><?= h($requests->id) ?></td>
                 <td><?= h($requests->journey_id) ?></td>
                 <td><?= h($requests->promoter_id) ?></td>
                 <td><?= h($requests->concept_id) ?></td>
                 <td><?= h($requests->type_id) ?></td>
-                <td><?= h($requests->petitioner_id) ?></td>
-                <td><?= h($requests->folio) ?></td>
-                <td><?= h($requests->description) ?></td>
                 <td><?= h($requests->sibso) ?></td>
                 <td><?= h($requests->cespt) ?></td>
                 <td><?= h($requests->educacion) ?></td>
@@ -70,9 +100,9 @@
                 <td><?= h($requests->other) ?></td>
                 <td><?= h($requests->gobernador) ?></td>
                 <td><?= h($requests->priority) ?></td>
-                <td><?= h($requests->request_status_id) ?></td>
+
                 <td><?= h($requests->created) ?></td>
-                <td><?= h($requests->modified) ?></td>
+                <td><?= h($requests->modified) ?></td> -->
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Requests', 'action' => 'view', $requests->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Requests', 'action' => 'edit', $requests->id]) ?>
@@ -82,5 +112,14 @@
             <?php endforeach; ?>
         </table>
         <?php endif; ?>
+
+
+        </div>
+        </div>
     </div>
+    </div>
+        
+    </div>
+
+
 </div>

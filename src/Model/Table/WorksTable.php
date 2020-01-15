@@ -9,7 +9,9 @@ use Cake\Validation\Validator;
 /**
  * Works Model
  *
- * @property \App\Model\Table\WorkStatusesTable&\Cake\ORM\Association\BelongsTo $WorkStatuses
+ * @property \App\Model\Table\JourneysTable&\Cake\ORM\Association\BelongsTo $Journeys
+ * @property \App\Model\Table\WorkstatusesTable&\Cake\ORM\Association\BelongsTo $WorkStatuses
+ * @property &\Cake\ORM\Association\HasMany $Workupdates
  *
  * @method \App\Model\Entity\Work get($primaryKey, $options = [])
  * @method \App\Model\Entity\Work newEntity($data = null, array $options = [])
@@ -40,8 +42,15 @@ class WorksTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->belongsTo('Journeys', [
+            'foreignKey' => 'journey_id',
+            'joinType' => 'INNER',
+        ]);
         $this->belongsTo('WorkStatuses', [
             'foreignKey' => 'workStatus_id',
+        ]);
+        $this->hasMany('Workupdates', [
+            'foreignKey' => 'work_id',
         ]);
     }
 
@@ -70,10 +79,19 @@ class WorksTable extends Table
             ->notEmptyString('description');
 
         $validator
+            ->scalar('responsables')
+            ->maxLength('responsables', 250)
+            ->allowEmptyString('responsables');
+
+        $validator
             ->scalar('folio')
             ->maxLength('folio', 50)
             ->requirePresence('folio', 'create')
             ->notEmptyString('folio');
+
+        $validator
+            ->date('fecha_compromiso')
+            ->allowEmptyDate('fecha_compromiso');
 
         $validator
             ->date('start')
@@ -115,6 +133,7 @@ class WorksTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->existsIn(['journey_id'], 'Journeys'));
         $rules->add($rules->existsIn(['workStatus_id'], 'WorkStatuses'));
 
         return $rules;
