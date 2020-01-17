@@ -39,7 +39,7 @@ class RequestsController extends AppController
         $request = $this->Requests->get($id, [
             'contain' => ['Journeys', 'Promoters', 'Concepts', 'Types', 'Petitioners', 'RequestStatuses', 'Requestupdates'],
         ]);
-
+        // debug($request);
         $this->set('request', $request);
     }
 
@@ -70,9 +70,13 @@ class RequestsController extends AppController
         $promoters = $this->Requests->Promoters->find('list', ['limit' => 200]);
         $concepts = $this->Requests->Concepts->find('list', ['limit' => 200]);
         $types = $this->Requests->Types->find('list', ['limit' => 200]);
-        $petitioners = $this->Requests->Petitioners->find('list', ['limit' => 200]);
+        // $petitioners = $this->Requests->Petitioners->find('list', ['limit' => 200]);
         $requestStatuses = $this->Requests->RequestStatuses->find('list', ['limit' => 200]);
-        $this->set(compact('request', 'journeys', 'promoters', 'concepts', 'types', 'petitioners', 'requestStatuses'));
+
+        $civilstatuses = array('Soltero/a'=>'Soltero/a','Casado/a'=>'Casado/a','Unión libre'=>'Unión libre','Separado/a'=>'Separado/a',
+        'Divorciado/a'=>'Divorciado/a','Viudo/a'=>'Viudo/a');
+
+        $this->set(compact('request', 'journeys', 'promoters', 'concepts', 'types', 'requestStatuses','civilstatuses'));
     }
 
     /**

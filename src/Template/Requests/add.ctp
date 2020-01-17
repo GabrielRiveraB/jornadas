@@ -27,53 +27,50 @@
 <div class="requests form large-9 medium-8 columns content">
     <?= $this->Form->create($request) ?>
     <fieldset>
-        <legend><?= __('Agregar solicitud') ?></legend>
-
-        
+        <legend><?= __('Formato de peticiones') ?></legend>
+        <br>
         <?php
+            echo $this->Form->control('folio');
             echo $this->Form->control('journey_id', ['placeholder'=>'Selecciona una jornada','options' => $journeys, 'label'=>'Jornada',
             'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
-            // echo $this->Form->control('journey_id', ['class'=>'selectpicker']);
-            echo $this->Form->control('promoter_id', ['options' => $promoters, 'label'=>'Promotor',
-            'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
-            // echo $this->Form->control('promoter_id', ['options' => $promoters]);
-            echo $this->Form->control('concept_id', ['empty'=>'Sin categoría','options' => $concepts, 'label'=>'Categoría',
-            'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
-            // echo $this->Form->control('concept_id', ['options' => $concepts, 'empty' => true]);
-            echo $this->Form->control('type_id', ['empty'=>'Sin tipo','options' => $types, 'label'=>'Tipo de trabajo',
-            'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
-            // echo $this->Form->control('type_id', ['options' => $types, 'empty' => true]);
-            echo $this->Form->control('petitioner_id', ['options' => $petitioners, 'label'=>'Solicitante',
-            'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
-            // echo $this->Form->control('petitioner_id', ['options' => $petitioners]);
-            
-            echo $this->Form->control('folio');
-            echo $this->Form->control('description');
+            // DATOS DEL SOLICITANTE
+            echo $this->Form->control('petitioner', ['label'=>'Nombre del Solicitante']);
+            echo $this->Form->control('edad', ['label'=>'Edad']);
+            echo $this->Form->control('civilstatus',['label'=>'Estado civil']);
+            echo $this->Form->control('address',['label'=>'Dirección']);
+            echo $this->Form->control('phone',['label'=>'Teléfono']);
+            echo $this->Form->control('email',['label'=>'Correo electrónico']);            
+
+            // DATOS DE LA PETICIÓN
+            echo $this->Form->control('description',['label'=>'Descripción de la petición']);
+            echo "<p><strong>Canalizar a:</strong></p>";
             echo $this->Form->control('sibso');
             echo $this->Form->control('cespt');
             echo $this->Form->control('educacion');
             echo $this->Form->control('municipio');
             echo $this->Form->control('dif');
             echo $this->Form->control('juventud');
-            echo $this->Form->control('other');
             echo $this->Form->control('gobernador');
-            echo $this->Form->control('priority');
-            echo $this->Form->control('request_status_id', ['options' => $requestStatuses, 'empty' => true]);
-        ?>
-<div class="ui-widget">
-  <label for="tags">Tags: </label>
-  <input id="tags">
-    <!-- </div>
-        </fieldset>
-        <?= $this->Form->button(__('Agregar petición')) ?>
-        <?= $this->Form->end() ?>
-    </div> -->
+            echo $this->Form->control('other',['label'=>'Otro']);
 
-<script>
+            echo $this->Form->control('promoter_id', ['options' => $promoters, 'label'=>'Promotor',
+            'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
+            echo $this->Form->control('concept_id', ['empty'=>'Sin categoría','options' => $concepts, 'label'=>'Categoría',
+            'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
+            // echo $this->Form->control('type_id', ['empty'=>'Sin tipo','options' => $types, 'label'=>'Tipo de trabajo',
+            // 'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
+            // echo $this->Form->control('priority');
+            echo $this->Form->control('request_status_id', ['label'=>'Esstado de solicitud','options' => $requestStatuses, 'empty' => true, 'value'=>'1']);
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Agregar petición')) ?>
+    <?= $this->Form->end() ?>    
+</div>
+  <script>
   $( function() {
-    var availableTags = <?php echo json_encode($petitioners, JSON_PRETTY_PRINT); ?>;
+    var availableTags = [ "<?php echo "Hola"; ?>" ];
     $( "#tags" ).autocomplete({
       source: availableTags
     });
   } );
-</script>
+  </script>
