@@ -14,7 +14,12 @@
 </nav>
 <div class="journeys index large-9 medium-8 columns content">
     <h3><?= __('Jornadas') ?></h3>
-    
+    <div class="small-12 bg-light p-3 mb-3">
+        <p><strong>Filtros</strong></p>
+        <?= $this->Form->create(null,['type' => 'file']) ?>
+            <?php echo $this->Form->control('municipios',['label'=>'Municipio','Selected'=>'Mexicali']);?>
+        <?= $this->Form->end() ?>
+    </div>
     <?php foreach ($journeys as $journey): ?>
     <div class="card mb-3" >
     <div class="card-body">
@@ -27,28 +32,19 @@
     </div>
 
     <?php endforeach; ?>
-
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('date','Fecha') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('ubicacion') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('municipio') ?></th>
-                <!-- <th scope="col"><?= $this->Paginator->sort('horainicio','Hora') ?></th> -->
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($journeys as $journey): ?>
-            <tr>
-                <td><?= h(date("d-m-y", strtotime($journey->date))) ?></td>
-                <td><?= h($journey->ubicacion) ?></td>
-                <td><?= h($journey->municipio) ?></td>
-                <!-- <td><?= "De las ". date("H:i A", strtotime($journey->horainicio))." a las " . date("H:i A", strtotime($journey->horatermino)) ?></td> -->
-
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
     <?php echo $this->element('table_paginate'); ?>
 </div>
+<script>
+function filterResults(){
+    // Now get the values of checkbox
+    var chk1 = $('#checkbox1').val(); // checkbox1 is id of checkbox
+    $.ajax({
+     type : 'POST',
+     url : 'process.php';
+     data : 'check='+chk1,
+     success : function(data){
+          $('#data-div').html(data); // replace the contents coming from php file
+     }  
+    });
+}
+</script>

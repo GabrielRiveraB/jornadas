@@ -22,6 +22,10 @@ class JourneysController extends AppController
         $journeys = $this->paginate($this->Journeys,['order' => ['Journeys.date' => 'desc']]);
 
         $this->set(compact('journeys'));
+
+        $municipios = array('Mexicali'=>'Mexicali','Tijuana'=>'Tijuana','Ensenada'=>'Ensenada','Tecate'=>'Tecate','Playas de Rosarito'=>'Playas de Rosarito');
+        $this->set(compact('municipios'));
+
     }
 
     /**
@@ -51,7 +55,12 @@ class JourneysController extends AppController
         
         $this->set('requestsByStatus', $requestsByStatus);
 
-        $this->set(compact('total_solicitudes'));
+        
+
+        $this->set(compact('total_solicitudes','municipios'));
+        
+        
+
     }
 
     /**
