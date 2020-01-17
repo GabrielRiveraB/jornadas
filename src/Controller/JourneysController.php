@@ -19,7 +19,7 @@ class JourneysController extends AppController
      */
     public function index()
     {
-        $journeys = $this->paginate($this->Journeys);
+        $journeys = $this->paginate($this->Journeys,['order' => ['Journeys.date' => 'desc']]);
 
         $this->set(compact('journeys'));
     }
@@ -34,7 +34,7 @@ class JourneysController extends AppController
     public function view($id = null)
     {
         $journey = $this->Journeys->get($id, [
-            'contain' => ['Requests','Requests.Petitioners','Requests.requeststatuses'],
+            'contain' => ['Requests','Requests.Petitioners','Requests.requeststatuses','Works'],
         ]);
 
         $this->set('journey', $journey);

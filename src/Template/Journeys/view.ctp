@@ -7,13 +7,14 @@
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
-        <li class="heading"><?= __('MENU') ?></li>
+        <!-- <li class="heading"><?= __('MENU') ?></li>
         <li><?= $this->Html->link(__('Editar jornada'), ['action' => 'edit', $journey->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Eliminar jornada'), ['action' => 'delete', $journey->id], ['confirm' => __('Are you sure you want to delete # {0}?', $journey->id)]) ?> </li>
+        <li><?= $this->Form->postLink(__('Eliminar jornada'), ['action' => 'delete', $journey->id], ['confirm' => __('Are you sure you want to delete # {0}?', $journey->id)]) ?> </li> -->
         <li><?= $this->Html->link(__('Jornadas'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('Nueva jornada'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('Acciones'), ['controller' => 'Works', 'action' => 'index',$journey->id]) ?></li>
+        <!-- <li><?= $this->Html->link(__('Nueva jornada'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('Solicitudes'), ['controller' => 'Requests', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add', $journey->id ]) ?> </li>
+        <li><?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add', $journey->id ]) ?> </li> -->
     </ul>
 </nav>
 <div class="journeys view large-9 medium-8 columns content">
@@ -39,20 +40,24 @@
         ?>
     </div>
     <br>
-    <div class="related">
+    <div class="related mb-3">
         <?php if (!empty($journey->requests)): ?>
     <div id="accordion">
     <div class="card">
         <div class="card-header" id="headingOne">
         <h5 class="mb-0">
             <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Ver las Solicitudes de la jornada
+            Ver todas las solicitudes de la jornada
             </button>
         </h5>
         </div>
 
         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
         <div class="card-body">
+
+
+
+
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Folio') ?></th>
@@ -81,7 +86,25 @@
                  -->
             </tr>
             <?php foreach ($journey->requests as $requests): ?>
-            <tr>
+
+                <div class="card mb-3">
+  <!-- <img src="..." class="card-img-top" alt="..."> -->
+  <div class="card-body">
+    <h5 class="card-title"><?= h($requests->petitioner->name) ?></h5>
+    <p class="card-subtitle">Folio <?= h($requests->folio) ?></p>
+    <p class="card-text"><?= h($requests->description) ?></p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><strong> Estado actual:</strong> <?= h($requests->RequestStatuses['name']) ?></li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link"><?= $this->Html->link('Editar', ['controller' => 'Requests', 'action' => 'edit', $requests->id], ['class'=>'btn btn-primary btn-sm']) ?></a>
+    <a href="#" class="card-link"><?= $this->Form->postLink(__('Eliminar'), ['controller' => 'Requests', 'action' => 'delete', $requests->id],['class'=>'btn btn-danger btn-sm'], 
+    ['confirm' => __('Se eliminarán todos los datos de la solicitud si presionas Aceptar', $journey->id)]) ?></a>
+  </div>
+</div>
+
+            <!-- <tr>
                 <td><?= h($requests->folio) ?></td>
                 <td><?= h($requests->petitioner->name) ?></td>
                 <td><?= h($requests->description) ?></td>
@@ -102,13 +125,13 @@
                 <td><?= h($requests->priority) ?></td>
 
                 <td><?= h($requests->created) ?></td>
-                <td><?= h($requests->modified) ?></td> -->
+                <td><?= h($requests->modified) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Requests', 'action' => 'view', $requests->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Requests', 'action' => 'edit', $requests->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Requests', 'action' => 'delete', $requests->id], ['confirm' => __('Are you sure you want to delete # {0}?', $requests->id)]) ?>
+                    <?= $this->Html->link(__('Edit'), []) ?>
+                    <?= $this->Form->postLink(__('Delete'), [], ['confirm' => __('Are you sure you want to delete # {0}?', $requests->id)]) ?>
                 </td>
-            </tr>
+            </tr> -->
             <?php endforeach; ?>
         </table>
         <?php endif; ?>
@@ -121,5 +144,59 @@
         
     </div>
 
+    <div class="related">
+        <?php if (!empty($journey->works)): ?>
+    <div id="accordion">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            Ver todas las acciones de la jornada
+            </button>
+        </h5>
+        </div>
 
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+
+
+
+
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th scope="col"><?= __('Folio') ?></th>
+                <th scope="col"><?= __('Solicitante') ?></th>
+                <th scope="col"><?= __('Petición') ?></th>
+                <th scope="col"><?= __('Estado') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>                                
+
+            </tr>
+            <?php foreach ($journey->works as $works): ?>
+
+                <div class="card mb-3">
+  <!-- <img src="..." class="card-img-top" alt="..."> -->
+  <div class="card-body">
+    <h5 class="card-title"><?= h($works->name) ?></h5>
+    <p class="card-text"><?= h($works->description) ?></p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><strong> Estado actual:</strong> <?= h($works->RequestStatuses['name']) ?></li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link"><?= $this->Html->link('Editar', ['controller' => 'Requests', 'action' => 'edit', $works->id], ['class'=>'btn btn-primary btn-sm']) ?></a>
+    <a href="#" class="card-link"><?= $this->Form->postLink(__('Eliminar'), ['controller' => 'Requests', 'action' => 'delete', $works->id],['class'=>'btn btn-danger btn-sm'], 
+    ['confirm' => __('Se eliminarán todos los datos de la solicitud si presionas Aceptar', $works->id)]) ?></a>
+  </div>
+</div>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+
+
+        </div>
+        </div>
+    </div>
+    </div>
+        
+    </div>
 </div>

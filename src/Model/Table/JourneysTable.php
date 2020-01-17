@@ -62,6 +62,11 @@ class JourneysTable extends Table
         $this->hasMany('Requests', [
             'foreignKey' => 'journey_id',
         ]);
+
+        $this->hasMany('Works', [
+            'foreignKey' => 'journey_id',
+        ]);
+
     }
 
     /**
