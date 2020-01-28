@@ -19,13 +19,37 @@ class JourneysController extends AppController
      */
     public function index()
     {
-        $journeys = $this->paginate($this->Journeys,['order' => ['Journeys.date' => 'desc']]);
+        $journeys = $this->paginate($this->Journeys,
+            [
+                'order' => ['Journeys.municipio' => 'desc','Journeys.date'=>'DESC'],
+                'contain'=> ['Requests']
+            ]
+        );
+
+        // $journeys = $this->Journeys->find()
+        // ->contain('Requests')
+        // ->order(['Journeys.municipio' => 'ASC']);
+
+    //     $journeys = $this->Journeys->find('all', [
+    //         'fields' => [
+    //             'id' => 'Users.id',
+    //             'municipio' => 'firstname',
+    //             'ubicacion' => 'lastname',
+    //             'count_games' => 'COUNT(games.id)'
+    //         ],
+    //         'join' => [
+    //             'table' => 'games',
+    //             'type' => 'LEFT',
+    //             'conditions' => 'games.created_by = Users.id'
+    //         ],
+    //         'group' => ['Users.id'],
+    // ]);
+    // debug( $this->Paginator->sort('municipio'));
 
         $this->set(compact('journeys'));
 
         $municipios = array('Mexicali'=>'Mexicali','Tijuana'=>'Tijuana','Ensenada'=>'Ensenada','Tecate'=>'Tecate','Playas de Rosarito'=>'Playas de Rosarito');
         $this->set(compact('municipios'));
-
     }
 
     /**
@@ -42,24 +66,24 @@ class JourneysController extends AppController
         ]);
 
         $this->set('journey', $journey);
-       
+
         /* EMPIEZO A OBTENER LA INFORMACION PARA EL REPORTE DE SOLICITUDES DE LA JORNADA */
 
         $this->loadModel('Requests');
-        
+
         $requests = $this->Requests->find('all', ['conditions' => ['journey_id' =>$id]]);
 
         $total_solicitudes = count($requests->toArray());                    // Obtendo el total de solicitudes en la jornada
-        
+
         $requestsByStatus = $requests->countBy('request_status_id');
-        
+
         $this->set('requestsByStatus', $requestsByStatus);
 
-        
+
 
         $this->set(compact('total_solicitudes','municipios'));
-        
-        
+
+
 
     }
 
@@ -83,13 +107,13 @@ class JourneysController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                debug($this->validationErrors);  
+                debug($this->validationErrors);
 
             }
             $this->Flash->error(__('The journey could not be saved. Please, try again.'));
         }
         $municipios = array('Mexicali'=>'Mexicali','Tijuana'=>'Tijuana','Ensenada'=>'Ensenada','Tecate'=>'Tecate','Playas de Rosarito'=>'Playas de Rosarito');
-        
+
         $this->set(compact('journey','municipios'));
     }
 
@@ -105,7 +129,7 @@ class JourneysController extends AppController
         $journey = $this->Journeys->get($id, [
             'contain' => [],
         ]);
-        
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $journey = $this->Journeys->patchEntity($journey, $this->request->getData());
 

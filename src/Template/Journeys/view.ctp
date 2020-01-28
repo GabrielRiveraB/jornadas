@@ -18,17 +18,65 @@
     </ul>
 </nav>
 <div class="journeys view large-9 medium-8 columns content">
-    <h3><?= h($journey->ubicacion . ", " .$journey->municipio) ?></h3>
-    <p><?= "El día " . date("d-m-y", strtotime($journey->date)) . " | Desde las " . date("H:i A", strtotime($journey->horainicio)) . " hasta las " . date("H:i A", strtotime($journey->horatermino)) ?></p>
-    <table class="vertical-table">
+    <!-- <h3><?= h($journey->ubicacion . ", " .$journey->municipio) ?></h3> -->
+    <h3 class="mb-0 pb-0">Resúmen de solicitudes</h3>
+    <h5 class="mb-0"><strong> Jornada <?= h($journey->ubicacion . ", " .$journey->municipio) ?></strong></h5>
+    <p><?= "El día " . date("d-M-y", strtotime($journey->date)) . " | Desde las " . date("H:i A", strtotime($journey->horainicio)) . " hasta las " . date("H:i A", strtotime($journey->horatermino)) ?></p>
+    <!-- <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Mapa') ?></th>
             <td><?= h($journey->photo) ?></td>
         </tr>
-    </table>
-    <div>
-        <p><strong>Existen un total de <?php echo $total_solicitudes; ?> solicitudes</strong></p>
-        <?php 
+    </table> -->
+    <table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Solicitudes</th>
+      <th scope="col">Contacto</th>
+      <th scope="col">Viabilidad</th>
+      <th scope="col">Presupuesto</th>
+      <th scope="col">Concluidas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>9</td>
+      <td>Compromisos del Gobernador</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Compromisos del Gobernador con Folio</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Folios asignados a SIDURT</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td><?php echo $total_solicitudes; ?></td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+    <!-- <div>
+        <?php
         foreach($requestsByStatus as $status => $cantidad)
         {
             if($status == '1') echo $cantidad . " solicitudes capturadas.<br>";
@@ -38,7 +86,7 @@
             if($status == '5') echo $cantidad . " solicitudes completadas.<br>";
         }
         ?>
-    </div>
+    </div> -->
     <br>
     <div class="related mb-3">
         <?php if (!empty($journey->requests)): ?>
@@ -64,7 +112,7 @@
                 <th scope="col"><?= __('Solicitante') ?></th>
                 <th scope="col"><?= __('Petición') ?></th>
                 <th scope="col"><?= __('Estado') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>                                
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
                 <!-- <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Journey Id') ?></th>
                 <th scope="col"><?= __('Promoter Id') ?></th>
@@ -99,7 +147,7 @@
   </ul>
   <div class="card-body">
     <a href="#" class="card-link"><?= $this->Html->link('Editar', ['controller' => 'Requests', 'action' => 'edit', $requests->id], ['class'=>'btn btn-primary btn-sm']) ?></a>
-    <a href="#" class="card-link"><?= $this->Form->postLink(__('Eliminar'), ['controller' => 'Requests', 'action' => 'delete', $requests->id],['class'=>'btn btn-danger btn-sm'], 
+    <a href="#" class="card-link"><?= $this->Form->postLink(__('Eliminar'), ['controller' => 'Requests', 'action' => 'delete', $requests->id],['class'=>'btn btn-danger btn-sm'],
     ['confirm' => __('Se eliminarán todos los datos de la solicitud si presionas Aceptar', $journey->id)]) ?></a>
   </div>
 </div>
@@ -141,7 +189,7 @@
         </div>
     </div>
     </div>
-        
+
     </div>
 
     <div class="related">
@@ -168,7 +216,7 @@
                 <th scope="col"><?= __('Solicitante') ?></th>
                 <th scope="col"><?= __('Petición') ?></th>
                 <th scope="col"><?= __('Estado') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>                                
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
 
             </tr>
             <?php foreach ($journey->works as $works): ?>
@@ -184,7 +232,7 @@
   </ul>
   <div class="card-body">
     <a href="#" class="card-link"><?= $this->Html->link('Editar', ['controller' => 'Requests', 'action' => 'edit', $works->id], ['class'=>'btn btn-primary btn-sm']) ?></a>
-    <a href="#" class="card-link"><?= $this->Form->postLink(__('Eliminar'), ['controller' => 'Requests', 'action' => 'delete', $works->id],['class'=>'btn btn-danger btn-sm'], 
+    <a href="#" class="card-link"><?= $this->Form->postLink(__('Eliminar'), ['controller' => 'Requests', 'action' => 'delete', $works->id],['class'=>'btn btn-danger btn-sm'],
     ['confirm' => __('Se eliminarán todos los datos de la solicitud si presionas Aceptar', $works->id)]) ?></a>
   </div>
 </div>
@@ -197,6 +245,6 @@
         </div>
     </div>
     </div>
-        
+
     </div>
 </div>
