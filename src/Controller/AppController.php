@@ -39,17 +39,48 @@ class AppController extends Controller
      */
     public function initialize()
     {
-        parent::initialize();
-
-        $this->loadComponent('RequestHandler', [
-            'enableBeforeRedirect' => false,
-        ]);
         $this->loadComponent('Flash');
-
-        /*
-         * Enable the following component for recommended CakePHP security settings.
-         * see https://book.cakephp.org/3.0/en/controllers/components/security.html
-         */
-        //$this->loadComponent('Security');
+        $this->loadComponent('Auth', [
+            'authorize' => ['Controller'], // Added this line
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'username',
+                        'password' => 'password'
+                    ]
+                ]
+            ],
+            'loginAction' => [
+                'controller' => 'Journeys',
+                'action' => 'index'
+            ],
+            'authError' => 'Sin acceso a esta sección',
+            'loginRedirect' => [
+                'controller' => 'Journeys',
+                'action' => 'index'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Users',
+                'action' => 'login',
+                'home'
+            ]
+        ]);
     }
+
+    public function beforeFilter(Event $event)
+    {
+        $this->set('current_user', $this->Auth->user());
+        $this->Auth->allow(['display']);
+    }
+
+    public function isAuthorized($user)
+{
+    // Admin can access every action
+    if (isset($user['role']) && $user['role'] === 'Administrador') {
+        return true;
+    }
+
+    // Default deny
+    return false;
+}
 }

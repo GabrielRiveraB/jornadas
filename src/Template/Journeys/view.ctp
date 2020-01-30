@@ -3,7 +3,8 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Journey $journey
  */
-//   debug($requestsByStatus);
+//    debug($GobernadorConFolio->count());
+
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -41,34 +42,34 @@
   </thead>
   <tbody>
     <tr>
-      <td>9</td>
+      <td><?php if($GobernadorSinFolio) { echo $GobernadorSinFolio->count(); } else { echo '0'; }?></td>
       <td>Compromisos del Gobernador</td>
       <td>0</td>
-      <td>4</td>
+      <td>0</td>
       <td>0</td>
       <td>0</td>
     </tr>
     <tr>
-      <td>1</td>
+      <td><?php if($GobernadorConFolio) { echo $GobernadorConFolio->count(); } else { echo '0'; }?></td>
       <td>Compromisos del Gobernador con Folio</td>
       <td>0</td>
-      <td>4</td>
+      <td>0</td>
       <td>0</td>
       <td>0</td>
     </tr>
     <tr>
-      <td>8</td>
+      <td><?php echo $SolicitudesNormales->count(); ?></td>
       <td>Folios asignados a SIDURT</td>
       <td>0</td>
-      <td>4</td>
+      <td>0</td>
       <td>0</td>
       <td>0</td>
     </tr>
     <tr>
-      <td><?php echo $total_solicitudes; ?></td>
+      <td><strong><?php echo $total_solicitudes; ?></strong></td>
+      <td></td>
       <td>0</td>
       <td>0</td>
-      <td>4</td>
       <td>0</td>
       <td>0</td>
     </tr>

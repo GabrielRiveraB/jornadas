@@ -12,6 +12,46 @@ use App\Controller\AppController;
  */
 class JourneysController extends AppController
 {
+    public function isAuthorized($user)
+    {
+        if ( isset($user['role']) and $user['role'] == "Administrador" ) {
+
+        if(in_array($this->request->action, ['index','view']))
+        {
+            return true;
+        }
+
+        // The owner of an article can edit and delete it
+        if (in_array($this->request->getParam('action'), [''])) {
+            $JourneyId = (int)$this->request->getParam('pass.0');
+            if ($this->Journeys->isOwnedBy($JourneyId, $user['id'])) {
+                return true;
+            }
+        }
+
+    }
+
+    if ( isset($user['role']) and $user['role'] == "Capturista" ) {
+
+        if(in_array($this->request->action, ['index']))
+        {
+            return true;
+        }
+
+        // The owner of an article can edit and delete it
+        if (in_array($this->request->getParam('action'), [''])) {
+            $JourneyId = (int)$this->request->getParam('pass.0');
+            if ($this->Journeys->isOwnedBy($JourneyId, $user['id'])) {
+                return true;
+            }
+        }
+
+    }
+
+
+        return parent::isAuthorized($user);
+    }
+
     /**
      * Index method
      *
@@ -21,8 +61,9 @@ class JourneysController extends AppController
     {
         $journeys = $this->paginate($this->Journeys,
             [
-                'order' => ['Journeys.municipio' => 'desc','Journeys.date'=>'DESC'],
-                'contain'=> ['Requests']
+                'order'=>['Journeys.municipio' => 'desc','Journeys.date'=>'DESC'],
+                'contain'=>['Requests'],
+                'limit'=>100
             ]
         );
 
@@ -73,17 +114,21 @@ class JourneysController extends AppController
 
         $requests = $this->Requests->find('all', ['conditions' => ['journey_id' =>$id]]);
 
+        $requestsGobConFolio = $this->Requests->find('all', ['conditions' => ['journey_id' =>$id,'gobernador'=>'1','folio IS NOT NULL']]);
+
+        $GobernadorConFolio = $requestsGobConFolio->match(['gobernador' => '1']);
+
         $total_solicitudes = count($requests->toArray());                    // Obtendo el total de solicitudes en la jornada
 
-        $requestsByStatus = $requests->countBy('request_status_id');
+        $SolicitudesNormales = $requests->match(['gobernador' => '']);
 
-        $this->set('requestsByStatus', $requestsByStatus);
+        $SolicitudesGobernador = $requests->match(['gobernador' => '1']);
 
+        $GobernadorSinFolio = $SolicitudesGobernador->match(['folio' => '','folio'=>null]);
 
+        // $GobernadorConFolio = $SolicitudesGobernador->match(['folio IS NOT'=>null,'folio IS NOT'=>'']);
 
-        $this->set(compact('total_solicitudes','municipios'));
-
-
+        $this->set(compact('total_solicitudes','municipios','SolicitudesGobernador','GobernadorSinFolio','GobernadorConFolio', 'SolicitudesNormales'));
 
     }
 

@@ -16,7 +16,7 @@
         <li><?= $this->Html->link(__('List Requests'), ['action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Journeys'), ['controller' => 'Journeys', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Journey'), ['controller' => 'Journeys', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Promoters'), ['controller' => 'Promoters', 'action' => 'index']) ?></li>
+        <!-- <li><?= $this->Html->link(__('List Promoters'), ['controller' => 'Promoters', 'action' => 'index']) ?></li> -->
         <li><?= $this->Html->link(__('New Promoter'), ['controller' => 'Promoters', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Concepts'), ['controller' => 'Concepts', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Concept'), ['controller' => 'Concepts', 'action' => 'add']) ?></li>
@@ -36,7 +36,7 @@
         <legend><?= __('Edit Request') ?></legend>
         <?php
             echo $this->Form->control('journey_id', ['options' => $journeys]);
-            echo $this->Form->control('promoter_id', ['options' => $promoters]);
+            // echo $this->Form->control('promoter_id', ['options' => $promoters]);
             echo $this->Form->control('concept_id', ['options' => $concepts, 'empty' => true]);
             echo $this->Form->control('type_id', ['options' => $types, 'empty' => true]);
             echo $this->Form->control('petitioner_id', ['options' => $petitioners]);

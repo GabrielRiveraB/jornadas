@@ -48,7 +48,7 @@ class Request extends Entity
      */
     protected $_accessible = [
         'journey_id' => true,
-        'promoter_id' => true,
+        'promoter' => true,
         'concept_id' => true,
         'type_id' => true,
         'petitioner_id' => true,

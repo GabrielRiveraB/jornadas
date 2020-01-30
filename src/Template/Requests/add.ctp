@@ -3,6 +3,8 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Request $request
  */
+$solicitantes = $solicitantes->toArray();
+
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -39,10 +41,10 @@
             echo $this->Form->control('civilstatus',['label'=>'Estado civil']);
             echo $this->Form->control('address',['label'=>'Dirección']);
             echo $this->Form->control('phone',['label'=>'Teléfono']);
-            echo $this->Form->control('email',['label'=>'Correo electrónico']);            
+            echo $this->Form->control('email',['label'=>'Correo electrónico']);
 
             // DATOS DE LA PETICIÓN
-            echo $this->Form->control('description',['label'=>'Descripción de la petición']);
+            echo $this->Form->control('description',['label'=>'Descripción de la petición','type'=>'textarea']);
             echo "<p><strong>Canalizar a:</strong></p>";
             echo $this->Form->control('sibso');
             echo $this->Form->control('cespt');
@@ -50,27 +52,28 @@
             echo $this->Form->control('municipio');
             echo $this->Form->control('dif');
             echo $this->Form->control('juventud');
-            echo $this->Form->control('gobernador');
+            // echo $this->Form->control('gobernador');
             echo $this->Form->control('other',['label'=>'Otro']);
 
-            echo $this->Form->control('promoter_id', ['options' => $promoters, 'label'=>'Promotor',
-            'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
-            echo $this->Form->control('concept_id', ['empty'=>'Sin categoría','options' => $concepts, 'label'=>'Categoría',
-            'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
+            // echo $this->Form->control('promoter_id', ['options' => $promoters, 'label'=>'Promotor',
+            // 'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
+            // echo $this->Form->control('concept_id', ['empty'=>'Sin categoría','options' => $concepts, 'label'=>'Categoría',
+            // 'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
             // echo $this->Form->control('type_id', ['empty'=>'Sin tipo','options' => $types, 'label'=>'Tipo de trabajo',
             // 'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
             // echo $this->Form->control('priority');
-            echo $this->Form->control('request_status_id', ['label'=>'Esstado de solicitud','options' => $requestStatuses, 'empty' => true, 'value'=>'1']);
+            // echo $this->Form->control('request_status_id', ['label'=>'Esstado de solicitud','options' => $requestStatuses, 'empty' => true, 'value'=>'1']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Agregar petición')) ?>
-    <?= $this->Form->end() ?>    
+    <?= $this->Form->end() ?>
 </div>
-  <script>
+<!--
+<script>
   $( function() {
-    var availableTags = [ "<?php echo "Hola"; ?>" ];
+    var availableTags = [<?php echo '"' . implode ('","', array_values ($solicitantes)) . '"'; ?>];
     $( "#tags" ).autocomplete({
       source: availableTags
     });
   } );
-  </script>
+  </script> -->

@@ -50,10 +50,10 @@ class RequestsTable extends Table
             'foreignKey' => 'journey_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Promoters', [
-            'foreignKey' => 'promoter_id',
-            'joinType' => 'INNER',
-        ]);
+        // $this->belongsTo('Promoters', [
+        //     'foreignKey' => 'promoter_id',
+        //     'joinType' => 'INNER',
+        // ]);
         $this->belongsTo('Concepts', [
             'foreignKey' => 'concept_id',
         ]);
@@ -143,7 +143,7 @@ class RequestsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['journey_id'], 'Journeys'));
-        $rules->add($rules->existsIn(['promoter_id'], 'Promoters'));
+        // $rules->add($rules->existsIn(['promoter_id'], 'Promoters'));
         $rules->add($rules->existsIn(['concept_id'], 'Concepts'));
         $rules->add($rules->existsIn(['type_id'], 'Types'));
         $rules->add($rules->existsIn(['petitioner_id'], 'Petitioners'));

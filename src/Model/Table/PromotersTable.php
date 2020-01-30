@@ -40,9 +40,9 @@ class PromotersTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->hasMany('Requests', [
-            'foreignKey' => 'promoter_id',
-        ]);
+        // $this->hasMany('Requests', [
+        //     'foreignKey' => 'promoter_id',
+        // ]);
     }
 
     /**

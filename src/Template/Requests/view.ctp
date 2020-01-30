@@ -13,8 +13,8 @@
         <li><?= $this->Html->link(__('New Request'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Journeys'), ['controller' => 'Journeys', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Journey'), ['controller' => 'Journeys', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Promoters'), ['controller' => 'Promoters', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Promoter'), ['controller' => 'Promoters', 'action' => 'add']) ?> </li>
+        <!-- <li><?= $this->Html->link(__('List Promoters'), ['controller' => 'Promoters', 'action' => 'index']) ?> </li> -->
+        <!-- <li><?= $this->Html->link(__('New Promoter'), ['controller' => 'Promoters', 'action' => 'add']) ?> </li> -->
         <li><?= $this->Html->link(__('List Concepts'), ['controller' => 'Concepts', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Concept'), ['controller' => 'Concepts', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Types'), ['controller' => 'Types', 'action' => 'index']) ?> </li>
@@ -34,10 +34,10 @@
             <th scope="row"><?= __('Journey') ?></th>
             <td><?= $request->has('journey') ? $this->Html->link($request->journey->id, ['controller' => 'Journeys', 'action' => 'view', $request->journey->id]) : '' ?></td>
         </tr>
-        <tr>
+        <!-- <tr>
             <th scope="row"><?= __('Promoter') ?></th>
             <td><?= $request->has('promoter') ? $this->Html->link($request->promoter->name, ['controller' => 'Promoters', 'action' => 'view', $request->promoter->id]) : '' ?></td>
-        </tr>
+        </tr> -->
         <tr>
             <th scope="row"><?= __('Concept') ?></th>
             <td><?= $request->has('concept') ? $this->Html->link($request->concept->name, ['controller' => 'Concepts', 'action' => 'view', $request->concept->id]) : '' ?></td>

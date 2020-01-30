@@ -12,6 +12,24 @@ use App\Controller\AppController;
  */
 class RequestsController extends AppController
 {
+    public function isAuthorized($user)
+    {
+        if(in_array($this->request->action, ['index','view','add']))
+        {
+            return true;
+        }
+
+        // // The owner of an article can edit and delete it
+        // if (in_array($this->request->getParam('action'), ['add'])) {
+        //     $JourneyId = (int)$this->request->getParam('password.0');
+        //     if ($this->Journeys->isOwnedBy($JourneyId, $user['id'])) {
+        //         return true;
+        //     }
+        // }
+
+        return parent::isAuthorized($user);
+    }
+
     /**
      * Index method
      *
@@ -20,7 +38,7 @@ class RequestsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Journeys', 'Promoters', 'Concepts', 'Types', 'Petitioners', 'RequestStatuses'],
+            'contain' => ['Journeys', 'Concepts', 'Types', 'Petitioners', 'RequestStatuses'],
         ];
         $requests = $this->paginate($this->Requests);
 
@@ -37,7 +55,7 @@ class RequestsController extends AppController
     public function view($id = null)
     {
         $request = $this->Requests->get($id, [
-            'contain' => ['Journeys', 'Promoters', 'Concepts', 'Types', 'Petitioners', 'RequestStatuses', 'Requestupdates'],
+            'contain' => ['Journeys', 'Concepts', 'Types', 'Petitioners', 'RequestStatuses', 'Requestupdates'],
         ]);
         // debug($request);
         $this->set('request', $request);
@@ -66,17 +84,17 @@ class RequestsController extends AppController
         } else {
             $journeys = $this->Requests->Journeys->find('list', ['conditions' => ['id' => $jid]]);
         }
-        
-        $promoters = $this->Requests->Promoters->find('list', ['limit' => 200]);
+
+        // $promoters = $this->Requests->Promoters->find('list', ['limit' => 200]);
         $concepts = $this->Requests->Concepts->find('list', ['limit' => 200]);
         $types = $this->Requests->Types->find('list', ['limit' => 200]);
-        // $petitioners = $this->Requests->Petitioners->find('list', ['limit' => 200]);
+        $solicitantes = $this->Requests->Petitioners->find('list', ['limit' => 200]);
         $requestStatuses = $this->Requests->RequestStatuses->find('list', ['limit' => 200]);
 
         $civilstatuses = array('Soltero/a'=>'Soltero/a','Casado/a'=>'Casado/a','Unión libre'=>'Unión libre','Separado/a'=>'Separado/a',
         'Divorciado/a'=>'Divorciado/a','Viudo/a'=>'Viudo/a');
 
-        $this->set(compact('request', 'journeys', 'promoters', 'concepts', 'types', 'requestStatuses','civilstatuses'));
+        $this->set(compact('request', 'journeys', 'solicitantes', 'concepts', 'types', 'requestStatuses','civilstatuses'));
     }
 
     /**
@@ -101,7 +119,7 @@ class RequestsController extends AppController
             $this->Flash->error(__('The request could not be saved. Please, try again.'));
         }
         $journeys = $this->Requests->Journeys->find('list', ['limit' => 200]);
-        $promoters = $this->Requests->Promoters->find('list', ['limit' => 200]);
+        // $promoters = $this->Requests->Promoters->find('list', ['limit' => 200]);
         $concepts = $this->Requests->Concepts->find('list', ['limit' => 200]);
         $types = $this->Requests->Types->find('list', ['limit' => 200]);
         $petitioners = $this->Requests->Petitioners->find('list', ['limit' => 200]);
