@@ -39,6 +39,7 @@ class RequestsController extends AppController
     {
         $this->paginate = [
             'contain' => ['Journeys', 'Concepts', 'Types', 'Petitioners', 'RequestStatuses'],
+            'limit' => [100]
         ];
         $requests = $this->paginate($this->Requests);
 

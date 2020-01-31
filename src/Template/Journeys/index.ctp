@@ -5,16 +5,9 @@
  */
 $municipio = "";
 $sinfolio = $confolio = 0;
-
+// debug($current_user);
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('MENU') ?></li>
-        <li><?= $this->Html->link(__('Nueva Jornada'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('Solicitudes'), ['controller' => 'Requests', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('Acciones'), ['controller' => 'Works', 'action' => 'index']) ?></li>
-    </ul>
-</nav>
+<?php echo $this->element('menu_capturista'); ?>
 <div class="journeys index large-9 medium-8 columns content">
     <h3><?= __('Resúmen de jornadas') ?></h3>
     <div class="small-12 bg-light p-3 mb-3">

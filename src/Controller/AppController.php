@@ -51,8 +51,8 @@ class AppController extends Controller
                 ]
             ],
             'loginAction' => [
-                'controller' => 'Journeys',
-                'action' => 'index'
+                'controller' => 'Users',
+                'action' => 'login'
             ],
             'authError' => 'Sin acceso a esta sección',
             'loginRedirect' => [
