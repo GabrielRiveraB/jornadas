@@ -48,7 +48,22 @@ class JourneysController extends AppController
 
     }
 
+    if ( isset($user['role']) and $user['role'] == "Coordinador" ) {
 
+        if(in_array($this->request->action, ['index','view']))
+        {
+            return true;
+        }
+
+        // The owner of an article can edit and delete it
+        if (in_array($this->request->getParam('action'), [''])) {
+            $JourneyId = (int)$this->request->getParam('pass.0');
+            if ($this->Journeys->isOwnedBy($JourneyId, $user['id'])) {
+                return true;
+            }
+        }
+
+    }
         return parent::isAuthorized($user);
     }
 
@@ -59,13 +74,28 @@ class JourneysController extends AppController
      */
     public function index()
     {
-        $journeys = $this->paginate($this->Journeys,
+        if($this->request->data('municipios')=='Todos' || $this->request->data('municipios')=='') {
+
+            $journeys = $this->paginate($this->Journeys,
             [
                 'order'=>['Journeys.municipio' => 'desc','Journeys.date'=>'DESC'],
                 'contain'=>['Requests'],
                 'limit'=>100
-            ]
-        );
+            ]);
+
+        } else {
+
+            $journeys = $this->paginate($this->Journeys,
+            [
+                'order'=>['Journeys.municipio' => 'desc','Journeys.date'=>'DESC'],
+                'contain'=>['Requests'],
+                'limit'=>100,
+                'conditions'=>['Journeys.municipio'=>$this->request->data('municipios')]
+            ]);
+
+
+        }
+
 
         // $journeys = $this->Journeys->find()
         // ->contain('Requests')
@@ -89,7 +119,7 @@ class JourneysController extends AppController
 
         $this->set(compact('journeys'));
 
-        $municipios = array('Mexicali'=>'Mexicali','Tijuana'=>'Tijuana','Ensenada'=>'Ensenada','Tecate'=>'Tecate','Playas de Rosarito'=>'Playas de Rosarito');
+        $municipios = array('Todos'=>'Todos','Mexicali'=>'Mexicali','Tijuana'=>'Tijuana','Ensenada'=>'Ensenada','Tecate'=>'Tecate','Playas de Rosarito'=>'Playas de Rosarito');
         $this->set(compact('municipios'));
     }
 

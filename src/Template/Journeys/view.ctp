@@ -6,18 +6,7 @@
 //    debug($GobernadorConFolio->count());
 
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <!-- <li class="heading"><?= __('MENU') ?></li>
-        <li><?= $this->Html->link(__('Editar jornada'), ['action' => 'edit', $journey->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Eliminar jornada'), ['action' => 'delete', $journey->id], ['confirm' => __('Are you sure you want to delete # {0}?', $journey->id)]) ?> </li> -->
-        <li><?= $this->Html->link(__('Jornadas'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('Acciones'), ['controller' => 'Works', 'action' => 'index',$journey->id]) ?></li>
-        <!-- <li><?= $this->Html->link(__('Nueva jornada'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('Solicitudes'), ['controller' => 'Requests', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add', $journey->id ]) ?> </li> -->
-    </ul>
-</nav>
+<?php echo $this->element('menu_capturista'); ?>
 <div class="journeys view large-9 medium-8 columns content">
     <!-- <h3><?= h($journey->ubicacion . ", " .$journey->municipio) ?></h3> -->
     <h3 class="mb-0 pb-0">Resúmen de solicitudes</h3>
@@ -75,5 +64,6 @@
     </tr>
   </tbody>
 </table>
+<?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add', $journey->id],['class'=>'btn btn-info mr-3']) ?>
 <?= $this->Html->link(__('Ver solicitudes de la jornada'), ['controller' => 'Requests', 'action' => 'index', $journey->id],['class'=>'btn btn-info']) ?>
 </div>

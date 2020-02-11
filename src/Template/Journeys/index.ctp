@@ -5,14 +5,14 @@
  */
 $municipio = "";
 $sinfolio = $confolio = 0;
-// debug($current_user);
+//  debug($current_user);
 ?>
 <?php echo $this->element('menu_capturista'); ?>
 <div class="journeys index large-9 medium-8 columns content">
     <h3><?= __('Resúmen de jornadas') ?></h3>
     <div class="small-12 bg-light p-3 mb-3">
         <?= $this->Form->create(null,['type' => 'file']) ?>
-            <?php echo $this->Form->control('municipios',['label'=>'Filtrar por municipio','Selected'=>'Mexicali']);?>
+            <?php echo $this->Form->control('municipios',['label'=>'Filtrar por municipio','onclick'=>'submit()']);?>
         <?= $this->Form->end() ?>
     </div>
     <!-- <?php debug($journeys); ?> -->

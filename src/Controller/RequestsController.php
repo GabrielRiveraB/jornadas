@@ -14,7 +14,7 @@ class RequestsController extends AppController
 {
     public function isAuthorized($user)
     {
-        if(in_array($this->request->action, ['index','view','add']))
+        if(in_array($this->request->action, ['index','view','add','edit']))
         {
             return true;
         }
@@ -35,15 +35,49 @@ class RequestsController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
-    public function index()
+    public function index($id = null)
     {
-        $this->paginate = [
-            'contain' => ['Journeys', 'Concepts', 'Types', 'Petitioners', 'RequestStatuses'],
-            'limit' => [100]
-        ];
-        $requests = $this->paginate($this->Requests);
+        if(!$id) {
+            $all = $this->Requests->find('all', [
+                // 'conditions'=>array('description LIKE'=>$this->request->data('search').'%')
+                'contain' => ['Journeys', 'Types', 'Petitioners', 'RequestStatuses'],
+                'order'=>['Requests.created' => 'DESC'],
+                ]);
+
+        } else {
+            $all = $this->Requests->find('all', [
+                // 'conditions'=>array('description LIKE'=>$this->request->data('search').'%')
+                'contain' => ['Journeys', 'Types', 'Petitioners', 'RequestStatuses'],
+                'order'=>['Requests.created' => 'DESC'],
+                'conditions'=> ['journey_id'=>$id]
+                ]);
+            // $this->paginate = [
+            //     'contain' => ['Journeys', 'Types', 'Petitioners', 'RequestStatuses'],
+            //     'order'=>['created' => 'DESC'],
+            //     'conditions'=> ['journey_id'=>$id]
+            // ];
+
+        }
+
+        if($this->request->data('search')!='') {
+
+            $requestsFol = $all->match(['folio' => $this->request->data('search')]);
+
+
+            // ENCONTRAR LA MANERA DE BUSCAR POR PALABRAS EN LA DESCRIPCION
+
+            $tapeexists = $this->Requests->find('all', array('conditions'=>array('description LIKE'=>$this->request->data('search').'%')));
+            //  debug($this->paginate($tapeexists));
+        }
+
+        // debug($requests);
+
+        // $requests = $requests->append($tapeexists);
+
+        $requests = $this->paginate($all);
 
         $this->set(compact('requests'));
+
     }
 
     /**
@@ -56,7 +90,7 @@ class RequestsController extends AppController
     public function view($id = null)
     {
         $request = $this->Requests->get($id, [
-            'contain' => ['Journeys', 'Concepts', 'Types', 'Petitioners', 'RequestStatuses', 'Requestupdates'],
+            'contain' => ['Journeys', 'Types', 'Petitioners', 'RequestStatuses', 'Requestupdates'],
         ]);
         // debug($request);
         $this->set('request', $request);
@@ -72,12 +106,41 @@ class RequestsController extends AppController
         $request = $this->Requests->newEntity();
         if ($this->request->is('post')) {
             $request = $this->Requests->patchEntity($request, $this->request->getData());
-            if ($this->Requests->save($request)) {
-                $this->Flash->success(__('The request has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+            $this->loadModel('Petitioners');
+            $petitioner = $this->Petitioners->newEntity();
+
+            $petitioner->name = $this->request->data('name');
+            $petitioner->age = $this->request->data('edad');
+            $petitioner->civilstatus = $this->request->data('civilstatus');
+            $petitioner->address = $this->request->data('address');
+            $petitioner->phone = $this->request->data('phone');
+            $petitioner->email = $this->request->data('email');
+
+            if ($this->Petitioners->save($petitioner)) {
+                // $this->Flash->success(__('La solicitud se ha guardado.'));
+                $request->petitioner_id = $petitioner->id;
+
+
+                if ($this->Requests->save($request)) {
+                    $this->Flash->success(__('La solicitud se ha guardado.'));
+                    // debug($petitioner->id);
+                    return $this->redirect(['controller'=>'requests','action' => 'add']);
+                } else {
+                debug($this->validationErrors);
+                $this->Flash->error(__('No se puedo guardar la solicitud, intenta de nuevo.'));
+                // debug($this->validationErrors);
+                }
+            } else {
+                debug($petitioner->errors());
+                $this->Flash->error(__('No'));
+
             }
-            $this->Flash->error(__('The request could not be saved. Please, try again.'));
+
+
+
+
+
         }
 
         if(!$jid){
@@ -87,7 +150,7 @@ class RequestsController extends AppController
         }
 
         // $promoters = $this->Requests->Promoters->find('list', ['limit' => 200]);
-        $concepts = $this->Requests->Concepts->find('list', ['limit' => 200]);
+        // $concepts = $this->Requests->Concepts->find('list', ['limit' => 200]);
         $types = $this->Requests->Types->find('list', ['limit' => 200]);
         $solicitantes = $this->Requests->Petitioners->find('list', ['limit' => 200]);
         $requestStatuses = $this->Requests->RequestStatuses->find('list', ['limit' => 200]);
@@ -95,7 +158,7 @@ class RequestsController extends AppController
         $civilstatuses = array('Soltero/a'=>'Soltero/a','Casado/a'=>'Casado/a','Unión libre'=>'Unión libre','Separado/a'=>'Separado/a',
         'Divorciado/a'=>'Divorciado/a','Viudo/a'=>'Viudo/a');
 
-        $this->set(compact('request', 'journeys', 'solicitantes', 'concepts', 'types', 'requestStatuses','civilstatuses'));
+        $this->set(compact('request', 'journeys', 'solicitantes', 'types', 'requestStatuses','civilstatuses'));
     }
 
     /**
@@ -108,24 +171,49 @@ class RequestsController extends AppController
     public function edit($id = null)
     {
         $request = $this->Requests->get($id, [
-            'contain' => [],
+            'contain' => ['Petitioners'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->Requests->patchEntity($request, $this->request->getData());
-            if ($this->Requests->save($request)) {
-                $this->Flash->success(__('The request has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+            $this->loadModel('Petitioners');
+
+            $petitioner = $this->Petitioners->get($request['petitioner_id']);
+
+            $petitioner->name = $this->request->data('name');
+            $petitioner->age = $this->request->data('edad');
+            $petitioner->civilstatus = $this->request->data('civilstatus');
+            $petitioner->address = $this->request->data('address');
+            $petitioner->phone = $this->request->data('phone');
+            $petitioner->email = $this->request->data('email');
+
+
+            if ($this->Petitioners->save($petitioner)) {
+                // $this->Flash->success(__('La solicitud se ha guardado.'));
+                // $request->petitioner_id = $petitioner->id;
+
+
+                if ($this->Requests->save($request)) {
+                    $this->Flash->success(__('La solicitud se ha guardado.'));
+                    // debug($petitioner->id);
+                    return $this->redirect(['controller'=>'requests','action' => 'view',$request->id]);
+                }
+                $this->Flash->error(__('No se puedo guardar la solicitud, intenta de nuevo.'));
+
+            } else {
+                $this->Flash->error(__('No se puedo guardar la solicitud, intenta de nuevo.'));
             }
-            $this->Flash->error(__('The request could not be saved. Please, try again.'));
+
+
+
         }
         $journeys = $this->Requests->Journeys->find('list', ['limit' => 200]);
         // $promoters = $this->Requests->Promoters->find('list', ['limit' => 200]);
-        $concepts = $this->Requests->Concepts->find('list', ['limit' => 200]);
+        // $concepts = $this->Requests->Concepts->find('list', ['limit' => 200]);
         $types = $this->Requests->Types->find('list', ['limit' => 200]);
-        $petitioners = $this->Requests->Petitioners->find('list', ['limit' => 200]);
+        // $petitioners = $this->Requests->Petitioners->find('list', ['limit' => 200]);
         $requestStatuses = $this->Requests->RequestStatuses->find('list', ['limit' => 200]);
-        $this->set(compact('request', 'journeys', 'promoters', 'concepts', 'types', 'petitioners', 'requestStatuses'));
+        $this->set(compact('request', 'journeys', 'promoters', 'types', 'requestStatuses'));
     }
 
     /**

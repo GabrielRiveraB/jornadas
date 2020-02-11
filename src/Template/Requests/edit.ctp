@@ -3,57 +3,47 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Request $request
  */
+// debug($request);
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $request->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $request->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Requests'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Journeys'), ['controller' => 'Journeys', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Journey'), ['controller' => 'Journeys', 'action' => 'add']) ?></li>
-        <!-- <li><?= $this->Html->link(__('List Promoters'), ['controller' => 'Promoters', 'action' => 'index']) ?></li> -->
-        <li><?= $this->Html->link(__('New Promoter'), ['controller' => 'Promoters', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Concepts'), ['controller' => 'Concepts', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Concept'), ['controller' => 'Concepts', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Types'), ['controller' => 'Types', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Type'), ['controller' => 'Types', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Petitioners'), ['controller' => 'Petitioners', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Petitioner'), ['controller' => 'Petitioners', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Request Statuses'), ['controller' => 'Requeststatuses', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Request Status'), ['controller' => 'Requeststatuses', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Requestupdates'), ['controller' => 'Requestupdates', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Requestupdate'), ['controller' => 'Requestupdates', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
+<?php echo $this->element('menu_capturista'); ?>
 <div class="requests form large-9 medium-8 columns content">
+<?= $this->Flash->render() ?>
     <?= $this->Form->create($request) ?>
     <fieldset>
-        <legend><?= __('Edit Request') ?></legend>
+        <legend><?= __('Captura los datos de la solicitud') ?></legend>
+        <br>
         <?php
-            echo $this->Form->control('journey_id', ['options' => $journeys]);
-            // echo $this->Form->control('promoter_id', ['options' => $promoters]);
-            echo $this->Form->control('concept_id', ['options' => $concepts, 'empty' => true]);
-            echo $this->Form->control('type_id', ['options' => $types, 'empty' => true]);
-            echo $this->Form->control('petitioner_id', ['options' => $petitioners]);
             echo $this->Form->control('folio');
-            echo $this->Form->control('description');
-            echo $this->Form->control('sibso');
-            echo $this->Form->control('cespt');
-            echo $this->Form->control('educacion');
-            echo $this->Form->control('municipio');
-            echo $this->Form->control('dif');
-            echo $this->Form->control('juventud');
-            echo $this->Form->control('other');
-            echo $this->Form->control('gobernador');
-            echo $this->Form->control('priority');
-            echo $this->Form->control('request_status_id', ['options' => $requestStatuses, 'empty' => true]);
+            echo $this->Form->control('journey_id', ['placeholder'=>'Selecciona una jornada','options' => $journeys, 'label'=>'Jornada',
+            'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
+
+            // DATOS DE LA PETICIÓN
+            echo $this->Form->control('description',['label'=>'Descripción de la petición','type'=>'textarea']);
+
+            // DATOS DEL SOLICITANTE
+            echo "<p><strong>DATOS DEL SOLICITANTE</strong></p>";
+            echo $this->Form->control('petitioner_id', ['type'=>'hidden','value'=>$request->id]);
+            echo $this->Form->control('name', ['label'=>'Nombre del Solicitante','required','value'=>$request->petitioner['name']]);
+            echo $this->Form->control('edad', ['label'=>'Edad','value'=>$request->petitioner['age']]);
+            echo $this->Form->control('civilstatus',['label'=>'Estado civil','value'=>$request->petitioner['civilstatus']]);
+            echo $this->Form->control('address',['label'=>'Dirección','value'=>$request->petitioner['address']]);
+            echo $this->Form->control('phone',['label'=>'Teléfono','value'=>$request->petitioner['phone']]);
+            echo $this->Form->control('email',['label'=>'Correo electrónico','value'=>$request->petitioner['email']]);
+
+
+            if(isset($user['role']) && $user['role'] === 'Administrador'){
+                echo "<p><strong>Canalizar a:</strong></p>";
+                echo $this->Form->control('sibso');
+                echo $this->Form->control('cespt');
+                echo $this->Form->control('educacion');
+                echo $this->Form->control('municipio');
+                echo $this->Form->control('dif');
+                echo $this->Form->control('juventud');
+                echo $this->Form->control('other',['label'=>'Otro']);
+            }
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+    <?php echo $this->Form->button(__('Modificar petición'),['class'=>'btn btn-primary mb-5']); ?>
+    <?php echo $this->Form->end(); ?>
 </div>
+

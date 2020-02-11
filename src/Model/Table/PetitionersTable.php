@@ -59,8 +59,7 @@ class PetitionersTable extends Table
 
         $validator
             ->scalar('name')
-            ->maxLength('name', 250)
-            ->allowEmptyString('name');
+            ->maxLength('name', 250);
 
         $validator
             ->integer('age')
@@ -78,8 +77,7 @@ class PetitionersTable extends Table
 
         $validator
             ->scalar('phone')
-            ->maxLength('phone', 20)
-            ->allowEmptyString('phone');
+            ->maxLength('phone', 20);
 
         $validator
             ->email('email')
@@ -97,7 +95,7 @@ class PetitionersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['email']));
+        // $rules->add($rules->isUnique(['email']));
 
         return $rules;
     }

@@ -54,9 +54,9 @@ class RequestsTable extends Table
         //     'foreignKey' => 'promoter_id',
         //     'joinType' => 'INNER',
         // ]);
-        $this->belongsTo('Concepts', [
-            'foreignKey' => 'concept_id',
-        ]);
+        // $this->belongsTo('Concepts', [
+        //     'foreignKey' => 'concept_id',
+        // ]);
         $this->belongsTo('Types', [
             'foreignKey' => 'type_id',
         ]);
@@ -90,8 +90,7 @@ class RequestsTable extends Table
 
         $validator
             ->scalar('description')
-            ->maxLength('description', 350)
-            ->allowEmptyString('description');
+            ->maxLength('description', 350);
 
         $validator
             ->boolean('sibso')
@@ -144,7 +143,7 @@ class RequestsTable extends Table
     {
         $rules->add($rules->existsIn(['journey_id'], 'Journeys'));
         // $rules->add($rules->existsIn(['promoter_id'], 'Promoters'));
-        $rules->add($rules->existsIn(['concept_id'], 'Concepts'));
+        // $rules->add($rules->existsIn(['concept_id'], 'Concepts'));
         $rules->add($rules->existsIn(['type_id'], 'Types'));
         $rules->add($rules->existsIn(['petitioner_id'], 'Petitioners'));
         $rules->add($rules->existsIn(['request_status_id'], 'RequestStatuses'));
