@@ -15,7 +15,7 @@
         <?= $this->Form->end() ?>
     </div>
     <div class="table-responsive-md">
-    <table class="table">
+    <table class="table table-responsive">
         <thead class="thead-light">
             <tr>
             <th scope="col"><?= $this->Paginator->sort('folio') ?></th>
@@ -39,7 +39,9 @@
             <td><?= $this->Html->link($request->petitioner->name, ['controller' => 'Petitioners', 'action' => 'view', $request->petitioner->id]) ?></td>
                 <!-- <td><?= $request->has('concept') ? $this->Html->link($request->concept->name, ['controller' => 'Concepts', 'action' => 'view', $request->concept->id]) : '' ?></td> -->
                 <td class="actions">
-
+                    <?php if (isset($current_user['role']) && $current_user['role'] === 'Coordinador') { ?>
+                    <?= $this->Html->link(__('Canalizar'), ['controller'=>'activities','action' => 'create', $request->id]) ?>
+                    <?php } ?>
                     <?= $this->Html->link(__('Editar'), ['action' => 'edit', $request->id]) ?>
                     <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $request->id], ['confirm' => __('Estas seguro?', $request->id)]) ?>
                 </td>

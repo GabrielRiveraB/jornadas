@@ -50,7 +50,7 @@ class JourneysController extends AppController
 
     if ( isset($user['role']) and $user['role'] == "Coordinador" ) {
 
-        if(in_array($this->request->action, ['index','view']))
+        if(in_array($this->request->action, ['index','view','edit']))
         {
             return true;
         }
@@ -142,21 +142,28 @@ class JourneysController extends AppController
 
         $this->loadModel('Requests');
 
-        $requests = $this->Requests->find('all', ['conditions' => ['journey_id' =>$id]]);
+        $request = $this->Requests->find('all', ['conditions' => ['journey_id' =>$id]]);
+
+        // $request = $this->Requests->get($id, [
+        //     'contain' => ['Journeys', 'Types', 'Petitioners', 'RequestStatuses', 'Requestupdates'],
+        // ]);
+        // // debug($request);
+        // $this->set('request', $request);
+        // $this->set(compact('request',$request->toArray()));
+
+
 
         $requestsGobConFolio = $this->Requests->find('all', ['conditions' => ['journey_id' =>$id,'gobernador'=>'1','folio IS NOT NULL']]);
 
         $GobernadorConFolio = $requestsGobConFolio->match(['gobernador' => '1']);
 
-        $total_solicitudes = count($requests->toArray());                    // Obtendo el total de solicitudes en la jornada
+        $total_solicitudes = count($request->toArray());                    // Obtengo el total de solicitudes en la jornada
 
-        $SolicitudesNormales = $requests->match(['gobernador' => '']);
+        $SolicitudesNormales = $request->match(['gobernador' => '']);
 
-        $SolicitudesGobernador = $requests->match(['gobernador' => '1']);
+        $SolicitudesGobernador = $request->match(['gobernador' => '1']);
 
         $GobernadorSinFolio = $SolicitudesGobernador->match(['folio' => '','folio'=>null]);
-
-        // $GobernadorConFolio = $SolicitudesGobernador->match(['folio IS NOT'=>null,'folio IS NOT'=>'']);
 
         $this->set(compact('total_solicitudes','municipios','SolicitudesGobernador','GobernadorSinFolio','GobernadorConFolio', 'SolicitudesNormales'));
 

@@ -46,17 +46,10 @@ class RequestsController extends AppController
 
         } else {
             $all = $this->Requests->find('all', [
-                // 'conditions'=>array('description LIKE'=>$this->request->data('search').'%')
                 'contain' => ['Journeys', 'Types', 'Petitioners', 'RequestStatuses'],
                 'order'=>['Requests.created' => 'DESC'],
                 'conditions'=> ['journey_id'=>$id]
                 ]);
-            // $this->paginate = [
-            //     'contain' => ['Journeys', 'Types', 'Petitioners', 'RequestStatuses'],
-            //     'order'=>['created' => 'DESC'],
-            //     'conditions'=> ['journey_id'=>$id]
-            // ];
-
         }
 
         if($this->request->data('search')!='') {

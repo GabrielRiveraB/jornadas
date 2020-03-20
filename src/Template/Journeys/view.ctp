@@ -3,10 +3,11 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Journey $journey
  */
-//    debug($GobernadorConFolio->count());
+    //  debug($request);
 
 ?>
 <?php echo $this->element('menu_capturista'); ?>
+
 <div class="journeys view large-9 medium-8 columns content">
     <!-- <h3><?= h($journey->ubicacion . ", " .$journey->municipio) ?></h3> -->
     <h3 class="mb-0 pb-0">Resúmen de solicitudes</h3>
