@@ -8,20 +8,20 @@
 <?php echo $this->element('menu_capturista'); ?>
 <div class="requests index large-9 medium-8 columns content">
     <h3><?= __('Solicitudes') ?></h3>
-    <div class="small-12 bg-light p-3 mb-3">
+    <!-- <div class="small-12 bg-light p-3 mb-3">
         <?= $this->Form->create(null,['type' => 'file']) ?>
             <?php echo $this->Form->control('search',['label'=>'Busca por folio / solicitante / contenido']);?>
             <?= $this->Form->submit('Buscar') ?>
         <?= $this->Form->end() ?>
-    </div>
+    </div> -->
+
     <div class="table-responsive-md">
-    <table class="table table-responsive">
+    <table class="table table-striped table-bordered table-hover" id="myTable">
         <thead class="thead-light">
             <tr>
-            <th scope="col"><?= $this->Paginator->sort('folio') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('journey_id','Jornada') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('petitioner.name','Solicitante') ?></th>
-                <!-- <th scope="col"><?= $this->Paginator->sort('description') ?></th> -->
+                <th>Folio</th>
+                <th>Jornada</th>
+                <th>Solicitante</th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -50,5 +50,4 @@
         </tbody>
     </table>
     </div>
-    <?php echo $this->element('table_paginate'); ?>
 </div>
