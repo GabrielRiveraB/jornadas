@@ -9,14 +9,14 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
 //  debug($current_user);
 ?>
 <?php echo $this->element('menu_capturista'); ?>
-<div class="journeys index large-9 medium-8 columns content">
-    <h3><?= __('Resúmen de jornadas') ?></h3>
+<div class="journeys index large-9 medium-8 columns content pt-4">
+    <h3 class="card"><?= __('Resúmen de jornadas') ?></h3>
 
-    <div class="row">
-        <div class="offset-6 col-6">
+    <!-- <div class="row"> -->
+        <div class="offset-6 col-6 pr-0">
             <input type="text" placeholder="Buscar registros..." id="mySearch" class="form-control"/>
         </div>
-    </div>
+    <!-- </div> -->
 
     <div class="table-responsive-md">
         <?php for($i=0;$i<6;$i++) { ?>

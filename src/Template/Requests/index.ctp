@@ -6,8 +6,8 @@
 //  debug($requests);
 ?>
 <?php echo $this->element('menu_capturista'); ?>
-<div class="requests index large-9 medium-8 columns content">
-    <h3><?= __('Solicitudes') ?></h3>
+<div class="requests index large-9 medium-8 columns content pt-4">
+    <h3 class="card"><?= __('Solicitudes') ?></h3>
     <!-- <div class="small-12 bg-light p-3 mb-3">
         <?= $this->Form->create(null,['type' => 'file']) ?>
             <?php echo $this->Form->control('search',['label'=>'Busca por folio / solicitante / contenido']);?>
