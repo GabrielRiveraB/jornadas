@@ -54,11 +54,11 @@ $cakeDescription = 'Jornadas de la paz | Gobierno de Baja California';
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
-<!-- Datatables.net -->
+    <!-- Datatables.net -->
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"></link>
     <?= $this->Html->script(['datatable']) ?>
-	
+
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
