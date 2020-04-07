@@ -33,8 +33,65 @@ class UsersController extends AppController
     {
         return $this->redirect($this->Auth->logout());
     }
-     public function index()
-     {
+     
+
+    public function isAuthorized($user)
+    {
+        if ( isset($user['role']) and $user['role'] == "Administrador" ) {
+
+        if(in_array($this->request->action, ['dashboard','index','view']))
+        {
+            return true;
+        }
+
+        // The owner of an article can edit and delete it
+        if (in_array($this->request->getParam('action'), [''])) {
+            $JourneyId = (int)$this->request->getParam('pass.0');
+            if ($this->Journeys->isOwnedBy($JourneyId, $user['id'])) {
+                return true;
+            }
+        }
+
+    }
+
+    if ( isset($user['role']) and $user['role'] == "Capturista" ) {
+
+        if(in_array($this->request->action, ['dashboard','index','view']))
+        {
+            return true;
+        }
+
+        // The owner of an article can edit and delete it
+        if (in_array($this->request->getParam('action'), [''])) {
+            $JourneyId = (int)$this->request->getParam('pass.0');
+            if ($this->Journeys->isOwnedBy($JourneyId, $user['id'])) {
+                return true;
+            }
+        }
+
+    }
+
+    if ( isset($user['role']) and $user['role'] == "Coordinador" ) {
+
+        if(in_array($this->request->action, ['dashboard','index','view','edit']))
+        {
+            return true;
+        }
+
+        // The owner of an article can edit and delete it
+        if (in_array($this->request->getParam('action'), [''])) {
+            $JourneyId = (int)$this->request->getParam('pass.0');
+            if ($this->Journeys->isOwnedBy($JourneyId, $user['id'])) {
+                return true;
+            }
+        }
+
+    }
+        return parent::isAuthorized($user);
+    }    
+
+    public function index()
+    {
         $this->set('users', $this->Users->find('all'));
     }
 
@@ -60,6 +117,29 @@ class UsersController extends AppController
             $this->Flash->error(__('Unable to add the user.'));
         }
         $this->set('user', $user);
+    }
+
+    public function dashboard()
+    {
+        $this->loadModel("journeys");
+        $this->loadModel("requests");
+        $this->set('users', $this->Users->find('all'));
+        $this->set('userrole', $this->Auth->user('role'));
+
+        // debug( $this->Auth->user('role') );
+        switch($this->Auth->user('role'))
+        {
+            case 'Capturista': 
+                // Elementos necesarios para el dashboard del capturista
+            break;
+            case 'Administrador': 
+                // Elementos necesarios para el dashboard del administrador
+            break;
+            case 'Secretaria': 
+                // Elementos necesarios para el dashboard de la secretaria
+            break;
+
+        }
     }
 
 }

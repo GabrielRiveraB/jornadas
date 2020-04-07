@@ -9,7 +9,9 @@ use Cake\Validation\Validator;
 /**
  * Types Model
  *
+ * @property &\Cake\ORM\Association\BelongsTo $Concepts
  * @property \App\Model\Table\RequestsTable&\Cake\ORM\Association\HasMany $Requests
+ * @property &\Cake\ORM\Association\HasMany $RequestsLog
  *
  * @method \App\Model\Entity\Type get($primaryKey, $options = [])
  * @method \App\Model\Entity\Type newEntity($data = null, array $options = [])
@@ -36,7 +38,13 @@ class TypesTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
+        $this->belongsTo('Concepts', [
+            'foreignKey' => 'concept_id',
+        ]);
         $this->hasMany('Requests', [
+            'foreignKey' => 'type_id',
+        ]);
+        $this->hasMany('RequestsLog', [
             'foreignKey' => 'type_id',
         ]);
     }
@@ -59,5 +67,19 @@ class TypesTable extends Table
             ->allowEmptyString('name');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['concept_id'], 'Concepts'));
+
+        return $rules;
     }
 }

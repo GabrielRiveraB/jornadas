@@ -24,7 +24,6 @@ class PromotersTableTest extends TestCase
      */
     public $fixtures = [
         'app.Promoters',
-        'app.Requests',
     ];
 
     /**

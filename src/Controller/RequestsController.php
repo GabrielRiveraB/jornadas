@@ -63,12 +63,14 @@ class RequestsController extends AppController
             //  debug($this->paginate($tapeexists));
         }
 
-        // debug($requests);
+       
 
         // $requests = $requests->append($tapeexists);
 
         $requests = $this->paginate($all);
 
+        debug($requests->count());
+        
         $this->set(compact('requests'));
 
     }

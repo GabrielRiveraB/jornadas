@@ -9,7 +9,7 @@ use Cake\Validation\Validator;
 /**
  * Promoters Model
  *
- * @property \App\Model\Table\RequestsTable&\Cake\ORM\Association\HasMany $Requests
+ * @property &\Cake\ORM\Association\BelongsTo $Dependencies
  *
  * @method \App\Model\Entity\Promoter get($primaryKey, $options = [])
  * @method \App\Model\Entity\Promoter newEntity($data = null, array $options = [])
@@ -40,9 +40,9 @@ class PromotersTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        // $this->hasMany('Requests', [
-        //     'foreignKey' => 'promoter_id',
-        // ]);
+        $this->belongsTo('Dependencies', [
+            'foreignKey' => 'dependency_id',
+        ]);
     }
 
     /**
@@ -68,14 +68,23 @@ class PromotersTable extends Table
             ->allowEmptyString('position');
 
         $validator
-            ->scalar('dependency')
-            ->maxLength('dependency', 250)
-            ->allowEmptyString('dependency');
-
-        $validator
             ->boolean('status')
             ->allowEmptyString('status');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['dependency_id'], 'Dependencies'));
+
+        return $rules;
     }
 }

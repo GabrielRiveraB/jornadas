@@ -9,12 +9,10 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string|null $name
  * @property string|null $position
- * @property string|null $dependency
+ * @property int|null $dependency_id
  * @property \Cake\I18n\FrozenDate|null $created
  * @property \Cake\I18n\FrozenDate|null $modified
  * @property bool|null $status
- *
- * @property \App\Model\Entity\Request[] $requests
  */
 class Promoter extends Entity
 {
@@ -30,10 +28,9 @@ class Promoter extends Entity
     protected $_accessible = [
         'name' => true,
         'position' => true,
-        'dependency' => true,
+        'dependency_id' => true,
         'created' => true,
         'modified' => true,
         'status' => true,
-        'requests' => true,
     ];
 }

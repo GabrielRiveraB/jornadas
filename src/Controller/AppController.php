@@ -56,8 +56,8 @@ class AppController extends Controller
             ],
             'authError' => 'Sin acceso a esta sección',
             'loginRedirect' => [
-                'controller' => 'Journeys',
-                'action' => 'index'
+                'controller' => 'Users',
+                'action' => 'dashboard'
             ],
             'logoutRedirect' => [
                 'controller' => 'Users',

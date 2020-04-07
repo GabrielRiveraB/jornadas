@@ -7,6 +7,7 @@ use Cake\ORM\Entity;
  * Type Entity
  *
  * @property int $id
+ * @property int|null $concept_id
  * @property string|null $name
  *
  * @property \App\Model\Entity\Request[] $requests
@@ -23,6 +24,7 @@ class Type extends Entity
      * @var array
      */
     protected $_accessible = [
+        'concept_id' => true,
         'name' => true,
         'requests' => true,
     ];
