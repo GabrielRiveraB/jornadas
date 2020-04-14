@@ -38,14 +38,14 @@ class RequestsController extends AppController
     public function index($id = null)
     {
         if(!$id) {
-            $all = $this->Requests->find('all', [
+            $requests = $this->Requests->find('all', [
                 // 'conditions'=>array('description LIKE'=>$this->request->data('search').'%')
                 'contain' => ['Journeys', 'Types', 'Petitioners', 'RequestStatuses'],
                 'order'=>['Requests.created' => 'DESC'],
                 ]);
 
         } else {
-            $all = $this->Requests->find('all', [
+            $requests = $this->Requests->find('all', [
                 'contain' => ['Journeys', 'Types', 'Petitioners', 'RequestStatuses'],
                 'order'=>['Requests.created' => 'DESC'],
                 'conditions'=> ['journey_id'=>$id]
@@ -67,9 +67,9 @@ class RequestsController extends AppController
 
         // $requests = $requests->append($tapeexists);
 
-        $requests = $this->paginate($all);
+        //$requests = $this->paginate($all);
 
-        debug($requests->count());
+        // debug($requests->count());
         
         $this->set(compact('requests'));
 
@@ -154,6 +154,15 @@ class RequestsController extends AppController
         'Divorciado/a'=>'Divorciado/a','Viudo/a'=>'Viudo/a');
 
         $this->set(compact('request', 'journeys', 'solicitantes', 'types', 'requestStatuses','civilstatuses'));
+    }
+
+    /**
+     * Add plus method
+     * 
+     * @return \Cake\Http\Response|null Redirects to itself on succesfful add, renders view otherwise.
+     */
+    public function add_plus($jid = null){
+        
     }
 
     /**

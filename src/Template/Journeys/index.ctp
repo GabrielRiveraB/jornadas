@@ -8,61 +8,187 @@ $sinfolio = $confolio = 0;
 $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quintín", "Ensenada"];
 //  debug($current_user);
 ?>
-<?php echo $this->element('menu_capturista'); ?>
-<div class="journeys index large-9 medium-8 columns content pt-4">
-    <h3 class="card"><?= __('Resúmen de jornadas') ?></h3>
+<?php
+    switch($current_user['role'])
+    {
+        case 'Capturista': 
+            echo $this->element('menu_capturista');
+?>
 
-    <!-- <div class="row"> -->
-        <div class="offset-6 col-6 pr-0">
-            <input type="text" placeholder="Buscar registros..." id="mySearch" class="form-control"/>
+            <div class="journeys index large-9 medium-8 columns content pt-4">
+            <h3 class="card"><?= __('Resúmen de jornadas') ?></h3>
+
+            <div class="offset-6 col-6 pr-0">
+                <input type="text" placeholder="Buscar registros..." id="mySearch" class="form-control"/>
+            </div>
+
+            <div class="table-responsive-md">
+                <?php for($i=0;$i<6;$i++) { ?>
+                <table class="table table-striped table-bordered table-hover myJourneys">
+                    <thead>
+                        <tr class="thead-light">
+                            <th scope="col" colspan="5"><?php echo "Municipio de " . $municipios[$i]; ?></th>
+                        </tr>
+                        <tr>
+                            <th >Colonia</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Con Folio</th>
+                            <th scope="col">Sin Folio</th>
+                            <th scope="col">Presupuesto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($journeys as $journey): ?>
+                        <?php if($journey->municipio == $municipios[$i]) {?>
+
+                        <tr>
+                            <td scope="row"><?= $this->Html->link(h($journey->ubicacion), ['action' => 'view', $journey->id]) ?></td>
+                            <td><?php echo h(date("d-M-y", strtotime($journey->date))); ?></td>
+                            <td>
+                            <?php
+                                foreach ($journey->requests as $request):
+                                    if($request->folio)
+                                    {
+                                        $confolio++;
+                                    } else {
+                                        $sinfolio++;
+                                    }
+                                endforeach;
+                                echo $confolio;
+                            ?>
+                            </td>
+                            <td><?php echo $sinfolio; ?></td>
+                            <td></td>
+                            <?php $confolio = $sinfolio = 0; ?>
+                        </tr>
+                        <?php }  ?>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <?php } ?>
+            </div>
+<?php   break;
+        case 'Coordinador': 
+            echo $this->element('menu_coordinador');
+?>
+<?php
+        break;    
+        case 'Secretaria':
+            echo $this->element('menu_secretaria');
+?>
+        <div class="journeys index large-9 medium-8 columns content pt-4">
+            <h3 class="card"><?= __('Resúmen de jornadas') ?></h3>
+
+        <div class="row">
+            <div class="col-12 pr-0">
+                <input type="text" placeholder="Buscar registros..." id="mySearch" class="form-control"/>
+            </div>
         </div>
-    <!-- </div> -->
 
-    <div class="table-responsive-md">
-        <?php for($i=0;$i<6;$i++) { ?>
-        <table class="table table-striped table-bordered table-hover myJourneys">
-            <thead>
-                <tr class="thead-light">
-                    <th scope="col" colspan="5"><?php echo "Municipio de " . $municipios[$i]; ?></th>
-                </tr>
-                <tr>
-                    <th >Colonia</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Con Folio</th>
-                    <th scope="col">Sin Folio</th>
-                    <th scope="col">Presupuesto</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($journeys as $journey): ?>
-                <?php if($journey->municipio == $municipios[$i]) {?>
+        <div class="row">
+            <div class="col-4 pr-0 text-center">
+                <button>Pavimentacion<span class="fa fa-edit"></span></button>
+            </div>
+            <div class="col-4 pr-0 text-center">
+                <button>Espacios Pub</button>
+            </div>
+            <div class="col-4 pr-0 text-center">
+                <button>Regularizacion</button>
+            </div>        
+        </div>
 
-                <tr>
-                    <td scope="row"><?= $this->Html->link(h($journey->ubicacion), ['action' => 'view', $journey->id]) ?></td>
-                    <td><?php echo h(date("d-M-y", strtotime($journey->date))); ?></td>
-                    <td>
-                    <?php
-                        foreach ($journey->requests as $request):
-                            if($request->folio)
-                            {
-                                $confolio++;
-                            } else {
-                                $sinfolio++;
-                            }
-                        endforeach;
-                        echo $confolio;
-                    ?>
-                    </td>
-                    <td><?php echo $sinfolio; ?></td>
-                    <td></td>
-                    <?php $confolio = $sinfolio = 0; ?>
-                </tr>
-                <?php }  ?>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-        <?php } ?>
-    </div>
+
+        
+        <div class="table-responsive-md">
+            <div class="card mt-5">Resumen Ultima Jornada</div>
+            <table class="table">
+                <thead>
+                    <tr class="thead-light">
+                        <th style="width: 35%"></th>
+                        <th>FOL</th>
+                        <th>PAV</th>
+                        <th>EPU</th>
+                        <th>REG</th>
+                        <th>OTR</th>
+                        <th class="thead-light">TOT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Colonia 1, Tijuana</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>Colonia 2, Ensenada</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>Colonia 3, Tecate</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>Colonia 4, Rosarito</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>Colonia 5, Mexicali</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>Colonia 6, San Quintin</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+<?php
+        break;
+    
+    }
+ ?>
+
     
 <script>
     $(document).ready(function () {

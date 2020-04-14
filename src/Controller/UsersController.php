@@ -87,6 +87,23 @@ class UsersController extends AppController
         }
 
     }
+
+    if ( isset($user['role']) and $user['role'] == "Secretaria" ) {
+
+        if(in_array($this->request->action, ['dashboard','index','view', 'edit']))
+        {
+            return true;
+        }
+
+        // The owner of an article can edit and delete it
+        if (in_array($this->request->getParam('action'), [''])) {
+            $JourneyId = (int)$this->request->getParam('pass.0');
+            if ($this->Journeys->isOwnedBy($JourneyId, $user['id'])) {
+                return true;
+            }
+        }
+
+    }
         return parent::isAuthorized($user);
     }    
 
