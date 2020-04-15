@@ -124,7 +124,7 @@ class UsersController extends AppController
         $this->loadModel("journeys");
         $this->loadModel("requests");
         $this->set('users', $this->Users->find('all'));
-        $this->set('userrole', $this->Auth->user('role'));
+        // $this->set('userrole', $this->Auth->user('role'));
 
         // debug( $this->Auth->user('role') );
         switch($this->Auth->user('role'))
@@ -132,8 +132,19 @@ class UsersController extends AppController
             case 'Capturista': 
                 // Elementos necesarios para el dashboard del capturista
             break;
-            case 'Administrador': 
-                // Elementos necesarios para el dashboard del administrador
+            case 'Coordinador': 
+               
+                // Elementos necesarios para el dashboard del coordinador
+
+                // Listado de solicitudes sin categorizar
+                $solicitudes = $this->requests->find()->innerJoinWith('Journeys');
+                $solicitudes->select(['jornada'=>'journeys.ubicacion','cantidad' => $solicitudes->func()->count('*'),'fecha'=>'journeys.date']);
+                $solicitudes->where(['requests.request_status_id' => 1]);
+                $solicitudes->group(['requests.journey_id']);
+                $solicitudes->order(['cantidad'=>'DESC']);
+                $solicitudes->limit(5);
+                $this->set(compact('solicitudes'));
+                    
             break;
             case 'Secretaria': 
                 // Elementos necesarios para el dashboard de la secretaria

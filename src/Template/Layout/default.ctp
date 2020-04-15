@@ -36,7 +36,7 @@ $cakeDescription = 'Jornadas de la paz | Gobierno de Baja California';
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
+    
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
 
@@ -53,6 +53,8 @@ $cakeDescription = 'Jornadas de la paz | Gobierno de Baja California';
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="https://use.fontawesome.com/e2f2f1cc02.js"></script>
 
     <!-- Datatables.net -->
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
@@ -79,6 +81,7 @@ $cakeDescription = 'Jornadas de la paz | Gobierno de Baja California';
     </nav>
     <!-- <?= $this->Flash->render() ?> -->
     <div class="container clearfix">
+    <?php echo $this->element('user_role_menu'); ?>
         <?= $this->fetch('content') ?>
     </div>
     <footer>

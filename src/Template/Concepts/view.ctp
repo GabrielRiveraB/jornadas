@@ -4,31 +4,12 @@
  * @var \App\Model\Entity\Concept $concept
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Concept'), ['action' => 'edit', $concept->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Concept'), ['action' => 'delete', $concept->id], ['confirm' => __('Are you sure you want to delete # {0}?', $concept->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Concepts'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Concept'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Requests'), ['controller' => 'Requests', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Request'), ['controller' => 'Requests', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
+
 <div class="concepts view large-9 medium-8 columns content">
     <h3><?= h($concept->name) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('Name') ?></th>
-            <td><?= h($concept->name) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($concept->id) ?></td>
-        </tr>
-    </table>
+
     <div class="related">
-        <h4><?= __('Related Requests') ?></h4>
+        <h4><?= __('Solicitudes relacionadas') ?></h4>
         <?php if (!empty($concept->requests)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>

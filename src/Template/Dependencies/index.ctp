@@ -4,35 +4,28 @@
  * @var \App\Model\Entity\Dependency[]|\Cake\Collection\CollectionInterface $dependencies
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Dependency'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Activities'), ['controller' => 'Activities', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Activity'), ['controller' => 'Activities', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="dependencies index large-9 medium-8 columns content">
-    <h3><?= __('Dependencies') ?></h3>
+    <h3 class="float-left"><?= __('Dependencias') ?></h3>
+    
+    <?= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-lg fa-plus-square pr-1 float-right')), array('action' => 'add'), array('escape' => false)) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('longname') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('name','Siglas') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('longname','Nombre') ?></th>
+                <th scope="col" class="actions"></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($dependencies as $dependency): ?>
             <tr>
-                <td><?= $this->Number->format($dependency->id) ?></td>
-                <td><?= h($dependency->name) ?></td>
+                <td><?= $this->Html->link($dependency->name, ['action' => 'edit', $dependency->id]) ?></td>
                 <td><?= h($dependency->longname) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $dependency->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $dependency->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $dependency->id], ['confirm' => __('Are you sure you want to delete # {0}?', $dependency->id)]) ?>
+                    
+                    <?= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-lg fa-eye pr-1')), array('action' => 'view', $dependency->id), array('escape' => false)) ?>
+                    
+                    <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-lg fa-trash')), array('action' => 'delete', $dependency->id), array('escape' => false), __('Deseas eliminar esta dependencia?')); ?>
                 </td>
             </tr>
             <?php endforeach; ?>

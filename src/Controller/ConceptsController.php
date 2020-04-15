@@ -12,6 +12,26 @@ use App\Controller\AppController;
  */
 class ConceptsController extends AppController
 {
+    
+    
+    public function isAuthorized($user)
+    {
+        if(in_array($this->request->action, ['index','view','add','edit']))
+        {
+            return true;
+        }
+
+        // // The owner of an article can edit and delete it
+        // if (in_array($this->request->getParam('action'), ['add'])) {
+        //     $JourneyId = (int)$this->request->getParam('password.0');
+        //     if ($this->Journeys->isOwnedBy($JourneyId, $user['id'])) {
+        //         return true;
+        //     }
+        // }
+
+        return parent::isAuthorized($user);
+    }
+    
     /**
      * Index method
      *
@@ -33,9 +53,7 @@ class ConceptsController extends AppController
      */
     public function view($id = null)
     {
-        $concept = $this->Concepts->get($id, [
-            'contain' => ['Requests'],
-        ]);
+        $concept = $this->Concepts->get($id, []);
 
         $this->set('concept', $concept);
     }

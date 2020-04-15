@@ -71,6 +71,7 @@ class AppController extends Controller
     {
         $this->set('current_user', $this->Auth->user());
         $this->Auth->allow(['display','Users'=>'login']);
+        $this->set('userrole', $this->Auth->user('role'));
     }
 
     public function isAuthorized($user)

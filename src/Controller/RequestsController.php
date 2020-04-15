@@ -38,14 +38,14 @@ class RequestsController extends AppController
     public function index($id = null)
     {
         if(!$id) {
-            $all = $this->Requests->find('all', [
+            $requests = $this->Requests->find('all', [
                 // 'conditions'=>array('description LIKE'=>$this->request->data('search').'%')
                 'contain' => ['Journeys', 'Types', 'Petitioners', 'RequestStatuses'],
                 'order'=>['Requests.created' => 'DESC'],
                 ]);
 
         } else {
-            $all = $this->Requests->find('all', [
+            $requests = $this->Requests->find('all', [
                 'contain' => ['Journeys', 'Types', 'Petitioners', 'RequestStatuses'],
                 'order'=>['Requests.created' => 'DESC'],
                 'conditions'=> ['journey_id'=>$id]
@@ -54,7 +54,7 @@ class RequestsController extends AppController
 
         if($this->request->data('search')!='') {
 
-            $requestsFol = $all->match(['folio' => $this->request->data('search')]);
+            $requestsFol = $requests->match(['folio' => $this->request->data('search')]);
 
 
             // ENCONTRAR LA MANERA DE BUSCAR POR PALABRAS EN LA DESCRIPCION
@@ -67,9 +67,9 @@ class RequestsController extends AppController
 
         // $requests = $requests->append($tapeexists);
 
-        $requests = $this->paginate($all);
+        // $requests = $this->paginate($all);
 
-        debug($requests->count());
+        // debug($requests->count());
         
         $this->set(compact('requests'));
 

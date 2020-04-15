@@ -8,9 +8,8 @@ $sinfolio = $confolio = 0;
 $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quintín", "Ensenada"];
 //  debug($current_user);
 ?>
-<?php echo $this->element('menu_capturista'); ?>
 <div class="journeys index large-9 medium-8 columns content pt-4">
-    <h3 class="card"><?= __('Resúmen de jornadas') ?></h3>
+    <h3><?= __('Resúmen de jornadas') ?></h3>
 
     <!-- <div class="row"> -->
         <div class="offset-6 col-6 pr-0">

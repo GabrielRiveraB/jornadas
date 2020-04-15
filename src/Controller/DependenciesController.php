@@ -12,6 +12,25 @@ use App\Controller\AppController;
  */
 class DependenciesController extends AppController
 {
+
+    public function isAuthorized($user)
+    {
+        if(in_array($this->request->action, ['index','view','add','edit']))
+        {
+            return true;
+        }
+
+        // // The owner of an article can edit and delete it
+        // if (in_array($this->request->getParam('action'), ['add'])) {
+        //     $JourneyId = (int)$this->request->getParam('password.0');
+        //     if ($this->Journeys->isOwnedBy($JourneyId, $user['id'])) {
+        //         return true;
+        //     }
+        // }
+
+        return parent::isAuthorized($user);
+    }
+    
     /**
      * Index method
      *
@@ -51,11 +70,11 @@ class DependenciesController extends AppController
         if ($this->request->is('post')) {
             $dependency = $this->Dependencies->patchEntity($dependency, $this->request->getData());
             if ($this->Dependencies->save($dependency)) {
-                $this->Flash->success(__('The dependency has been saved.'));
+                $this->Flash->success(__('La dependencia se ha guardado.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The dependency could not be saved. Please, try again.'));
+            $this->Flash->error(__('La dependencia no se ha podido guardar, intenta mas tarde.'));
         }
         $this->set(compact('dependency'));
     }
@@ -75,11 +94,11 @@ class DependenciesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $dependency = $this->Dependencies->patchEntity($dependency, $this->request->getData());
             if ($this->Dependencies->save($dependency)) {
-                $this->Flash->success(__('The dependency has been saved.'));
+                $this->Flash->success(__('La dependencia se ha guardado.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The dependency could not be saved. Please, try again.'));
+            $this->Flash->error(__('La dependencia no se ha podido guardar, intenta mas tarde.'));
         }
         $this->set(compact('dependency'));
     }
@@ -96,9 +115,9 @@ class DependenciesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $dependency = $this->Dependencies->get($id);
         if ($this->Dependencies->delete($dependency)) {
-            $this->Flash->success(__('The dependency has been deleted.'));
+            $this->Flash->success(__('La dependencia se ha eliminado.'));
         } else {
-            $this->Flash->error(__('The dependency could not be deleted. Please, try again.'));
+            $this->Flash->error(__('La dependencia no se ha eliminado, intenta de nuevo.'));
         }
 
         return $this->redirect(['action' => 'index']);
