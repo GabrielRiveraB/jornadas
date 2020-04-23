@@ -5,7 +5,8 @@
  */
 $municipio = "";
 $sinfolio = $confolio = 0;
-$municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quintín", "Ensenada"];
+$municipios = ["Tijuana", "Ensenada", "Tecate", "Rosarito", "Mexicali", "San Quintín"];
+$num_solicitudes = 0;
 //  debug($current_user);
 ?>
 <?php
@@ -74,6 +75,7 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
 <?php
         break;    
         case 'Secretaria':
+            $sinfolio = $confolio = $num_solicitudes = 0;
             echo $this->element('menu_secretaria');
 ?>
         <div class="journeys index large-9 medium-8 columns content pt-4">
@@ -98,6 +100,20 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
         </div>
 
 
+        <?php foreach ($journeys as $journey): ?>
+            <?php if($journey->municipio == $municipios[1]) {?>
+                <?php
+                    foreach ($journey->requests as $request):
+                        if($request->folio)
+                            $confolio++;
+                        else
+                            $sinfolio++;
+                    endforeach;
+                    $num_solicitudes+=$confolio;
+                ?>
+            <?php }  ?>
+        <?php endforeach; ?>
+
         
         <div class="table-responsive-md">
             <div class="card mt-5">Resumen Ultima Jornada</div>
@@ -114,16 +130,37 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
                     </tr>
                 </thead>
                 <tbody>
+                <?php for($i=0;$i<6;$i++) { ?>
                     <tr>
-                        <td>Colonia 1, Tijuana</td>
-                        <td>0</td>
+                    <?php foreach ($journeys as $journey): ?>
+                        <?php if($journey->municipio == $municipios[$i]) {?>
+                            <?php
+                                foreach ($journey->requests as $request):
+                                    if($request->folio)
+                                        $confolio++;
+                                    else
+                                        $sinfolio++;
+                                endforeach;
+                                // debug($municipios[$i] . ' ' . $confolio);
+                                //exit();
+                                $num_solicitudes += $confolio;
+                                //debug($municipios[$i] . ' ' . $num_solicitudes);
+                                $confolio = 0;
+                                $sinfolio = 0;
+                                ?>
+                        <?php }  ?>
+                    <?php endforeach; ?>
+                        <td>Colonia <?php echo $i+1 . ', ' . $municipios[$i] ?></td>
+                        <td><?php echo $num_solicitudes ?></td>
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
                     </tr>
-                    <tr>
+                    <?php $num_solicitudes = 0; ?>
+                <?php } ?>
+                    <!-- <tr>
                         <td>Colonia 2, Ensenada</td>
                         <td>0</td>
                         <td>0</td>
@@ -167,7 +204,7 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
-                    </tr>
+                    </tr> -->
                 </tbody>
                 <tfoot>
                     <tr>
