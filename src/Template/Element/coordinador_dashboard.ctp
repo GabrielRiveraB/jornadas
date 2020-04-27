@@ -35,11 +35,24 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
             </table>
         </div>
         </div>
+
         <div class="col-md-6">
         <table class="table table-striped table-bordered table-hover">
                 <thead>
-                    <tr class="thead-light">
-                        <th scope="col" colspan="4">Últimas actualizaciones</th>
+                <tr class="thead-light">
+                        <th scope="col">Últimas actualizaciones</th>
+                    </tr>
+                </thead>
+                <?php foreach ($updates as $update): ?>
+                    <tr>
+                        <td>
+                            <?php echo h(date("d-M-y", strtotime($update->modified))); ?><br>
+                            <?php echo h($update->description); ?>
+                            
+                        </td>
+                    </tr>
+                <?php endforeach; ?>                        
+                        <?php //debug($updates->toarray()); ?>
                     </tr>
                 </thead>
                 <tbody>

@@ -3,66 +3,48 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Journey $journey
  */
-    //  debug($request);
-
 ?>
 <div class="journeys view large-9 medium-8 columns content">
-    <!-- <h3><?= h($journey->ubicacion . ", " .$journey->municipio) ?></h3> -->
-    <h3 class="mb-0 pb-0">Resúmen de solicitudes</h3>
-    <h5 class="mb-0"><strong> Jornada <?= h($journey->ubicacion . ", " .$journey->municipio) ?></strong></h5>
+    <h3 class="mb-0"><strong> Solicitudes de la Jornada <br> <?= h($journey->ubicacion . ", " .$journey->municipio) ?></strong></h3>
     <p><?= "El día " . date("d-M-y", strtotime($journey->date)) . " | Desde las " . date("H:i A", strtotime($journey->horainicio)) . " hasta las " . date("H:i A", strtotime($journey->horatermino)) ?></p>
-    <!-- <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('Mapa') ?></th>
-            <td><?= h($journey->photo) ?></td>
-        </tr>
-    </table> -->
-    <table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Solicitudes</th>
-      <th scope="col">Contacto</th>
-      <th scope="col">Viabilidad</th>
-      <th scope="col">Presupuesto</th>
-      <th scope="col">Concluidas</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><?php if($GobernadorSinFolio) { echo $GobernadorSinFolio->count(); } else { echo '0'; }?></td>
-      <td>Compromisos del Gobernador</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td><?php if($GobernadorConFolio) { echo $GobernadorConFolio->count(); } else { echo '0'; }?></td>
-      <td>Compromisos del Gobernador con Folio</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td><?php echo $SolicitudesNormales->count(); ?></td>
-      <td>Folios asignados a SIDURT</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td><strong><?php echo $total_solicitudes; ?></strong></td>
-      <td></td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-  </tbody>
-</table>
 <?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add', $journey->id],['class'=>'btn btn-info mr-3']) ?>
-<?= $this->Html->link(__('Ver solicitudes de la jornada'), ['controller' => 'Requests', 'action' => 'index', $journey->id],['class'=>'btn btn-info']) ?>
+</div>
+
+<div class="requests index large-9 medium-8 columns content pt-4">
+
+    <div class="table-responsive-md">
+    <table class="table table-striped table-bordered table-hover" id="myTable">
+        <thead class="thead-light">
+            <tr>
+                <th>Folio</th>
+                
+                <th>Solicitante</th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($journey->requests as $request): ?>
+            <tr>
+            <td> <?php if($request->folio) { ?>
+                <?= $this->Html->link($request->folio, ['action' => 'view', $request->id]) ?>
+            <?php } else { ?>
+                Sin Folio
+            <?php } ?>
+            </td>
+
+            
+            <td><?= $this->Html->link($request->petitioner->name, ['controller' => 'Petitioners', 'action' => 'view', $request->petitioner->id]) ?></td>
+                <!-- <td><?= $request->has('concept') ? $this->Html->link($request->concept->name, ['controller' => 'Concepts', 'action' => 'view', $request->concept->id]) : '' ?></td> -->
+                <td class="actions">
+                    <?php if (isset($current_user['role']) && $current_user['role'] === 'Coordinador') { ?>
+                    <?= $this->Html->link(__('Canalizar'), ['controller'=>'activities','action' => 'create', $request->id]) ?>
+                    <?php } ?>
+                    <?= $this->Html->link(__('Editar'), ['action' => 'edit', $request->id]) ?>
+                    <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $request->id], ['confirm' => __('Estas seguro?', $request->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    </div>
 </div>

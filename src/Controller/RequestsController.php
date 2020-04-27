@@ -85,7 +85,7 @@ class RequestsController extends AppController
     public function view($id = null)
     {
         $request = $this->Requests->get($id, [
-            'contain' => ['Journeys', 'Types', 'Petitioners', 'RequestStatuses', 'Requestupdates'],
+            'contain' => ['Journeys', 'Types', 'Petitioners', 'RequestStatuses', 'Requestupdates','Activities','Activities.dependencies','Activities.concepts'],
         ]);
         // debug($request);
         $this->set('request', $request);
@@ -115,8 +115,6 @@ class RequestsController extends AppController
             if ($this->Petitioners->save($petitioner)) {
                 // $this->Flash->success(__('La solicitud se ha guardado.'));
                 $request->petitioner_id = $petitioner->id;
-
-
                 if ($this->Requests->save($request)) {
                     $this->Flash->success(__('La solicitud se ha guardado.'));
                     // debug($petitioner->id);
@@ -129,13 +127,7 @@ class RequestsController extends AppController
             } else {
                 debug($petitioner->errors());
                 $this->Flash->error(__('No'));
-
             }
-
-
-
-
-
         }
 
         if(!$jid){

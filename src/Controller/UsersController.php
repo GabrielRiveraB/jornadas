@@ -123,6 +123,7 @@ class UsersController extends AppController
     {
         $this->loadModel("journeys");
         $this->loadModel("requests");
+        $this->loadModel("requestupdates");
         $this->set('users', $this->Users->find('all'));
         // $this->set('userrole', $this->Auth->user('role'));
 
@@ -131,7 +132,31 @@ class UsersController extends AppController
         {
             case 'Capturista': 
                 // Elementos necesarios para el dashboard del capturista
+
+                // Listado de jornadas sin solicitudes capturadas
+
+                        // SELECT journeys.id,journeys.ubicacion
+                        // FROM journeys journeys
+                        // LEFT JOIN requests requests ON requests.journey_id = journeys.id
+                        // WHERE requests.id IS NULL
+
+                $jornadas = $this->journeys->find();
+                $jornadas->leftJoinWith('requests');
+                $jornadas->select(['id'=>'journeys.id','jornada'=>'journeys.ubicacion','fecha'=>'journeys.date']);
+                $jornadas->where(['requests.id IS '=>null]);
+                $jornadas->order(['journeys.id'=>'DESC']);
+                $jornadas->limit(4);
+                $this->set(compact('jornadas'));
+                
+                // // Listado de ultimas solicitudes capturadas
+                $requests = $this->requests->find();
+                $requests->order(['requests.id'=>'DESC']);
+                $requests->contain(['journeys','petitioners']);
+                $requests->limit(10);
+                // debug($requests->toArray());
+                $this->set(compact('requests'));                  
             break;
+
             case 'Coordinador': 
                
                 // Elementos necesarios para el dashboard del coordinador
@@ -144,6 +169,12 @@ class UsersController extends AppController
                 $solicitudes->order(['cantidad'=>'DESC']);
                 $solicitudes->limit(5);
                 $this->set(compact('solicitudes'));
+
+                // Listado de ultimas actualizaciones
+                $updates = $this->requestupdates->find()->innerJoinWith('Requests');
+                $updates->order(['requestupdates.modified'=>'DESC']);
+                $updates->limit(5);
+                $this->set(compact('updates'));                
                     
             break;
             case 'Secretaria': 

@@ -50,7 +50,7 @@ class JourneysController extends AppController
 
     if ( isset($user['role']) and $user['role'] == "Coordinador" ) {
 
-        if(in_array($this->request->action, ['index','view','edit']))
+        if(in_array($this->request->action, ['index','view','edit','add']))
         {
             return true;
         }

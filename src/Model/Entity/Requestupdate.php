@@ -25,7 +25,9 @@ class Requestupdate extends Entity
      */
     protected $_accessible = [
         'request_id' => true,
+        'activity_id' => true,
         'description' => true,
-        'request' => true,
+        'created' => true,
+        'modified' => true,
     ];
 }

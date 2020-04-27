@@ -70,6 +70,11 @@ class RequestsTable extends Table
         $this->hasMany('Requestupdates', [
             'foreignKey' => 'request_id',
         ]);
+
+        $this->hasMany('Activities', [
+            'foreignKey' => 'request_id',
+        ]);
+
     }
 
     /**

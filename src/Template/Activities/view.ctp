@@ -4,21 +4,9 @@
  * @var \App\Model\Entity\Activity $activity
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Activity'), ['action' => 'edit', $activity->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Activity'), ['action' => 'delete', $activity->id], ['confirm' => __('Are you sure you want to delete # {0}?', $activity->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Activities'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Activity'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Requests'), ['controller' => 'Requests', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Request'), ['controller' => 'Requests', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Concepts'), ['controller' => 'Concepts', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Concept'), ['controller' => 'Concepts', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
+<?php //debug($activity); ?>
 <div class="activities view large-9 medium-8 columns content">
-    <h3><?= h($activity->id) ?></h3>
+    <h3><?= 'Solicitud de '. h($activity->concept['name']) ?></h3>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Request') ?></th>

@@ -6,7 +6,6 @@
 $solicitantes = $solicitantes->toArray();
 
 ?>
-<?php echo $this->element('menu_capturista'); ?>
 <div class="requests form large-9 medium-8 columns content">
 <?= $this->Flash->render() ?>
     <?= $this->Form->create($request) ?>
@@ -67,19 +66,11 @@ $solicitantes = $solicitantes->toArray();
                 echo $this->Form->control('juventud');
                 echo $this->Form->control('other',['label'=>'Otro']);
             }
-            // echo $this->Form->control('gobernador');
-            // echo $this->Form->control('promoter_id', ['options' => $promoters, 'label'=>'Promotor',
-            // 'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
-            // echo $this->Form->control('concept_id', ['empty'=>'Sin categoría','options' => $concepts, 'label'=>'Categoría',
-            // 'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
-            // echo $this->Form->control('type_id', ['empty'=>'Sin tipo','options' => $types, 'label'=>'Tipo de trabajo',
-            // 'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true']);
-            // echo $this->Form->control('priority');
             echo $this->Form->control('request_status_id', ['options' => $requestStatuses, 'value'=>'1', 'type'=>'hidden']);
         ?>
     </fieldset>
-    <?php //echo $this->Form->button(__('Guardar'),['class'=>'btn btn-primary ml-3']); ?>
     <?php echo $this->Form->button(__('Guardar'),['class'=>'btn btn-primary mb-3']); ?>
+    <?php echo $this->Form->button(__('Guardar y capturar otra'),['class'=>'btn btn-primary mr-3']); ?>
     <?php echo $this->Form->end(); ?>
 </div>
 <!--

@@ -4,14 +4,6 @@
  * @var \App\Model\Entity\Journey $journey
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('MENU') ?></li>
-        <li><?= $this->Html->link(__('Jornadas'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('Solicitudes'), ['controller' => 'Requests', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="journeys form large-9 medium-8 columns content">
     <?= $this->Form->create($journey,['type' => 'file']) ?>
     <fieldset>
@@ -19,10 +11,11 @@
         <?php
             echo $this->Form->control('municipio');
             echo $this->Form->control('ubicacion');
-            echo $this->Form->control('fecha', ['empty' => true]);
-            echo $this->Form->control('inicio', ['empty' => true]);
-            echo $this->Form->control('termino', ['empty' => true]);
-            echo $this->Form->control('photo', ['type'=>'file']);
+            echo $this->Form->control('fecha', ['label'=>'Fecha','empty' => true]);
+            echo $this->Form->control('inicio', ['label'=>'Hora de inicio','empty' => true]);
+            echo $this->Form->control('termino', ['label'=>'Hora de tterminación','empty' => true]);
+            echo $this->Form->control('geolocalizacion', ['label'=>'URL de Google','empty' => true]);
+            echo $this->Form->control('photo', ['label'=>'Foto de la jornada','type'=>'file']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Crear Jornada')) ?>

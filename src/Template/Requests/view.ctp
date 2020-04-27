@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Request $request
  */
 ?>
-<?php echo $this->element('menu_capturista'); ?>
+
 <div class="requests view large-9 medium-8 columns content">
     <h3 class="mb-0">Solicitud<?= h(' Folio '.$request->folio) ?></h3>
     <p class="mb-3">Jornada del <?= $request->journey->date ?> en <?= $request->has('journey') ? $this->Html->link($request->journey->ubicacion.', '.$request->journey->municipio, ['controller' => 'Journeys', 'action' => 'view', $request->journey->id]) : '' ?></p>
@@ -54,6 +54,33 @@
                     <?= $this->Html->link(__('View'), ['controller' => 'Requestupdates', 'action' => 'view', $requestupdates->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Requestupdates', 'action' => 'edit', $requestupdates->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['controller' => 'Requestupdates', 'action' => 'delete', $requestupdates->id], ['confirm' => __('Are you sure you want to delete # {0}?', $requestupdates->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php else: ?>
+            <p>No existen actualizaciones disponibles.</p>
+
+        <?php endif; ?>
+    </div>
+
+    <div class="related">
+        <h4><?= __('Actividades') ?></h4>
+        <?php if (!empty($request->activities)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th scope="col"><?= __('Categoria') ?></th>
+                <th scope="col"><?= __('Dependencia') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($request->activities as $activity): ?>
+            <tr>
+                <td><?= h($activity['Concepts']['name']) ?></td>
+                <td><?= h($activity['Dependencies']['name']) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Activities', 'action' => 'view', $activity->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Activities', 'action' => 'edit', $activity->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Activities', 'action' => 'delete', $activity->id], ['confirm' => __('Are you sure you want to delete # {0}?', $activity->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
