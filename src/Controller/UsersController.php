@@ -124,6 +124,7 @@ class UsersController extends AppController
         $this->loadModel("journeys");
         $this->loadModel("requests");
         $this->loadModel("requestupdates");
+        $this->loadModel("activities");
         $this->set('users', $this->Users->find('all'));
         // $this->set('userrole', $this->Auth->user('role'));
 
@@ -174,7 +175,14 @@ class UsersController extends AppController
                 $updates = $this->requestupdates->find()->innerJoinWith('Requests');
                 $updates->order(['requestupdates.modified'=>'DESC']);
                 $updates->limit(5);
-                $this->set(compact('updates'));                
+                $this->set(compact('updates')); 
+                
+                // $actividades = $this->activities->find();
+                // $actividades->select(['jornada'=>'journeys.ubicacion','concepto'=>'concepts.name','cantidad' => $actividades->func()->count('*'),'fecha'=>'journeys.date']);
+                // $actividades->contain(['Concepts','Requests.Journeys']);
+                // $actividades->where(['Requests.journey_id' => 13]);
+                // $actividades->group(['activities.concept_id']);
+                // debug($actividades->toarray());
                     
             break;
             case 'Secretaria': 
