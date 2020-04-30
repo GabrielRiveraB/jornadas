@@ -91,6 +91,8 @@ class JourneysController extends AppController
      */
     public function index()
     {
+        $this->loadModel("activities");
+
         if($this->request->data('municipios')=='Todos' || $this->request->data('municipios')=='') {
 
             $journeys = $this->paginate($this->Journeys,
@@ -138,6 +140,28 @@ class JourneysController extends AppController
 
         $municipios = array('Todos'=>'Todos','Mexicali'=>'Mexicali','Tijuana'=>'Tijuana','Ensenada'=>'Ensenada','Tecate'=>'Tecate','Playas de Rosarito'=>'Playas de Rosarito');
         $this->set(compact('municipios'));
+
+        switch($this->Auth->user('role'))
+        {
+            case 'Capturista':
+                //Capturista
+            break;
+            case 'Coordinador':
+                //Coordinador
+            break;
+            case 'Secretaria':
+                // debug($this->Requests);
+                // exit;
+                $actividades = $this->activities->find();
+                $actividades->select(['jornada'=>'journeys.ubicacion','concepto'=>'concepts.name','cantidad' => $actividades->func()->count('*'),'fecha'=>'journeys.date']);
+                $actividades->contain(['Concepts','Requests.Journeys']);
+                $actividades->where(['Requests.journey_id' => 13]);
+                $actividades->group(['activities.concept_id']);
+
+                // debug (sizeof($actividades));
+                // exit;
+            break;
+        }
     }
 
     /**

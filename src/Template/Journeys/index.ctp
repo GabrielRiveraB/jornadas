@@ -7,6 +7,7 @@ $municipio = "";
 $sinfolio = $confolio = 0;
 $municipios = ["Tijuana", "Ensenada", "Tecate", "Rosarito", "Mexicali", "San Quintín"];
 $num_solicitudes = 0;
+$activcount = 0;
 //  debug($current_user);
 ?>
 <?php
@@ -98,22 +99,6 @@ $num_solicitudes = 0;
                 <button>Regularizacion</button>
             </div>        
         </div>
-
-
-        <?php foreach ($journeys as $journey): ?>
-            <?php if($journey->municipio == $municipios[1]) {?>
-                <?php
-                    foreach ($journey->requests as $request):
-                        if($request->folio)
-                            $confolio++;
-                        else
-                            $sinfolio++;
-                    endforeach;
-                    $num_solicitudes+=$confolio;
-                ?>
-            <?php }  ?>
-        <?php endforeach; ?>
-
         
         <div class="table-responsive-md">
             <div class="card mt-5">Resumen Ultima Jornada</div>
@@ -136,18 +121,21 @@ $num_solicitudes = 0;
                         <?php if($journey->municipio == $municipios[$i]) {?>
                             <?php
                                 foreach ($journey->requests as $request):
-                                    if($request->folio)
+                                    if ($request->folio) {
                                         $confolio++;
-                                    else
+                                    }
+                                    else {
                                         $sinfolio++;
+                                    }
+                                    if($request->activities.request_id == $request->id)
+                                    // foreach ($request.activities as $activity):
+                                    //     # code...
+                                         $activcount++;
+                                    // endforeach;
                                 endforeach;
-                                // debug($municipios[$i] . ' ' . $confolio);
-                                //exit();
                                 $num_solicitudes += $confolio;
-                                //debug($municipios[$i] . ' ' . $num_solicitudes);
-                                $confolio = 0;
-                                $sinfolio = 0;
-                                ?>
+                                $confolio = $sinfolio = 0;
+                            ?>
                         <?php }  ?>
                     <?php endforeach; ?>
                         <td>Colonia <?php echo $i+1 . ', ' . $municipios[$i] ?></td>
@@ -156,9 +144,10 @@ $num_solicitudes = 0;
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
-                        <td>0</td>
+                        <td><?php echo $activcount ?></td>
                     </tr>
-                    <?php $num_solicitudes = 0; ?>
+                    <?php $num_solicitudes = 0;
+                          $activcount = 0; ?>
                 <?php } ?>
                     <!-- <tr>
                         <td>Colonia 2, Ensenada</td>

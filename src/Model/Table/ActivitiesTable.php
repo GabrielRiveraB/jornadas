@@ -40,6 +40,7 @@ class ActivitiesTable extends Table
 
         $this->belongsTo('Requests', [
             'foreignKey' => 'request_id',
+            'joinType' => 'INNER',
         ]);
         $this->belongsTo('Dependencies', [
             'foreignKey' => 'dependency_id',

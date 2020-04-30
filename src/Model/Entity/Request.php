@@ -34,6 +34,8 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Petitioner $petitioner
  * @property \App\Model\Entity\Requeststatus $request_status
  * @property \App\Model\Entity\Requestupdate[] $requestupdates
+ * 
+ * @property \App\Model\Entity\Activity[] $activities
  */
 class Request extends Entity
 {
@@ -73,5 +75,6 @@ class Request extends Entity
         'petitioner' => true,
         'request_status' => true,
         'requestupdates' => true,
+        'activities' => true,
     ];
 }

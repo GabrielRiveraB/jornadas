@@ -10,6 +10,8 @@ use Cake\Validation\Validator;
  * Requests Model
  *
  * @property \App\Model\Table\JourneysTable&\Cake\ORM\Association\BelongsTo $Journeys
+ * @property \App\Model\Table\ActivitiesTable&\Cake\ORM\Association\HasMany $Activities
+ * 
  * @property \App\Model\Table\PromotersTable&\Cake\ORM\Association\BelongsTo $Promoters
  * @property \App\Model\Table\ConceptsTable&\Cake\ORM\Association\BelongsTo $Concepts
  * @property \App\Model\Table\TypesTable&\Cake\ORM\Association\BelongsTo $Types
@@ -68,6 +70,9 @@ class RequestsTable extends Table
             'foreignKey' => 'request_status_id',
         ]);
         $this->hasMany('Requestupdates', [
+            'foreignKey' => 'request_id',
+        ]);
+        $this->hasMany('Activities', [
             'foreignKey' => 'request_id',
         ]);
     }
