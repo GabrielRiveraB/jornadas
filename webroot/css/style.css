@@ -154,7 +154,7 @@ input[type=radio] {
 .time select,
 .datetime select {
     display: inline;
-    width: auto;
+    /* width: auto; */
     margin-right: 10px;
 }
 
@@ -487,8 +487,8 @@ div.message.hidden {
 /* Force equal height by overflowing */
 .content,
 #actions-sidebar {
-    margin-bottom: -99999px;
-    padding-bottom: 99999px;
+    /* margin-bottom: -99999px;
+    padding-bottom: 99999px; */
 }
 @media(max-width: 640px) {
     #actions-sidebar {

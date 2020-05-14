@@ -29,6 +29,7 @@ class Activity extends Entity
      * @var array
      */
     protected $_accessible = [
+        'journey_id' => true,
         'request_id' => true,
         'dependency_id' => true,
         'concept_id' => true,
@@ -37,5 +38,9 @@ class Activity extends Entity
         'request' => true,
         'dependency' => true,
         'concept' => true,
+        'journey' => true,
+        'status' => true,
+        'created' => true,
+        'modified' => true,
     ];
 }

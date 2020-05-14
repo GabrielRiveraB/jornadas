@@ -87,6 +87,24 @@ class UsersController extends AppController
         }
 
     }
+
+    if ( isset($user['role']) and $user['role'] == "Secretaria" ) {
+
+        if(in_array($this->request->action, ['dashboard','index','view','edit','results']))
+        {
+            return true;
+        }
+
+        // The owner of an article can edit and delete it
+        if (in_array($this->request->getParam('action'), [''])) {
+            $JourneyId = (int)$this->request->getParam('pass.0');
+            if ($this->Journeys->isOwnedBy($JourneyId, $user['id'])) {
+                return true;
+            }
+        }
+
+    }
+
         return parent::isAuthorized($user);
     }    
 
@@ -187,9 +205,41 @@ class UsersController extends AppController
             break;
             case 'Secretaria': 
                 // Elementos necesarios para el dashboard de la secretaria
+
+                $jornadas = $this->journeys->find();
+                $jornadas->select(['id'=>'journeys.id','fecha'=>'journeys.date']);
+                $jornadas->order(['journeys.date'=>'DESC']);
+                $jornadas->first();                
+                $fechaUltimaJornada = $jornadas->toArray();       
+                $fechaUltimaJornada = $fechaUltimaJornada['0']['fecha'];
+
+                $actividades = $this->activities->find();
+                $actividades->contain(['Concepts','Requests.Journeys']);
+
+                $actividades->select(['mun'=>'journeys.municipio', 
+                                    'jornada'=>'journeys.ubicacion',
+                                    'id'=>'journeys.id',
+                                    'concepto'=>'concepts.name',
+                                    'concepto_id'=>'concepts.id',
+                                    'cantidad' => $actividades->func()->count('*'),
+                                    'fecha'=>'journeys.date',]);
+                
+                $actividades->where(['journeys.date' => date_format($fechaUltimaJornada, 'Y-m-d')]);  
+                $actividades->group(['activities.concept_id']);
+                $actividades->group(['jornada']);
+                $actividades->order(['jornada'=>'DESC']);
+                // $actividades->order(['jornada'=>'DESC']);
+                // debug($actividades->toarray());
+                $this->set(compact('actividades','fechaUltimaJornada')); 
+                // debug($actividades->toarray());                
             break;
 
         }
+    }
+
+    public function results()
+    {
+
     }
 
 }

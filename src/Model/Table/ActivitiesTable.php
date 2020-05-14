@@ -41,6 +41,11 @@ class ActivitiesTable extends Table
         $this->belongsTo('Requests', [
             'foreignKey' => 'request_id',
         ]);
+
+        $this->belongsTo('Journeys', [
+            'foreignKey' => 'journey_id',
+        ]);
+
         $this->belongsTo('Dependencies', [
             'foreignKey' => 'dependency_id',
         ]);

@@ -26,8 +26,7 @@ $cakeDescription = 'Jornadas de la paz | Gobierno de Baja California';
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('style.css') ?>
+    <?= $this->Html->css(['base','style','all.min']) ?>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -54,12 +53,12 @@ $cakeDescription = 'Jornadas de la paz | Gobierno de Baja California';
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
-    <script src="https://use.fontawesome.com/e2f2f1cc02.js"></script>
+    <!-- <script src="https://use.fontawesome.com/e2f2f1cc02.js"></script> -->
 
     <!-- Datatables.net -->
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"></link>
-    <?= $this->Html->script(['datatable']) ?>
+    <?= $this->Html->script(['datatable','all.min']) ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -69,7 +68,7 @@ $cakeDescription = 'Jornadas de la paz | Gobierno de Baja California';
     <nav class="top-bar expanded" data-topbar role="navigation">
         <ul class="title-area large-3 medium-4 columns">
             <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
+                <h1><a href="">Jornadas por la Paz</a></h1>
             </li>
         </ul>
         <!-- <div class="top-bar-section">
@@ -80,7 +79,7 @@ $cakeDescription = 'Jornadas de la paz | Gobierno de Baja California';
         </div> -->
     </nav>
     <!-- <?= $this->Flash->render() ?> -->
-    <div class="container clearfix">
+    <div>
     <?php echo $this->element('user_role_menu'); ?>
         <?= $this->fetch('content') ?>
     </div>

@@ -64,6 +64,23 @@ class JourneysController extends AppController
         }
 
     }
+
+    if ( isset($user['role']) and $user['role'] == "Secretaria" ) {
+
+        if(in_array($this->request->action, ['index','view']))
+        {
+            return true;
+        }
+
+        // The owner of an article can edit and delete it
+        if (in_array($this->request->getParam('action'), [''])) {
+            $JourneyId = (int)$this->request->getParam('pass.0');
+            if ($this->Journeys->isOwnedBy($JourneyId, $user['id'])) {
+                return true;
+            }
+        }
+
+    }
         return parent::isAuthorized($user);
     }
 
@@ -140,32 +157,80 @@ class JourneysController extends AppController
 
         /* EMPIEZO A OBTENER LA INFORMACION PARA EL REPORTE DE SOLICITUDES DE LA JORNADA */
 
+        // TOTAL DE SOLICITUDES
         $this->loadModel('Requests');
-
         $request = $this->Requests->find('all', ['conditions' => ['journey_id' =>$id]]);
+        $total_solicitudes = count($request->toArray());
+        
+        // TOTAL DE PETICIONES
+        $this->loadModel('Activities');
+        $activities = $this->Activities->find('all', [
+            'conditions' => ['Activities.journey_id' =>$id],
+            'contain'=> ['Requests','Concepts'],
+        ]);
+        $total_peticiones = count($activities->toArray());
 
-        // $request = $this->Requests->get($id, [
-        //     'contain' => ['Journeys', 'Types', 'Petitioners', 'RequestStatuses', 'Requestupdates'],
-        // ]);
-        // // debug($request);
-        // $this->set('request', $request);
-        // $this->set(compact('request',$request->toArray()));
+        // PETICIONES ORDENADAS POR CATEGORIA
+        $activities->order(['concept_id'=>'DESC']);
+
+        // TOTAL DE PETICIONES TURNADAS
+        $peticionesTurnadas = $activities->match(['status' => 'turnada']);
+        $total_peticionesTurnadas = count($peticionesTurnadas->toArray());
+        
+        // TOTAL DE PETICIONES ATENDIDAS
+        $peticionesAtendidas = $activities->match(['status' => 'atendida']);
+        $total_peticionesAtendidas = count($peticionesAtendidas->toArray());
+
+        $this->set(compact('total_solicitudes','total_peticiones','municipios','total_peticionesTurnadas','total_peticionesAtendidas'));
+
+        
+        
+        $pavimentaciones = $activities->match(['concept_id' => '25']);
+        $espaciosPublicos = $activities->match(['concept_id' => '30']);
+        $regularizaciones = $activities->match(['concept_id' => '29']);
+       
+        $otros = $activities->filter(function ($value, $key) {
+            return $value->concept_id != 25 && $value->concept_id != 30 && $value->concept_id != 29;
+        });
+
+        $this->set(compact('pavimentaciones','espaciosPublicos','regularizaciones','otros'));
+
+        $totalPavimentaciones = count($pavimentaciones->toArray());
+        $totalEspaciosPublicos = count($espaciosPublicos->toArray());
+        $totalRegularizaciones = count($regularizaciones->toArray());
+        $totalOtros = count($otros->toArray());      
+
+        $this->set(compact('totalPavimentaciones','totalEspaciosPublicos','totalRegularizaciones','totalOtros'));
 
 
+        $actividades = $this->Activities->find();
+        $actividades->contain(['Concepts','Requests.Journeys']);
 
-        $requestsGobConFolio = $this->Requests->find('all', ['conditions' => ['journey_id' =>$id,'gobernador'=>'1','folio IS NOT NULL']]);
+        $actividades->select(['mun'=>'journeys.municipio', 
+                            'jornada'=>'journeys.ubicacion',
+                            'id'=>'journeys.id',
+                            'concepto'=>'concepts.name',
+                            'concepto_id'=>'concepts.id',
+                            'cantidad' => $actividades->func()->count('*'),
+                            'fecha'=>'journeys.date',]);
+        
+        $actividades->where(['journeys.id' => $id]);  
+        $actividades->group(['activities.concept_id']);
+        $actividades->group(['jornada']);
+        $actividades->order(['jornada'=>'DESC']);
 
-        $GobernadorConFolio = $requestsGobConFolio->match(['gobernador' => '1']);
+        $this->set(compact('actividades','fechaUltimaJornada')); 
 
-        $total_solicitudes = count($request->toArray());                    // Obtengo el total de solicitudes en la jornada
+        // $requestsGobConFolio = $this->Requests->find('all', ['conditions' => ['journey_id' =>$id,'gobernador'=>'1','folio IS NOT NULL']]);
+        // $GobernadorConFolio = $requestsGobConFolio->match(['gobernador' => '1']);
+        // $total_solicitudes = count($request->toArray());                    // Obtengo el total de solicitudes en la jornada
+        // $SolicitudesNormales = $request->match(['gobernador' => '']);
+        // $SolicitudesGobernador = $request->match(['gobernador' => '1']);
+        // $GobernadorSinFolio = $SolicitudesGobernador->match(['folio' => '','folio'=>null]);
+        // debug($activities->toArray());
+        // debug(count($peticionesAtendidas->toArray()));
+        // $this->set(compact('total_solicitudes','total_peticiones','municipios','SolicitudesGobernador','GobernadorSinFolio','GobernadorConFolio', 'SolicitudesNormales'));
 
-        $SolicitudesNormales = $request->match(['gobernador' => '']);
-
-        $SolicitudesGobernador = $request->match(['gobernador' => '1']);
-
-        $GobernadorSinFolio = $SolicitudesGobernador->match(['folio' => '','folio'=>null]);
-
-        $this->set(compact('total_solicitudes','municipios','SolicitudesGobernador','GobernadorSinFolio','GobernadorConFolio', 'SolicitudesNormales'));
 
     }
 
