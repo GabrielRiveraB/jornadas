@@ -9,26 +9,32 @@
     <h3><?= h($dependency->longname. ' (' .$dependency->name . ')') ?></h3>
 
     <div class="related">
-        <h4><?= __('Actividades asignadas') ?></h4>
+        <h4><?= __('Peticiones asignadas') ?></h4>
         <?php if (!empty($dependency->activities)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
+                <!-- <th scope="col"><?= __('Id') ?></th> -->
                 <th scope="col"><?= __('Request Id') ?></th>
-                <th scope="col"><?= __('Dependency Id') ?></th>
+                <!-- <th scope="col"><?= __('Dependency Id') ?></th> -->
                 <th scope="col"><?= __('Concept Id') ?></th>
                 <th scope="col"><?= __('Folio') ?></th>
-                <th scope="col"><?= __('Notes') ?></th>
+                <th scope="col"><?= __('Avance') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($dependency->activities as $activities): ?>
+                <!-- <?php debug($activities);?> -->
             <tr>
-                <td><?= h($activities->id) ?></td>
+                <!-- <td><?= h($activities->id) ?></td> -->
                 <td><?= h($activities->request_id) ?></td>
-                <td><?= h($activities->dependency_id) ?></td>
-                <td><?= h($activities->concept_id) ?></td>
+                <!-- <td><?= h($activities->dependency_id) ?></td> -->
+                <td><?= h($activities->concept->name) ?></td>
                 <td><?= h($activities->folio) ?></td>
-                <td><?= h($activities->notes) ?></td>
+                <!-- <td><?= h($activities->notes) ?></td> -->
+                <td>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                </td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Activities', 'action' => 'view', $activities->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Activities', 'action' => 'edit', $activities->id]) ?>

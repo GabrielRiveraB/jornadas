@@ -18,15 +18,17 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr class="thead-light">
-                        <th scope="col" colspan="4">Solicitudes sin clasificar</th>
+                        <th scope="col" colspan="4">Jornadas sin peticiones</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($solicitudes as $solicitud): ?>
                     <tr>
-                        <td><?php echo h($solicitud->cantidad); ?></td>
-                        <td colspan="3">
-                            <?php echo h($solicitud->jornada); ?><br>
+                        <!-- <td><?php echo h($solicitud->cantidad); ?></td> -->
+                        <td colspan="4">
+                            <?= $this->Html->link(h($solicitud->jornada), ['controller' => 'Journeys', 'action' => 'view', $solicitud->id]) ?>
+                            <!-- <?php echo h($solicitud->jornada); ?> -->
+                            <br>
                             <?php echo h(date("d-M-y", strtotime($solicitud->fecha))); ?>
                         </td>
                     </tr>

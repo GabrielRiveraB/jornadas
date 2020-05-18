@@ -7,16 +7,7 @@
 // $request = $request->toArray();
 // debug($request->toArray());
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Activities'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Requests'), ['controller' => 'Requests', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Request'), ['controller' => 'Requests', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Concepts'), ['controller' => 'Concepts', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Concept'), ['controller' => 'Concepts', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
+
 <div class="requests view large-9 medium-8 columns content">
     <h3 class="mb-0">Solicitud<?= h(' Folio '.$request->folio) ?></h3>
     <p class="mb-3">Jornada del <?= $request->journey->date ?> en <?= $request->has('journey') ? $this->Html->link($request->journey->ubicacion.', '.$request->journey->municipio, ['controller' => 'Journeys', 'action' => 'view', $request->journey->id]) : '' ?></p>

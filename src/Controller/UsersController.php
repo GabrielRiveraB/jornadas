@@ -181,13 +181,40 @@ class UsersController extends AppController
                 // Elementos necesarios para el dashboard del coordinador
 
                 // Listado de solicitudes sin categorizar
-                $solicitudes = $this->requests->find()->innerJoinWith('Journeys');
-                $solicitudes->select(['jornada'=>'journeys.ubicacion','cantidad' => $solicitudes->func()->count('*'),'fecha'=>'journeys.date']);
-                $solicitudes->where(['requests.request_status_id' => 1]);
-                $solicitudes->group(['requests.journey_id']);
-                $solicitudes->order(['cantidad'=>'DESC']);
-                $solicitudes->limit(5);
+                // $solicitudes = $this->requests->find()->innerJoinWith('Journeys');
+                // $solicitudes->select(['jornada'=>'journeys.ubicacion','cantidad' => $solicitudes->func()->count('*'),'fecha'=>'journeys.date']);
+                // $solicitudes->where(['requests.request_status_id' => 1]);
+                // $solicitudes->group(['requests.journey_id']);
+                // $solicitudes->order(['cantidad'=>'DESC']);
+                // $solicitudes->limit(5);
+                // $this->set(compact('solicitudes'));
+
+                // Listado de solicitudes sin categorizar
+                // $prueba = $this->journeys->find()->leftJoinWith('activities');
+                // $prueba->select(['jornada'=>'journeys.ubicacion','cantidad' => $prueba->func()->count('*')]);
+                
+                // $prueba->group(['journeys.id']);
+
+
+                $solicitudes = $this->journeys->find()->group(['id']);
+                $solicitudes = $solicitudes ->
+                $solicitudes = $solicitudes ->join([
+                    'activities' => [
+                        'table' => 'activities',
+                        'type' => 'LEFT',
+                        'conditions' => 'journeys.id = activities.journey_id',
+                    ]
+                ])
+                ->where(['activities.id IS '=>null])
+                ->select(['id'=>'journeys.id','jornada'=>'journeys.ubicacion','cantidad' => $solicitudes->func()->count('*'),'fecha'=>'journeys.date'])
+                ->order(['cantidad'=>'DESC'])
+                ->limit(5);
                 $this->set(compact('solicitudes'));
+
+                // debug($solicitudes->toArray());
+
+
+
 
                 // Listado de ultimas actualizaciones
                 $updates = $this->requestupdates->find()->innerJoinWith('Requests');
@@ -239,7 +266,34 @@ class UsersController extends AppController
 
     public function results()
     {
+        // debug($this->request->data('searchkey'));
+        $this->loadModel("journeys");
+        $this->loadModel("requests");
+        $this->loadModel("requestupdates");
+        $this->loadModel("activities");
+        $this->loadModel("petitioners");
+
+        // BUSQUEDA POR FOLIO
+        $folios = $this->requests->find();
+        $folios->where(['requests.folio' =>$this->request->data('searchkey')]);  
+        $folios->order(['requests.folio'=>'DESC']);
+        $folios->contain(['journeys','petitioners']);
+        $this->set(compact('folios'));   
+
+        // BUSQUEDA POR NOMBRE DEL SOLICITANTE
+        $nombres = $this->requests->find()->innerJoinWith('Petitioners');
+        $nombres->where(['petitioners.name LIKE' => "%".$this->request->data('searchkey')."%"]);
+        $nombres->contain(['journeys','petitioners']);
+        // debug($nombres->toArray());
+        $this->set(compact('nombres'));
+
+        // BUSQUEDA POR SOLICITUD
+        $solicitud = $this->requests->find();
+        $solicitud->where(['requests.description LIKE' => "%".$this->request->data('searchkey')."%"]);
+        $solicitud->contain(['journeys','petitioners']);
+        // debug($solicitud->toArray());
+        $this->set(compact('solicitud'));
 
     }
-
+// 
 }

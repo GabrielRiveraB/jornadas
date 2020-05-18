@@ -37,7 +37,9 @@ endforeach;
   <?= $this->Form->create(null, ['url' => ['controller' => 'Users','action' => 'results']]) ?>  
   <div class="row p-0">
         <div class="input-group col-sm-12">
-              <input type="text" minlength="3" class="form-control bg-light border-0 small" placeholder="Buscar registros..." aria-label="Search" aria-describedby="basic-addon2" required>
+              <input type="text" minlength="3" class="form-control bg-light border-0 small" 
+              placeholder="Buscar solicitudes por folio, nombre del solicitante o tema" 
+              aria-label="Search" aria-describedby="basic-addon2" required name="searchkey">
               <div class="input-group-append">
                 
                 <button class="btn btn-primary" type="submit">

@@ -35,9 +35,7 @@ endforeach;
 <div class="journeys view large-9 medium-8 columns content">
     <h3 class="mb-0"><strong> Solicitudes de la Jornada <?= h($journey->ubicacion . ", " .$journey->municipio) ?></strong></h3>
     <p><?= "Día " . date("d-M-y", strtotime($journey->date)) . " | De las " . date("H:i A", strtotime($journey->horainicio)) . " a las " . date("H:i A", strtotime($journey->horatermino)) ?></p>
-    
-    <?php if (isset($current_user['role']) && $current_user['role'] === 'Secretaria') { ?>
-        <div class="row">
+    <div class="row">
             <div class="small-6 medium-3 columns">
             <h2><strong><?= $total_solicitudes ?></h2></strong>solicitudes
             </div>
@@ -50,7 +48,10 @@ endforeach;
             <div class="small-6 medium-3 columns">
             <h2><strong><?= $total_peticionesAtendidas ?></h2></strong> atendidas
             </div>
-        </div>
+        </div> 
+    
+    <?php if (isset($current_user['role']) && $current_user['role'] === 'Secretaria') { ?>
+
         <div class="row">        
         <div class="card-body">
               <div class="table-responsive">
@@ -254,7 +255,7 @@ endforeach;
     <?php } else { ?>
     
     
-    <?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add', $journey->id],['class'=>'btn btn-info mr-3']) ?>
+    <?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add', $journey->id],['class'=>'btn btn-info mt-4']) ?>
 
     <?php } ?>
 </div>
@@ -266,10 +267,11 @@ endforeach;
     <table class="table table-striped table-bordered table-hover" id="myTable">
         <thead class="thead-light">
             <tr>
-                <th style="width: 15%">Folio</th>
+                <th style="width: 10%">Folio</th>
                 
-                <th style="width: 65%">Solicitante</th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <th style="width: 45%">Solicitante</th>
+                <th style="width: 15%">Peticiones</th>
+                <th scope="col" class="actions" style="width: 30%"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -283,7 +285,8 @@ endforeach;
             </td>
 
             
-            <td><?= $this->Html->link($request->petitioner->name, ['controller' => 'Petitioners', 'action' => 'view', $request->petitioner->id]) ?></td>
+            <td><?= $this->Html->link($request->petitioner->name, ['controller' => 'requests', 'action' => 'view', $request->id]) ?></td>
+            <td class="text-center"><?= $this->Html->link($request->activities[0]['cantidad'], ['controller' => 'requests', 'action' => 'view', $request->id]) ?></td>
                 <!-- <td><?= $request->has('concept') ? $this->Html->link($request->concept->name, ['controller' => 'Concepts', 'action' => 'view', $request->concept->id]) : '' ?></td> -->
                 <td class="actions">
                     <?php if (isset($current_user['role']) && $current_user['role'] === 'Coordinador') { ?>

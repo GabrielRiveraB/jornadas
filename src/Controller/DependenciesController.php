@@ -53,7 +53,7 @@ class DependenciesController extends AppController
     public function view($id = null)
     {
         $dependency = $this->Dependencies->get($id, [
-            'contain' => ['Activities'],
+            'contain' => ['Activities','Activities.Concepts'],
         ]);
 
         $this->set('dependency', $dependency);

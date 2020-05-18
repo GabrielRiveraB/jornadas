@@ -30,6 +30,16 @@ class ActivitiesController extends AppController
         }
 
     }
+
+    if ( isset($user['role']) and $user['role'] == "Secretaria" ) {
+
+        if(in_array($this->request->action, ['show']))
+        {
+            return true;
+        }
+
+    }
+
         return parent::isAuthorized($user);
     }
     /**
@@ -160,4 +170,31 @@ class ActivitiesController extends AppController
         $concepts = $this->Activities->Concepts->find('list', ['limit' => 200]);
         $this->set(compact('rid','activity', 'request', 'dependencies', 'concepts'));
     }
+
+    /**
+     * Show method
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function show($type = null)
+    {   
+        if($type == "pavimentacion") { $concept_id = 25; $titulo = "pavimentación";}
+        if($type == "espacios") { $concept_id = 30; $titulo = "espacios públicos";}
+        if($type == "regularizacion") { $concept_id = 29; $titulo = "regularización";}
+
+        $actividades = $this->Activities->find()->where(['concept_id' => $concept_id ]);
+        $actividades = $actividades->contain(['journeys','dependencies']);
+        $actividades = $actividades->group(['activities.journey_id']);
+        debug($actividades->toArray());
+        $this->set('activities', $this->paginate($actividades));
+
+        // $this->paginate = [
+        //     'contain' => ['Requests', 'Dependencies', 'Concepts'],
+        //     'where' => ''
+        // ];
+        // $activities = $this->paginate($this->Activities,[''=>'']);
+
+        $this->set(compact('titulo'));
+    }
+
 }

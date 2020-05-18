@@ -6,12 +6,12 @@
             <li><?= $this->Html->link(__('Solicitudes'), ['controller' => 'Requests', 'action' => 'index']) ?></li>
             <li><?= $this->Html->link(__('Dependencias'), ['controller' => 'Dependencies', 'action' => 'index']) ?></li>
             <li><?= $this->Html->link(__('Categorías'), ['controller' => 'Concepts', 'action' => 'index']) ?></li>
-            <li><?= $this->Html->link(__('Reportes'), ['action' => 'index']) ?></li>
+            <!-- <li><?= $this->Html->link(__('Reportes'), ['action' => 'index']) ?></li> -->
             <li><?= $this->Html->link(__('Salir'), ['controller' => 'Users', 'action' => 'logout']) ?></li>
         </ul>
     </div>
 
-    <div class="card mt-3">
+    <!-- <div class="card mt-3">
         <ul class="side-nav">
             <li><?= $this->Html->link(__('Pavimentacion'), ['action' => 'index']) ?></li>
         </ul>
@@ -27,5 +27,5 @@
         <ul class="side-nav">
             <li><?= $this->Html->link(__('Regularización'), ['action' => 'index']) ?></li>
         </ul>
-    </div>          
+    </div>           -->
 </nav>

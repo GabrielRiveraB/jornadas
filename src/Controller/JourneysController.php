@@ -150,7 +150,15 @@ class JourneysController extends AppController
     public function view($id = null)
     {
         $journey = $this->Journeys->get($id, [
-            'contain' => ['Requests','Requests.Petitioners','Requests.requeststatuses','Works'],
+            'contain' => ['Requests','Requests.Petitioners','Requests.requeststatuses','Works','Requests.activities' => function ($q) {
+                return $q->select(
+                    [
+                        
+                        'request_id',
+                        'cantidad' => $q->func()->count('*')
+                   ])
+                   ->group(['request_id']);
+               }],
         ]);
 
         $this->set('journey', $journey);
@@ -161,7 +169,11 @@ class JourneysController extends AppController
         $this->loadModel('Requests');
         $request = $this->Requests->find('all', ['conditions' => ['journey_id' =>$id]]);
         $total_solicitudes = count($request->toArray());
-        
+        // debug($request->toArray());
+
+
+
+
         // TOTAL DE PETICIONES
         $this->loadModel('Activities');
         $activities = $this->Activities->find('all', [

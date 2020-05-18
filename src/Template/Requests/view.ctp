@@ -65,7 +65,7 @@
     </div>
 
     <div class="related">
-        <h4><?= __('Actividades') ?></h4>
+        <h4><?= __('Peticiones') ?></h4>
         <?php if (!empty($request->activities)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
@@ -81,6 +81,10 @@
                     <?= $this->Html->link(__('View'), ['controller' => 'Activities', 'action' => 'view', $activity->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Activities', 'action' => 'edit', $activity->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['controller' => 'Activities', 'action' => 'delete', $activity->id], ['confirm' => __('Are you sure you want to delete # {0}?', $activity->id)]) ?>
+
+                    <?= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-lg fa-eye pr-1')), array('action' => 'view', $dependency->id), array('escape' => false)) ?>                  
+                    <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-lg fa-trash')), array('action' => 'delete', $dependency->id), array('escape' => false), __('Deseas eliminar esta dependencia?')); ?>
+
                 </td>
             </tr>
             <?php endforeach; ?>
