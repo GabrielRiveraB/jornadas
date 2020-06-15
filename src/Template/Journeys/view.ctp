@@ -2,9 +2,10 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Journey $journey
+ * @var \App\Model\Entity\journeys $journeys
  */
 
-$resumen = [['id'=>'','ubicacion'=>'','municipio'=>'','pavimentacion'=>0,'regularizacion'=>0,'espacios'=>0,'otros'=>0]];
+$resumen = [['id'=>'','ubicacion'=>'','municipio'=>0,'pavimentacion'=>0,'regularizacion'=>0,'espacios'=>0,'otros'=>0]];
 $contador = 0;
 $jornadaprevia = '';
 
@@ -17,10 +18,12 @@ foreach ($actividades as $actividad):
     }
     $resumen[$contador]['id']=$actividad->id;
     $resumen[$contador]['ubicacion']=$actividad->jornada;
-    $resumen[$contador]['municipio']=$actividad->mun;
+    $resumen[$contador]['municipio']=$actividad->mun; 
+    $resumen[$contador]['dependencia']=$actividad->dep;
+
     if($actividad->concepto=='PAVIMENTACIÓN') {
         $resumen[$contador]['pavimentacion']=$actividad->cantidad;
-    } elseif($actividad->concepto=='REGULARIZACIÓN') {
+    } elseif($actividad->concepto=='REGULARIZACIÓN'){
         $resumen[$contador]['regularizacion']=$actividad->cantidad;
     } elseif($actividad->concepto=='REHABILITACIÓN DE ESPACIOS PÚBLICOS') {
         $resumen[$contador]['espacios']=$actividad->cantidad;
@@ -54,18 +57,26 @@ endforeach;
 
         <div class="row">        
         <div class="card-body">
+              
+             
+             
+             
               <div class="table-responsive">
                 <table class="table table-bordered table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr class="bg-danger">
-                        <th colspan="7" class="text-left text-white">PAVIMENTACIONES</th>
+                        <th colspan="9 " class="text-left text-white">PAVIMENTACIONES</th>
                         <th colspan="2" class="text-center text-white"><?= $totalPavimentaciones . " EN TOTAL" ?></th>
                     </tr>
                     <tr class="table-secondary">
-                      <th class="text-center" style="width: 2%">SOL</th>
+                      <th class="text-center" style="width: 2%">No. DE SOL. </th>
                       <th class="text-center" style="width: 10%">FOLIO</th>
-                      <th class="text-center" style="width: 30%">TIPO</th>
+                       <th class="text-center" style="width: 30%">TIPO</th>
                       <th class="text-center" style="width: 26%">ESTATUS</th>
+
+                      <th class="text-center" style="width: 36%">ASIGNADA A</th>
+                      <th class="text-center" style="with:  36%">UBICACION</th>
+
                       <th class="text-center" style="width: 16%">ML</th>
                       <th class="text-center" style="width: 10%">MDP</th>
                       <th class="text-center" style="width: 2%">PROY</th>
@@ -80,12 +91,18 @@ endforeach;
                       <td class="text-center"><?= $pavimentacion->request['folio'] ?  $pavimentacion->request['folio'] : ""; ?></td>
                       <td class="text-center"><?= $pavimentacion->concept['name'] ?  $pavimentacion->concept['name'] : ""; ?></td>
                       <td class="text-center"><?= $pavimentacion->status ?></td>
+                     
+                     
+                     <td class="text-center"><?= $pavimentacion->dependencies['name'] ? $pavimentacion->dependenciess['name'] : "" ; ?></td>
+                      <td class="text-center"><?= $pavimentacion->journeys['ubicacion'] ? $pavimentacion->journeys['ubicacion'] : "" ; ?></td>
+
                       <td class="text-center"></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
                     </tr>
+
                 <?php endforeach; ?>
                   </tbody>
                   <!-- <tfoot>
@@ -102,19 +119,22 @@ endforeach;
               </div>
             </div>
 
+          
+          
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr class="bg-danger">
-                        <th colspan="7" class="text-left text-white">ESPACIOS PÚBLICOS</th>
+                        <th colspan="8" class="text-left text-white">ESPACIOS PÚBLICOS</th>
                         <th colspan="2" class="text-center text-white"><?= $totalEspaciosPublicos . " EN TOTAL" ?></th>
                     </tr>
                     <tr class="table-secondary">
-                      <th class="text-center" style="width: 5%">SOL</th>
+                      <th class="text-center" style="width: 5%">No. DE SOL.	</th>
                       <th class="text-center" style="width: 10%">FOLIO</th>
                       <th class="text-center" style="width: 20%">TIPO</th>
                       <th class="text-center" style="width: 30%">ESTATUS</th>
+                      <th class="text-center" style="width: 30%">UBICACION</th>
                       <th class="text-center" style="width: 5%">ML</th>
                       <th class="text-center" style="width: 10%">MDP</th>
                       <th class="text-center" style="width: 5%">PROY</th>
@@ -129,6 +149,8 @@ endforeach;
                       <td class="text-center"><?= $espacio->request['folio'] ?  $espacio->request['folio'] : ""; ?></td>
                       <td class="text-center"><?= $espacio->concept['name'] ?  $espacio->concept['name'] : ""; ?></td>
                       <td class="text-center"><?= $espacio->status ?></td>
+                      <td class="text-center"><?= $espacio->activities['ubicacion'] ? $espacio->activities['ubicacion'] : ""; ?></td>
+                      
                       <td class="text-center"></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
@@ -157,14 +179,15 @@ endforeach;
                 <table class="table table-bordered table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr class="bg-danger">
-                        <th colspan="7" class="text-left text-white">REGULARIZACIÓN</th>
+                        <th colspan="8" class="text-left text-white">REGULARIZACIÓN</th>
                         <th colspan="2" class="text-center text-white"><?= $totalRegularizaciones . " EN TOTAL" ?></th>
                     </tr>
                     <tr class="table-secondary">
-                      <th class="text-center" style="width: 5%">SOL</th>
+                      <th class="text-center" style="width: 5%">No. DE SOL.	</th>
                       <th class="text-center" style="width: 10%">FOLIO</th>
                       <th class="text-center" style="width: 20%">TIPO</th>
                       <th class="text-center" style="width: 30%">ESTATUS</th>
+                      <th class="text-center" style="width: 35%">UBICACION</th>
                       <th class="text-center" style="width: 5%">ML</th>
                       <th class="text-center" style="width: 10%">MDP</th>
                       <th class="text-center" style="width: 5%">PROY</th>
@@ -179,6 +202,7 @@ endforeach;
                       <td class="text-center"><?= $regularizacion->request['folio'] ?  $regularizacion->request['folio'] : ""; ?></td>
                       <td class="text-center"><?= $regularizacion->concept['name'] ?  $regularizacion->concept['name'] : ""; ?></td>
                       <td class="text-center"><?= $regularizacion->status ?></td>
+                      <td class="text-center"><?= $regularizacion->journeys['ubicacion'] ? $regularizacion->joutneys['ubicacion'] : ""; ?></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
@@ -207,14 +231,15 @@ endforeach;
                 <table class="table table-bordered table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr class="bg-danger">
-                        <th colspan="7" class="text-left text-white">OTROS</th>
+                        <th colspan="8" class="text-left text-white">OTROS</th>
                         <th colspan="2" class="text-center text-white"><?= $totalOtros . " EN TOTAL" ?></th>
                     </tr>
                     <tr class="table-secondary">
-                      <th class="text-center" style="width: 5%">SOL</th>
+                      <th class="text-center" style="width: 5%">No. DE SOL.</th>
                       <th class="text-center" style="width: 10%">FOLIO</th>
                       <th class="text-center" style="width: 20%">TIPO</th>
                       <th class="text-center" style="width: 30%">ESTATUS</th>
+                      <th class="text-center" style="width: 35%">UBICACION</th>
                       <th class="text-center" style="width: 5%">ML</th>
                       <th class="text-center" style="width: 10%">MDP</th>
                       <th class="text-center" style="width: 5%">PROY</th>
@@ -228,7 +253,9 @@ endforeach;
                       <td class="text-center"></td>
                       <td class="text-center"><?= $otro->request['folio'] ?  $otro->request['folio'] : ""; ?></td>
                       <td class="text-center"><?= $otro->concept['name'] ?  $otro->concept['name'] : ""; ?></td>
-                      <td class="text-center"><?= $otro->status ?></td>
+                     <td class="text-center"><?= $otro->status ?></td>
+                     <td class="text-center"><?= $otro->jourleys['ubicacion'] ?  $otro->jourleys['ubicacion'] : ""; ?></td>
+                      <td class="text-center"></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
@@ -252,6 +279,9 @@ endforeach;
               </div>
             </div>            
         </div>
+
+
+
     <?php } else { ?>
     
     
@@ -275,6 +305,7 @@ endforeach;
             </tr>
         </thead>
         <tbody>
+           
             <?php foreach ($journey->requests as $request): ?>
             <tr>
             <td> <?php if($request->folio) { ?>
@@ -289,13 +320,19 @@ endforeach;
             <td class="text-center"><?= $this->Html->link($request->activities[0]['cantidad'], ['controller' => 'requests', 'action' => 'view', $request->id]) ?></td>
                 <!-- <td><?= $request->has('concept') ? $this->Html->link($request->concept->name, ['controller' => 'Concepts', 'action' => 'view', $request->concept->id]) : '' ?></td> -->
                 <td class="actions">
+
                     <?php if (isset($current_user['role']) && $current_user['role'] === 'Coordinador') { ?>
-                    <?= $this->Html->link(__('Canalizar'), ['controller'=>'activities','action' => 'create', $request->id]) ?>
+                    <?= $this->Html->link(__('Turnar'), ['controller'=>'activities','action' => 'create', $request->id]) ?>
                     <?php } ?>
                     <?= $this->Html->link(__('Editar'), ['action' => 'edit', $request->id]) ?>
                     <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $request->id], ['confirm' => __('Estas seguro?', $request->id)]) ?>
                 </td>
-            </tr>
+            
+
+           
+<tr>
+
+
             <?php endforeach; ?>
         </tbody>
     </table>

@@ -42,5 +42,6 @@ class Activity extends Entity
         'status' => true,
         'created' => true,
         'modified' => true,
+        'ubicacion' => true,
     ];
 }

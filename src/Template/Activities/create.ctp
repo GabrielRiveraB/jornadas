@@ -67,13 +67,16 @@
 <div class="activities form large-9 medium-8 columns content">
     <?= $this->Form->create($activity) ?>
     <fieldset>
-        <legend><?= __('Canalizar a') ?></legend>
+        <legend><?= __('Turnar a') ?></legend>
         <?php
             echo $this->Form->control('request_id', ['type' => 'hidden','value'=>$rid]);
             echo $this->Form->control('dependency_id',['label'=>'Dependencia']);
             echo $this->Form->control('concept_id', ['label'=>'Categoría','options' => $concepts, 'empty' => true]);
+            echo $this->Form->control('ubicacion', ['label'=>'Ubicación']);
             // echo $this->Form->control('folio');
             echo $this->Form->control('notes',['label'=>'Comentarios','type'=>'textarea']);
+
+
         ?>
     </fieldset>
     <?= $this->Form->button(__('Guardar')) ?>

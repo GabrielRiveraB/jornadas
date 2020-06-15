@@ -25,7 +25,9 @@
                 <th scope="col"><?= $this->Paginator->sort('concept_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('folio') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('notes') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('ubicacion') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
+              
             </tr>
         </thead>
         <tbody>
@@ -37,6 +39,7 @@
                 <td><?= $activity->has('concept') ? $this->Html->link($activity->concept->name, ['controller' => 'Concepts', 'action' => 'view', $activity->concept->id]) : '' ?></td>
                 <td><?= $this->Number->format($activity->folio) ?></td>
                 <td><?= h($activity->notes) ?></td>
+                <td><?= h ($activity->ubicacion) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $activity->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $activity->id]) ?>

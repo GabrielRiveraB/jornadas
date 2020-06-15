@@ -12,6 +12,7 @@ use Cake\ORM\Entity;
  * @property int|null $dependency_id
  * @property \Cake\I18n\FrozenDate|null $created
  * @property \Cake\I18n\FrozenDate|null $modified
+ * @property \Cake\I18n\FrozenDate|null $ubicacion
  * @property bool|null $status
  */
 class Promoter extends Entity

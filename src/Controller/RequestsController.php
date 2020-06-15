@@ -14,7 +14,7 @@ class RequestsController extends AppController
 {
     public function isAuthorized($user)
     {
-        if(in_array($this->request->action, ['index','view','add','edit']))
+        if(in_array($this->request->action, ['index','view','add','edit','btns']))
         {
             return true;
         }
@@ -222,4 +222,15 @@ class RequestsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    /** 
+    *add method
+  *   @param string|null $id Request id.
+  * @return \Cake\Http\Response|null Redirects to index
+  * @throws \Cake\Datasource\Exception\RecorNotFoundException when record not found.
+*/
+public gunction btns($id = null)
+{
+    $this->Requests->get($id);
+    if ($this->Request)
+}
 }

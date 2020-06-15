@@ -1,3 +1,4 @@
+
 <?php
 $municipio = "";
 $sinfolio = $confolio = 0;
@@ -151,3 +152,5 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
 //     });
 // }
 </script>
+
+
