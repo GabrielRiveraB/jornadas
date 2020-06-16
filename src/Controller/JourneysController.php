@@ -180,6 +180,7 @@ class JourneysController extends AppController
             'conditions' => ['Activities.journey_id' =>$id],
             'contain'=> ['Requests','Concepts'],
         ]);
+        
         $total_peticiones = count($activities->toArray());
 
         // PETICIONES ORDENADAS POR CATEGORIA
@@ -211,7 +212,7 @@ class JourneysController extends AppController
         $totalEspaciosPublicos = count($espaciosPublicos->toArray());
         $totalRegularizaciones = count($regularizaciones->toArray());
         $totalOtros = count($otros->toArray());      
-
+        
         $this->set(compact('totalPavimentaciones','totalEspaciosPublicos','totalRegularizaciones','totalOtros'));
 
 

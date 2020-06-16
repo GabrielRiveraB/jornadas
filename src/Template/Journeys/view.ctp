@@ -94,7 +94,7 @@ endforeach;
                      
                      
                      <td class="text-center"><?= $pavimentacion->dependencies['name'] ? $pavimentacion->dependenciess['name'] : "" ; ?></td>
-                      <td class="text-center"><?= $pavimentacion->journeys['ubicacion'] ? $pavimentacion->journeys['ubicacion'] : "" ; ?></td>
+                      <td class="text-center"><?= $pavimentacion->ubicacion ? $pavimentacion->ubicacion : "" ; ?></td>
 
                       <td class="text-center"></td>
                       <td class="text-center"></td>

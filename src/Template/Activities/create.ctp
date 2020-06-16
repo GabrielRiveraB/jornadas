@@ -7,7 +7,7 @@
 // $request = $request->toArray();
 // debug($request->toArray());
 ?>
-
+<?php debug($request); ?>
 <div class="requests view large-9 medium-8 columns content">
     <h3 class="mb-0">Solicitud<?= h(' Folio '.$request->folio) ?></h3>
     <p class="mb-3">Jornada del <?= $request->journey->date ?> en <?= $request->has('journey') ? $this->Html->link($request->journey->ubicacion.', '.$request->journey->municipio, ['controller' => 'Journeys', 'action' => 'view', $request->journey->id]) : '' ?></p>
@@ -73,6 +73,7 @@
             echo $this->Form->control('dependency_id',['label'=>'Dependencia']);
             echo $this->Form->control('concept_id', ['label'=>'Categoría','options' => $concepts, 'empty' => true]);
             echo $this->Form->control('ubicacion', ['label'=>'Ubicación']);
+            echo $this->Form->control('journey_id', ['type'=>'hidden','value'=>$request->journey_id]);
             // echo $this->Form->control('folio');
             echo $this->Form->control('notes',['label'=>'Comentarios','type'=>'textarea']);
 

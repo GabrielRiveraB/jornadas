@@ -222,15 +222,16 @@ class RequestsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
     /** 
     *add method
-  *   @param string|null $id Request id.
-  * @return \Cake\Http\Response|null Redirects to index
-  * @throws \Cake\Datasource\Exception\RecorNotFoundException when record not found.
-*/
-public gunction btns($id = null)
-{
-    $this->Requests->get($id);
-    if ($this->Request)
-}
+    *   @param string|null $id Request id.
+    * @return \Cake\Http\Response|null Redirects to index
+    * @throws \Cake\Datasource\Exception\RecorNotFoundException when record not found.
+    */
+    public function btns($id = null)
+    {
+        $this->Requests->get($id);
+        // if ($this->Request)
+    }
 }
