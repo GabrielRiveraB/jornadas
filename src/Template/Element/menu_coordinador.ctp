@@ -13,7 +13,7 @@
       
 <div class="card large-12 medium-81 columns pt-8">
 <ul class="side-nav">
-<li><?= $this->Html->link(__('Pavimentacion'),['controller' => 'Requests','action'=> 'btns']) ?> </li>
+<li><?= $this->Html->link(__('Pavimentacion'),['controller' => 'Journeys','action'=> 'btns']) ?> </li>
 <li><?= $this->Html->link(__('Espacios Publicos'),['controller'=> 'Journeys','action' => 'index']) ?></li>
 <li><?= $this->Html->link(__('Regularización'),['controller'=>'Requests','action' => '']) ?></li>
     </div>

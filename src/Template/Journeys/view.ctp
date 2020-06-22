@@ -71,7 +71,7 @@ endforeach;
                     <tr class="table-secondary">
                       <th class="text-center" style="width: 2%">No. DE SOL. </th>
                       <th class="text-center" style="width: 10%">FOLIO</th>
-                       <th class="text-center" style="width: 30%">TIPO</th>
+                       <th class="text-center" style="width: 36%">TIPO</th>
                       <th class="text-center" style="width: 26%">ESTATUS</th>
 
                       <th class="text-center" style="width: 36%">ASIGNADA A</th>
@@ -79,7 +79,7 @@ endforeach;
 
                       <th class="text-center" style="width: 16%">ML</th>
                       <th class="text-center" style="width: 10%">MDP</th>
-                      <th class="text-center" style="width: 2%">PROY</th>
+                      <th class="text-center" style="width: 2%">PROY</th> 
                       <th class="text-center" style="width: 2%">LICI</th>
                       <th class="text-center" style="width: 2%">EJEC</th>
                     </tr>
@@ -93,8 +93,8 @@ endforeach;
                       <td class="text-center"><?= $pavimentacion->status ?></td>
                      
                      
-                     <td class="text-center"><?= $pavimentacion->dependencies['name'] ? $pavimentacion->dependenciess['name'] : "" ; ?></td>
-                      <td class="text-center"><?= $pavimentacion->ubicacion ? $pavimentacion->ubicacion : "" ; ?></td>
+                      <td class="text-center"><?= $pavimentacion->dependency_id?></td>
+                      <td class="text-center"><?= $pavimentacion->ubicacion ?></td>
 
                       <td class="text-center"></td>
                       <td class="text-center"></td>
@@ -126,7 +126,7 @@ endforeach;
                 <table class="table table-bordered table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr class="bg-danger">
-                        <th colspan="8" class="text-left text-white">ESPACIOS PÚBLICOS</th>
+                        <th colspan="9" class="text-left text-white">ESPACIOS PÚBLICOS</th>
                         <th colspan="2" class="text-center text-white"><?= $totalEspaciosPublicos . " EN TOTAL" ?></th>
                     </tr>
                     <tr class="table-secondary">
@@ -134,6 +134,7 @@ endforeach;
                       <th class="text-center" style="width: 10%">FOLIO</th>
                       <th class="text-center" style="width: 20%">TIPO</th>
                       <th class="text-center" style="width: 30%">ESTATUS</th>
+                      <th class="text-center" style="width: 36%">ASIGNADA A</th>
                       <th class="text-center" style="width: 30%">UBICACION</th>
                       <th class="text-center" style="width: 5%">ML</th>
                       <th class="text-center" style="width: 10%">MDP</th>
@@ -149,7 +150,8 @@ endforeach;
                       <td class="text-center"><?= $espacio->request['folio'] ?  $espacio->request['folio'] : ""; ?></td>
                       <td class="text-center"><?= $espacio->concept['name'] ?  $espacio->concept['name'] : ""; ?></td>
                       <td class="text-center"><?= $espacio->status ?></td>
-                      <td class="text-center"><?= $espacio->activities['ubicacion'] ? $espacio->activities['ubicacion'] : ""; ?></td>
+                      <td class="text-center"><?= $espacio->dependency_id?></td>
+                      <td class="text-center"><?= $espacio->ubicacion ?></td>
                       
                       <td class="text-center"></td>
                       <td class="text-center"></td>
@@ -179,7 +181,7 @@ endforeach;
                 <table class="table table-bordered table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr class="bg-danger">
-                        <th colspan="8" class="text-left text-white">REGULARIZACIÓN</th>
+                        <th colspan="9" class="text-left text-white">REGULARIZACIÓN</th>
                         <th colspan="2" class="text-center text-white"><?= $totalRegularizaciones . " EN TOTAL" ?></th>
                     </tr>
                     <tr class="table-secondary">
@@ -187,6 +189,7 @@ endforeach;
                       <th class="text-center" style="width: 10%">FOLIO</th>
                       <th class="text-center" style="width: 20%">TIPO</th>
                       <th class="text-center" style="width: 30%">ESTATUS</th>
+                      <td class="text-center" style="width: 36%">ASIGNADA A</td>
                       <th class="text-center" style="width: 35%">UBICACION</th>
                       <th class="text-center" style="width: 5%">ML</th>
                       <th class="text-center" style="width: 10%">MDP</th>
@@ -202,7 +205,8 @@ endforeach;
                       <td class="text-center"><?= $regularizacion->request['folio'] ?  $regularizacion->request['folio'] : ""; ?></td>
                       <td class="text-center"><?= $regularizacion->concept['name'] ?  $regularizacion->concept['name'] : ""; ?></td>
                       <td class="text-center"><?= $regularizacion->status ?></td>
-                      <td class="text-center"><?= $regularizacion->journeys['ubicacion'] ? $regularizacion->joutneys['ubicacion'] : ""; ?></td>
+                      <td class="text-center"><?= $regularizacion->dependency_id?></td>
+                      <td class="text-center"><?= $regularizacion->ubicacion ?></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
@@ -231,7 +235,7 @@ endforeach;
                 <table class="table table-bordered table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr class="bg-danger">
-                        <th colspan="8" class="text-left text-white">OTROS</th>
+                        <th colspan="9" class="text-left text-white">OTROS</th>
                         <th colspan="2" class="text-center text-white"><?= $totalOtros . " EN TOTAL" ?></th>
                     </tr>
                     <tr class="table-secondary">
@@ -239,6 +243,7 @@ endforeach;
                       <th class="text-center" style="width: 10%">FOLIO</th>
                       <th class="text-center" style="width: 20%">TIPO</th>
                       <th class="text-center" style="width: 30%">ESTATUS</th>
+                      <td class="tezt-center" style="width: 36%"> ASIGNADA A </th>
                       <th class="text-center" style="width: 35%">UBICACION</th>
                       <th class="text-center" style="width: 5%">ML</th>
                       <th class="text-center" style="width: 10%">MDP</th>
@@ -254,13 +259,15 @@ endforeach;
                       <td class="text-center"><?= $otro->request['folio'] ?  $otro->request['folio'] : ""; ?></td>
                       <td class="text-center"><?= $otro->concept['name'] ?  $otro->concept['name'] : ""; ?></td>
                      <td class="text-center"><?= $otro->status ?></td>
-                     <td class="text-center"><?= $otro->jourleys['ubicacion'] ?  $otro->jourleys['ubicacion'] : ""; ?></td>
+
+                   <td class="text-center"><?= $otro->dependency_id?></td>
+                     <td class="text-center"><?= $otro->ubicacion ?></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
-                      <td class="text-center"></td>
+                      
                     </tr>
                 <?php endforeach; ?>
                   
@@ -305,7 +312,10 @@ endforeach;
             </tr>
         </thead>
         <tbody>
-           
+       
+        
+
+                 
             <?php foreach ($journey->requests as $request): ?>
             <tr>
             <td> <?php if($request->folio) { ?>
@@ -315,10 +325,32 @@ endforeach;
             <?php } ?>
             </td>
 
+
+
+
+
+           
+            <?php $this->loadModel('Activities');
+            $activities = $this->Activities->find('all',
+            ['conditions'=> ['Activities.dependency_id' => $id],
+            'contain' => ['dependencies','Requests'],
+            ]);?>
+
+
+
+
+
+
+
             
             <td><?= $this->Html->link($request->petitioner->name, ['controller' => 'requests', 'action' => 'view', $request->id]) ?></td>
+            
             <td class="text-center"><?= $this->Html->link($request->activities[0]['cantidad'], ['controller' => 'requests', 'action' => 'view', $request->id]) ?></td>
-                <!-- <td><?= $request->has('concept') ? $this->Html->link($request->concept->name, ['controller' => 'Concepts', 'action' => 'view', $request->concept->id]) : '' ?></td> -->
+            <td class="text-center"><?= $this->Html->link($request->dependencies[0]['cantidad'], ['controller' => 'requests','action' => 'view', $request->id]) ?></td>              ])
+            
+            <!-- <td><?= $request->has('concept') ? $this->Html->link($request->concept->name, ['controller' => 'Concepts', 'action' => 'view', $request->concept->id]) : '' ?></td> -->
+               
+               
                 <td class="actions">
 
                     <?php if (isset($current_user['role']) && $current_user['role'] === 'Coordinador') { ?>
@@ -329,13 +361,22 @@ endforeach;
                 </td>
             
 
-           
+                
+            
+            
+              
 <tr>
 
 
+
             <?php endforeach; ?>
+            
+           
+
+
         </tbody>
     </table>
     </div>
 </div>
+
 <?php } ?>

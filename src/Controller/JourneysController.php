@@ -8,15 +8,20 @@ use App\Controller\AppController;
  *
  * @property \App\Model\Table\JourneysTable $Journeys
  *
- * @method \App\Model\Entity\Journey[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\Journey[]|\Cake\Datasource\ResultSe    tInterface paginate($object = null, array $settings = [])
  */
 class JourneysController extends AppController
 {
+    public function btns()
+    {
+
+    }
+
     public function isAuthorized($user)
     {
         if ( isset($user['role']) and $user['role'] == "Administrador" ) {
 
-        if(in_array($this->request->action, ['index','view']))
+        if(in_array($this->request->action, ['index','view','btns']))
         {
             return true;
         }
@@ -50,7 +55,7 @@ class JourneysController extends AppController
 
     if ( isset($user['role']) and $user['role'] == "Coordinador" ) {
 
-        if(in_array($this->request->action, ['index','view','edit','add']))
+        if(in_array($this->request->action, ['index','view','edit','add','btns']))
         {
             return true;
         }
