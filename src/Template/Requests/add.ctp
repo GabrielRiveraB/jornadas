@@ -16,13 +16,26 @@ $solicitantes = $solicitantes->toArray();
           <div class="col-6 pl-0">
             <?php echo $this->Form->control('folio'); ?>
           </div>
+
+
+
+
           <div class="col-6 pr-0">
             <?php
                 echo $this->Form->control('journey_id', ['placeholder'=>'Selecciona una jornada','options' => $journeys, 'label'=>'Jornada',
                 'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true', 'data-size'=>'8']);
             ?>
+
+
+
+            
           </div>
         </div>
+
+          <div class="col-6 pr-0">
+          
+          
+</div>
 
         <?php
             // DATOS DE LA PETICIÓN
@@ -37,6 +50,7 @@ $solicitantes = $solicitantes->toArray();
           </div>
           <div class="col-2 pr-0">
             <?php echo $this->Form->control('edad', ['label'=>'Edad']); ?>
+            
           </div>
         </div>
 
@@ -44,6 +58,12 @@ $solicitantes = $solicitantes->toArray();
           <div class="col-3 pl-0">
             <?php echo $this->Form->control('civilstatus',['label'=>'Estado civil']); ?>
           </div>
+
+
+
+
+
+
           <div class="col-4">
             <?php echo $this->Form->control('phone',['label'=>'Teléfono','required'=>true]); ?>
           </div>
@@ -68,11 +88,24 @@ $solicitantes = $solicitantes->toArray();
             }
             echo $this->Form->control('request_status_id', ['options' => $requestStatuses, 'value'=>'1', 'type'=>'hidden']);
         ?>
+
+
+<div class="row m-0">
+<div class="col-3 pl-0">
+<?php echo $this->Form->control('gobernador',['label'=>'Asistio el gobernador']); ?>
+</div>
+
+
+ 
+
+
     </fieldset>
     <?php echo $this->Form->button(__('Guardar'),['class'=>'btn btn-primary mb-3']); ?>
     <?php echo $this->Form->button(__('Guardar y capturar otra'),['class'=>'btn btn-primary mr-3']); ?>
     <?php echo $this->Form->end(); ?>
+    
 </div>
+
 <!--
 <script>
   $( function() {

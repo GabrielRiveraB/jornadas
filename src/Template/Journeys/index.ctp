@@ -25,7 +25,7 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
                     <th scope="col" colspan="5"><?php echo "Municipio de " . $municipios[$i]; ?></th>
                 </tr>
                 <tr>
-                    <th >Colonia</th>
+                    <th >Lugar de la Jornada</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Con Folio</th>
                     <th scope="col">Sin Folio</th>

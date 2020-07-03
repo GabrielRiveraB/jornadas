@@ -83,6 +83,12 @@ class PetitionersTable extends Table
             ->email('email')
             ->allowEmptyString('email');
 
+
+            $validator 
+            ->scalar('gobernador')
+            ->maxKebgth('gobernador', 20);
+
+           
         return $validator;
     }
 

@@ -111,6 +111,7 @@ class RequestsController extends AppController
             $petitioner->address = $this->request->data('address');
             $petitioner->phone = $this->request->data('phone');
             $petitioner->email = $this->request->data('email');
+            $petitioner->gobernador =$this->request->data('gobernador');
 
             if ($this->Petitioners->save($petitioner)) {
                 // $this->Flash->success(__('La solicitud se ha guardado.'));

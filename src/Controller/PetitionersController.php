@@ -45,6 +45,8 @@ class PetitionersController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
+
+
     public function add()
     {
         $petitioner = $this->Petitioners->newEntity();
@@ -57,12 +59,20 @@ class PetitionersController extends AppController
             }
             $this->Flash->error(__('The petitioner could not be saved. Please, try again.'));
         }
-        
         $civilstatuses = array('Soltero/a'=>'Soltero/a','Casado/a'=>'Casado/a','Unión libre'=>'Unión libre','Separado/a'=>'Separado/a',
         'Divorciado/a'=>'Divorciado/a','Viudo/a'=>'Viudo/a');
 
         $this->set(compact('petitioner','civilstatuses'));
+
+      
+      
+        $gobernador =array('0' =>'NO','1'=>'SI');
+
+        $this->set(compact('petitioner','gobernador'));
     }
+
+
+    
 
     /**
      * Edit method

@@ -40,5 +40,7 @@ class Journey extends Entity
         'created' => true,
         'modified' => true,
         'requests' => true,
+       
+        
     ];
 }

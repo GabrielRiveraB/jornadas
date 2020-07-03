@@ -258,6 +258,7 @@ class JourneysController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
+
     {
         $journey = $this->Journeys->newEntity();
 
@@ -280,6 +281,8 @@ class JourneysController extends AppController
         $municipios = array('Mexicali'=>'Mexicali','Tijuana'=>'Tijuana','Ensenada'=>'Ensenada','Tecate'=>'Tecate','Playas de Rosarito'=>'Playas de Rosarito');
 
         $this->set(compact('journey','municipios'));
+ 
+    
     }
 
     /**

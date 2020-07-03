@@ -12,8 +12,9 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
         </div>
     </div>
 
+    
+    
     <h3><?= __('Jornadas sin solicitudes capturadas') ?></h3>
-
     <div class="row">
     <?php foreach ($jornadas as $jornada): ?>
     <div class="col-sm-12 col-md-6 mb-3">
@@ -25,6 +26,10 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
         </div>
         </div>
     </div>
+
+
+
+
     <?php endforeach; ?>
     </div>
 
@@ -32,24 +37,30 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
         <div class="col-md-12">
         <div class="table-responsive-md">
     
-        <h3><?= __('Últimas solicitudes capturadas') ?></h3>
 
+        <h3><?= __('Últimas solicitudes capturadas') ?></h3>
         <table class="table table-striped table-bordered table-hover">
-                <thead>
+                <thead> 
                     <tr class="thead-light">
                         <th scope="col">Capturada</th>
                         <th scope="col">Folio</th>
                         <th scope="col">Solicitante</th>
+                        
                         <th scope="col" colspan="2">Jornada</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($requests as $request): ?>
-                    <tr>
+                    <tr style="<?php if(h ($request->gobernador)) { echo "background-color:yellow;";}?>">
                         <td><?php echo h(date("d-M-y", strtotime($request->modified))); ?></td>
                         <td><?php echo h($request->folio); ?></td>
                         <td><?php echo h($request->Petitioners['name']); ?></td>
+
+                       
+
                         <td><?php echo h($request->Journeys['ubicacion']) . ', '. strtoupper($request->Journeys['municipio']); ?></td>
+
                         <td><?= $this->Html->link(__('Editar'), ['controller'=>'requests','action' => 'edit', $request->id]) ?>
                         <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $request->id], ['confirm' => __('Estas seguro?', $request->id)]) ?></td>
                     </tr>
