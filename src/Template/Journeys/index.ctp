@@ -8,18 +8,19 @@ $sinfolio = $confolio = 0;
 $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quintín", "Ensenada"];
 //  debug($current_user);
 ?>
-<div class="journeys index large-9 medium-8 columns content pt-4">
-    <h3><?= __('Resúmen de jornadas') ?></h3>
 
-    <!-- <div class="row"> -->
-        <div class="offset-6 col-6 pr-0">
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Resúmen de jornadas</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+    <div class="offset-6 col-6 pr-0">
             <input type="text" placeholder="Buscar registros..." id="mySearch" class="form-control"/>
         </div>
-    <!-- </div> -->
-
-    <div class="table-responsive-md">
         <?php for($i=0;$i<6;$i++) { ?>
-        <table class="table table-striped table-bordered table-hover myJourneys">
+        <table class="table table-striped table-bordered table-hover myJourneys" >
             <thead>
                 <tr class="thead-light">
                     <th scope="col" colspan="5"><?php echo "Municipio de " . $municipios[$i]; ?></th>
@@ -60,8 +61,11 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
             <?php endforeach; ?>
             </tbody>
         </table>
-        <?php } ?>
+        <?php } ?>        
     </div>
+  </div>
+</div>
+
     
 <script>
     $(document).ready(function () {
@@ -99,21 +103,9 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
         $('#mySearch').on('keyup click', function () {
             // $('#hide').css('display', 'block');
             tables.tables().search($(this).val()).draw();
-
+            // console.log("funciona");
         });
 
     });
 
-// function filterResults(){
-//     // Now get the values of checkbox
-//     var chk1 = $('#checkbox1').val(); // checkbox1 is id of checkbox
-//     $.ajax({
-//      type : 'POST',
-//      url : 'process.php',
-//      data : 'check='+chk1,
-//      success : function(data){
-//           $('#data-div').html(data); // replace the contents coming from php file
-//      }
-//     });
-// }
 </script>

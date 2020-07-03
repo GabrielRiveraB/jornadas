@@ -6,12 +6,26 @@
 $solicitantes = $solicitantes->toArray();
 
 ?>
-<div class="requests form large-9 medium-8 columns content">
-<?= $this->Flash->render() ?>
+
+<!-- <div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+    </div>
+  </div>
+</div> -->
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Captura los datos de la solicitud</h6>
+  </div>
+  <div class="card-body">
+  <?= $this->Flash->render() ?>
     <?= $this->Form->create($request) ?>
     <fieldset>
-        <legend><?= __('Captura los datos de la solicitud') ?></legend>
-        <br>
+
         <div class="row m-0">
           <div class="col-6 pl-0">
             <?php echo $this->Form->control('folio'); ?>
@@ -69,16 +83,8 @@ $solicitantes = $solicitantes->toArray();
             echo $this->Form->control('request_status_id', ['options' => $requestStatuses, 'value'=>'1', 'type'=>'hidden']);
         ?>
     </fieldset>
-    <?php echo $this->Form->button(__('Guardar'),['class'=>'btn btn-primary mb-3']); ?>
-    <?php echo $this->Form->button(__('Guardar y capturar otra'),['class'=>'btn btn-primary mr-3']); ?>
+    <?php echo $this->Form->button(__('Guardar'),['class'=>'btn btn-primary']); ?>
+    <?php echo $this->Form->button(__('Guardar y capturar otra'),['class'=>'btn btn-primary ml-3']); ?>
     <?php echo $this->Form->end(); ?>
+  </div>
 </div>
-<!--
-<script>
-  $( function() {
-    var availableTags = [<?php echo '"' . implode ('","', array_values ($solicitantes)) . '"'; ?>];
-    $( "#tags" ).autocomplete({
-      source: availableTags
-    });
-  } );
-  </script> -->
