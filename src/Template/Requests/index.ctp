@@ -17,7 +17,9 @@
     <div class="table-responsive-md">
     <table class="table table-striped table-bordered table-hover" id="myTable">
         <thead class="thead-light">
+        
             <tr>
+            
                 <th>Folio</th>
                 <th>Jornada</th>
                 <th>Solicitante</th>
@@ -25,13 +27,19 @@
             </tr>
         </thead>
         <tbody>
+        
             <?php foreach ($requests as $request): ?>
-            <tr>
+            
+            <tr style="<?php if(h ($request->gobernador)) { echo "background-color:yellow;";}?>">
+            
             <td> <?php if($request->folio) { ?>
+               
                 <?= $this->Html->link($request->folio, ['action' => 'view', $request->id]) ?>
+                
             <?php } else { ?>
                 Sin Folio
             <?php } ?>
+            
             </td>
 
             <td><?= $request->has('journey') ? $this->Html->link($request->journey->ubicacion, ['controller' => 'Journeys', 'action' => 'view', $request->journey->id]) : '' ?></td>
@@ -45,6 +53,7 @@
                     <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $request->id], ['confirm' => __('Estas seguro?', $request->id)]) ?>
                 </td>
             </tr>
+            
             <?php endforeach; ?>
         </tbody>
     </table>
