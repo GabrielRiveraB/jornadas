@@ -26,64 +26,83 @@ $cakeDescription = 'Jornadas de la paz | Gobierno de Baja California';
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css(['base','style','all.min']) ?>
+    <!-- <?= $this->Html->css(['base','style','all.min']) ?> -->
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
+    <!-- Custom fonts for this template-->
+    <?= $this->Html->css(['fontawesome-free/css/all.min']) ?>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- Bootstrap core JavaScript-->
+    <?= $this->Html->script(['jquery.min','bootstrap.bundle.min.js']) ?>
+  
+    <!-- Custom styles for this template-->
+    <?= $this->Html->css(['sb-admin-2.min','dataTables.bootstrap4.min']) ?>
     
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.12/js/bootstrap-select.min.js"></script>
-
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-
-
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-
-    <!-- <script src="https://use.fontawesome.com/e2f2f1cc02.js"></script> -->
-
-    <!-- Datatables.net -->
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"></link>
-    <?= $this->Html->script(['datatable','all.min']) ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <h1><a href="">Jornadas por la Paz</a></h1>
-            </li>
-        </ul>
-        <!-- <div class="top-bar-section">
-            <ul class="right">
-                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
-            </ul>
-        </div> -->
-    </nav>
-    <!-- <?= $this->Flash->render() ?> -->
-    <div>
-    <?php echo $this->element('user_role_menu'); ?>
-        <?= $this->fetch('content') ?>
+
+ <!-- Page Wrapper -->
+ <div id="wrapper">
+  <?php echo $this->element("sidebar");?>
+
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+      <?php echo $this->element("topbar");?>
+      
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <?= $this->Flash->render() ?>
+            <div>
+                <?= $this->fetch('content') ?>
+            </div>
+        
+        </div>
+        <!-- /.container-fluid -->
+
     </div>
+      <!-- End of Main Content -->
+
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+
+    </div>
+
     <footer>
     </footer>
+
+
+
+
+    <!-- Core plugin JavaScript-->
+    <?= $this->Html->script(['jquery.easing.min']) ?>
+  
+    <!-- Custom scripts for all pages-->
+    <?= $this->Html->script(['sb-admin-2.min']) ?>
+
+    <!-- Page level plugins -->
+    <?= $this->Html->script(['Chart.min']) ?>
+
+    <!-- Page level custom scripts -->
+    <?= $this->Html->script(['chart-area-demo','chart-pie-demo']) ?>
+
+
+
+  <!-- Page level plugins -->
+  <?= $this->Html->script(['jquery.dataTables.min','dataTables.bootstrap4.min','datatables-demo']) ?>
+
+    <div>
+
 </body>
 </html>

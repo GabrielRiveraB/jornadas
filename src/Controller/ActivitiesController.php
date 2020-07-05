@@ -186,7 +186,7 @@ class ActivitiesController extends AppController
         $actividades = $this->Activities->find()->where(['concept_id' => $concept_id ]);
         $actividades = $actividades->contain(['journeys','dependencies']);
         $actividades = $actividades->group(['activities.journey_id']);
-        debug($actividades->toArray());
+        // debug($actividades->toArray());
         $this->set('activities', $this->paginate($actividades));
 
         // $this->paginate = [

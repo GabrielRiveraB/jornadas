@@ -54,16 +54,12 @@ class AppController extends Controller
                 'controller' => 'Users',
                 'action' => 'login'
             ],
-            'authError' => 'Sin acceso a esta sección',
-            'loginRedirect' => [
-                'controller' => 'Users',
-                'action' => 'dashboard'
-            ],
-            'logoutRedirect' => [
-                'controller' => 'Users',
-                'action' => 'login',
-                'home'
-            ]
+            // 'authError' => $this->Flash->error(sprintf('<b>%s</b> %s', 'Error: ' ,'inicia sesión para acceder.'), ['escape' => false]),
+            // 'authError' => false,
+            'authError' => 'Ingresa tus datos para acceder',
+            'flash' => ['params' => ['class' => 'alert alert-danger text-center mt-3']],
+            'loginRedirect' => ['controller' => 'Users','action' => 'dashboard'],
+            'logoutRedirect' => ['controller' => 'Users','action' => 'login','home']
         ]);
     }
 

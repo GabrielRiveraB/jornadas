@@ -5,24 +5,21 @@
  */
 //  debug($requests);
 ?>
-<div class="requests index large-9 medium-8 columns content pt-4">
-    <h3><?= __('Solicitudes') ?></h3>
-    <!-- <div class="small-12 bg-light p-3 mb-3">
-        <?= $this->Form->create(null,['type' => 'file']) ?>
-            <?php echo $this->Form->control('search',['label'=>'Busca por folio / solicitante / contenido']);?>
-            <?= $this->Form->submit('Buscar') ?>
-        <?= $this->Form->end() ?>
-    </div> -->
 
-    <div class="table-responsive-md">
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Solicitudes</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
     <table class="table table-striped table-bordered table-hover" id="myTable">
         <thead class="thead-light">
         
             <tr>
-            
-                <th>Folio</th>
-                <th>Jornada</th>
-                <th>Solicitante</th>
+                <th style="width: 5%;">Folio</th>
+                <th style="width: 15%;">Jornada</th>
+                <th style="width: 10%;">Fecha</th>
+                <th style="width: 50%;"> Solicitante</th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -43,6 +40,7 @@
             </td>
 
             <td><?= $request->has('journey') ? $this->Html->link($request->journey->ubicacion, ['controller' => 'Journeys', 'action' => 'view', $request->journey->id]) : '' ?></td>
+            <td><?php echo h(date("d-M-y", strtotime($request->journey->date))); ?></td>
             <td><?= $this->Html->link($request->petitioner->name, ['controller' => 'Petitioners', 'action' => 'view', $request->petitioner->id]) ?></td>
                 <!-- <td><?= $request->has('concept') ? $this->Html->link($request->concept->name, ['controller' => 'Concepts', 'action' => 'view', $request->concept->id]) : '' ?></td> -->
                 <td class="actions">
@@ -58,4 +56,34 @@
         </tbody>
     </table>
     </div>
+  </div>
 </div>
+
+
+<script>
+$(document).ready( function () {
+    $('#myTable').DataTable(
+        {
+            "pagingType": "full_numbers",
+            language: {
+                lengthMenu: "_MENU_ registros por pagina",
+                zeroRecords: "No se encontraron registros",
+                info: "Mostrando _START_ - _END_ de _TOTAL_ registros",
+                infoEmpty: "Mostrando _TOTAL_ registros",
+                infoFiltered: "(filtrados de un total de _MAX_ registros)",
+                search: "<span class='fa fa-fw fa-search'></span> ",
+                searchPlaceholder: "Buscar registros...",
+                loadingRecords: "Cargando...",
+                processing: "Procesando...",
+                pagingType: 'full_numbers',
+                paginate: {
+                    first: '<<',
+                    previous: '< Anterior',
+                    next: 'Siguiente >',
+                    last: '>>'
+                }
+            }
+        }
+    );
+} );
+</script>
