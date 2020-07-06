@@ -12,6 +12,7 @@ $jornadaprevia = '';
 // debug($actividades->toarray());
 
 foreach ($actividades as $actividad):
+  
     if($jornadaprevia != $actividad->jornada && $jornadaprevia!='') {
         $contador = $contador + 1;
         $resumen[$contador]['otros']=0;
@@ -62,8 +63,11 @@ endforeach;
              
              
               <div class="table-responsive">
+              
                 <table class="table table-bordered table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                  
                   <thead>
+                  
                     <tr class="bg-danger">
                         <th colspan="9 " class="text-left text-white">PAVIMENTACIONES</th>
                         <th colspan="2" class="text-center text-white"><?= $totalPavimentaciones . " EN TOTAL" ?></th>
@@ -253,8 +257,11 @@ endforeach;
                     </tr>
                   </thead>
                   <tbody>
+                  
                   <?php foreach ($otros as $otro): ?>
+                  
                   <tr>
+                  
                       <td class="text-center"></td>
                       <td class="text-center"><?= $otro->request['folio'] ?  $otro->request['folio'] : ""; ?></td>
                       <td class="text-center"><?= $otro->concept['name'] ?  $otro->concept['name'] : ""; ?></td>

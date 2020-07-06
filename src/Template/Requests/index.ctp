@@ -33,7 +33,7 @@
             <tr style="<?php if(h ($request->gobernador)) { echo "background-color:yellow;";}?>">
             
             <td> <?php if($request->folio) { ?>
-               
+               .
                 <?= $this->Html->link($request->folio, ['action' => 'view', $request->id]) ?>
                 
             <?php } else { ?>
