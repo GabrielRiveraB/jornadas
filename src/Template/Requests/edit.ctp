@@ -8,13 +8,17 @@
 <div class="requests form large-9 medium-8 columns content">
 <?= $this->Flash->render() ?>
     <?= $this->Form->create($request) ?>
+    <div class="card shadow mb-4">
+  <div class="card-header py-3">
     <fieldset>
-        <legend><?= __('Captura los datos de la solicitud') ?></legend>
+    <h6 class="m-0 font-weight-bold text-primary">Captura los datos de la solicitud</h6>
         <br>
+        
         <div class="row m-0">
           <div class="col-6 pl-0">
             <?php echo $this->Form->control('folio'); ?>
           </div>
+
           <div class="col-6 pr-0">
             <?php
                 echo $this->Form->control('journey_id', ['placeholder'=>'Selecciona una jornada','options' => $journeys, 'label'=>'Jornada',
@@ -67,6 +71,9 @@
             }
             echo $this->Form->control('request_status_id', ['options' => $requestStatuses, 'value'=>'1', 'type'=>'hidden']);
         ?>
+        <div class="col-3 pl-0">
+<?php echo $this->Form->control('gobernador',['label'=>'Asistio el gobernador']); ?>
+</div>
     </fieldset>
     <?php echo $this->Form->button(__('Modificar petición'),['class'=>'btn btn-primary mb-5']); ?>
     <?php echo $this->Form->end(); ?>

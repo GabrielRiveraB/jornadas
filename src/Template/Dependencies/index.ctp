@@ -15,6 +15,7 @@
                 <th scope="col"><?= $this->Paginator->sort('longname','Nombre') ?></th>
                 <th scope="col" class="actions"></th>
             </tr>
+            
         </thead>
         <tbody>
             <?php foreach ($dependencies as $dependency): ?>

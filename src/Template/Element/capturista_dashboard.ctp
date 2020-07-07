@@ -48,6 +48,7 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
                                         
                                         <th scope="col" colspan="2">Jornada</th>
                                         
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -61,8 +62,16 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
 
                                         <td><?php echo h($request->Journeys['ubicacion']) . ', '. strtoupper($request->Journeys['municipio']); ?></td>
 
-                                        <td><?= $this->Html->link(__('Editar'), ['controller'=>'requests','action' => 'edit', $request->id]) ?>
-                                        <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $request->id], ['confirm' => __('Estas seguro?', $request->id)]) ?></td>
+                                       
+                                       
+
+
+                                       
+                                        <td><?= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-list-alt')), array('controller' => 'requests','action'=>'edit', $request->id), array('escape' => false)) ?>                    
+                                        <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-lg fa-trash')), array('controller' => 'requests', 'action' =>'delete', $request->id), array('escape' => false), __('Deseas eliminar esta dependencia?')); ?></td>
+
+
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>  
                                 </tbody>
