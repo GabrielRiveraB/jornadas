@@ -34,7 +34,7 @@ class PetitionersController extends AppController
     public function view($id = null)
     {
         $petitioner = $this->Petitioners->get($id, [
-            'contain' => ['Requests'],
+            'contain' => ['Requests','Dependencies'],
         ]);
 
         $this->set('petitioner', $petitioner);

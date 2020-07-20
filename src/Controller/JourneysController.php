@@ -183,7 +183,7 @@ class JourneysController extends AppController
         $this->loadModel('Activities');
         $activities = $this->Activities->find('all', [
             'conditions' => ['Activities.journey_id' =>$id],
-            'contain'=> ['Requests','Concepts'],
+            'contain'=> ['Requests','Concepts','dependencies'],
         ]);
         
         $total_peticiones = count($activities->toArray());
@@ -202,7 +202,7 @@ class JourneysController extends AppController
         $this->set(compact('total_solicitudes','total_peticiones','municipios','total_peticionesTurnadas','total_peticionesAtendidas'));
 
         
-        
+
         $pavimentaciones = $activities->match(['concept_id' => '25']);
         $espaciosPublicos = $activities->match(['concept_id' => '30']);
         $regularizaciones = $activities->match(['concept_id' => '29']);
@@ -237,7 +237,15 @@ class JourneysController extends AppController
         $actividades->group(['jornada']);
         $actividades->order(['jornada'=>'DESC']);
 
+
+
+
+        
         $this->set(compact('actividades','fechaUltimaJornada')); 
+
+
+
+      
 
         // $requestsGobConFolio = $this->Requests->find('all', ['conditions' => ['journey_id' =>$id,'gobernador'=>'1','folio IS NOT NULL']]);
         // $GobernadorConFolio = $requestsGobConFolio->match(['gobernador' => '1']);

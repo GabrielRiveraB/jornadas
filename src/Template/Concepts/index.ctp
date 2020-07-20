@@ -4,7 +4,8 @@
  * @var \App\Model\Entity\Concept[]|\Cake\Collection\CollectionInterface $concepts
  */
 ?>
-
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
 <div class="concepts index large-9 medium-8 columns content">
     <h3><?= __('Categorías') ?></h3>
     <table cellpadding="0" cellspacing="0">

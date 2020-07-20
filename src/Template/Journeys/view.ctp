@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * * @var \App\Eddit\AppEdit $this
  * @var \App\Model\Entity\Journey $journey
  * @var \App\Model\Entity\journeys $journeys
  */
@@ -179,7 +180,14 @@ endforeach;
                       <td class="text-center"><?= $pavimentacion->status ?></td>
                      
                      
-                      <td class="text-center"><?= $pavimentacion->dependency_id?></td>
+                     <td class="text-center"><?= $pavimentacion->dependency_id?>  
+                    
+                       
+                      
+                      </td>
+
+                      <td class="text-center"><?= $pavimentacion->dependencie['name'] ? $pavimentacion->dependencie['name'] : ""; ?></td>
+                      
                       <td class="text-center"><?= $pavimentacion->ubicacion ?></td>
 
                       <td class="text-center"></td>
@@ -314,8 +322,8 @@ endforeach;
                   <tbody>
                   
                   <?php foreach ($otros as $otro): ?>
+                    <tr>
                   
-                  <tr>
                   
                       <td class="text-center"></td>
                       <td class="text-center"><?= $otro->request['folio'] ?  $otro->request['folio'] : ""; ?></td>
@@ -353,29 +361,28 @@ endforeach;
 
 <div class="card shadow my-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Solicitudes de la Jornada</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Solicitudes de la </h6>
   </div>
   <div class="card-body">
     <div class="table-responsive">
     <table class="table table-striped table-bordered table-hover" id="myTable">
         <thead class="thead-light">
             <tr>
-                <th style="width: 10%">Folio</th>
-                
+                <th style="width: 10%">Folio</th>                
                 <th style="width: 45%">Solicitante</th>
                 <th style="width: 15%">Peticiones</th>
-                <th scope="col" class="actions" style="width: 30%"><?= __('Actions') ?></th>
+                <th style="width:  16">Activities</th>
+               
             </tr>
         </thead>
         <tbody>
        
         
-
-                 
+   
             <?php foreach ($journey->requests as $request): ?>
-            <tr>
+              <tr style="<?php if(h ($request->gobernador)) { echo "background-color:yellow;";}?>">
             <td> <?php if($request->folio) { ?>
-                <?= $this->Html->link($request->folio, ['controller'=>'requests','action' => 'view', $request->id]) ?>
+            <?= $this->Html->link($request->folio, ['action' => 'edit', $request->id]) ?>
             <?php } else { ?>
                 Sin Folio
             <?php } ?>
@@ -384,13 +391,12 @@ endforeach;
 
 
 
-
-           
-            <?php $this->loadModel('Activities');
-            $activities = $this->Activities->find('all',
-            ['conditions'=> ['Activities.dependency_id' => $id],
-            'contain' => ['dependencies','Requests'],
-            ]);?>
+            <?php //$this->loadModel('Activities');
+            //$activities = $this->Activities->find('all',
+            //['conditions'=> ['Activities.dependency_id' => $id],
+            //'contain' => ['dependencies','Requests'],
+            //]);
+            ?>
 
 
 
@@ -399,21 +405,27 @@ endforeach;
 
 
             
-            <td><?= $this->Html->link($request->petitioner->name, ['controller' => 'requests', 'action' => 'view', $request->id]) ?></td>
+            <td><?= $this->Html->link($request->petitioner->name, []) ?></td>
             
-            <td class="text-center"><?= $this->Html->link($request->activities[0]['cantidad'], ['controller' => 'requests', 'action' => 'view', $request->id]) ?></td>
-            <td class="text-center"><?= $this->Html->link($request->dependencies[0]['cantidad'], ['controller' => 'requests','action' => 'view', $request->id]) ?></td>              ])
+            <td class="text-center"><?= $this->Html->link($request->activities[0]['cantidad'], []) ?></td>
             
+            <td>
+            
+            <?= $this->Html->link($this->Html->tag('i', '', array('class' =>'fa fa-arrow-right')), array('controller' =>'activities','action'=>'create', $request->id), array('escape' =>false))?>
+            <?= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-list-alt')), array('controller' => 'requests','action'=>'edit', $request->id), array('escape' => false)) ?>                    
+                                        <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-lg fa-trash')), array('controller' => 'requests', 'action' =>'delete', $request->id), array('escape' => false), __('Deseas eliminar esta dependencia?')); ?>
+            </td>
             <!-- <td><?= $request->has('concept') ? $this->Html->link($request->concept->name, ['controller' => 'Concepts', 'action' => 'view', $request->concept->id]) : '' ?></td> -->
                
-               
-                <td class="actions">
+            
+                
 
                     <?php if (isset($current_user['role']) && $current_user['role'] === 'Coordinador') { ?>
-                    <?= $this->Html->link(__('Turnar'), ['controller'=>'activities','action' => 'create', $request->id]) ?>
+                    
+                    
                     <?php } ?>
-                    <?= $this->Html->link(__('Editar'), ['action' => 'edit', $request->id]) ?>
-                    <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $request->id], ['confirm' => __('Estas seguro?', $request->id)]) ?>
+                    
+                
                 </td>
             
 

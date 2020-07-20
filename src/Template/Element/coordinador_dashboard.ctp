@@ -5,6 +5,8 @@ $sinfolio = $confolio = 0;
 $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quintín", "Ensenada"];
 // debug($solicitudes->toarray());
 ?>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
 <div class="index large-9 medium-8 columns content pt-4">
 
     <div class="container p-0">

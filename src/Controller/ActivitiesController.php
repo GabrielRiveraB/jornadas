@@ -95,6 +95,8 @@ class ActivitiesController extends AppController
         $dependencies = $this->Activities->Dependencies->find('list', ['limit' => 200]);
         $concepts = $this->Activities->Concepts->find('list', ['limit' => 200]);
         $this->set(compact('activity', 'requests', 'dependencies', 'concepts'));
+    
+
     }
 
     /**
@@ -170,7 +172,16 @@ class ActivitiesController extends AppController
         $dependencies = $this->Activities->Dependencies->find('list', ['limit' => 200]);
         $concepts = $this->Activities->Concepts->find('list', ['limit' => 200]);
         $this->set(compact('rid','activity', 'request', 'dependencies', 'concepts'));
-    }
+    
+        }
+       
+        
+
+        
+
+
+
+    
 
     /**
      * Show method

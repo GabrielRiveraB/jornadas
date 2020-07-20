@@ -14,6 +14,8 @@
         <li><?= $this->Html->link(__('New Concept'), ['controller' => 'Concepts', 'action' => 'add']) ?></li>
     </ul>
 </nav>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
 <div class="activities index large-9 medium-8 columns content">
     <h3><?= __('Activities') ?></h3>
     <table cellpadding="0" cellspacing="0">

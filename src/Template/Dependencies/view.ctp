@@ -5,7 +5,10 @@
  */
 ?>
 
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
 <div class="dependencies view large-9 medium-8 columns content">
+
     <h3><?= h($dependency->longname. ' (' .$dependency->name . ')') ?></h3>
 
     <div class="related">

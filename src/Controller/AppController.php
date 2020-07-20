@@ -78,6 +78,5 @@ class AppController extends Controller
     }
 
     // Default deny
-    return false; //testing
-}
-}
+    return false; //testin
+}}

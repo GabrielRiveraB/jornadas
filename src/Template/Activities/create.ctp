@@ -80,6 +80,6 @@
 
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Guardar')) ?>
+    <?= $this->Form->button(__('Guardar'),['class'=>'btn btn-primary mb-5']); ?>
     <?= $this->Form->end() ?>
 </div>

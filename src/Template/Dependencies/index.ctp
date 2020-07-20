@@ -4,6 +4,8 @@
  * @var \App\Model\Entity\Dependency[]|\Cake\Collection\CollectionInterface $dependencies
  */
 ?>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
 <div class="dependencies index large-9 medium-8 columns content">
     <h3 class="float-left"><?= __('Dependencias') ?></h3>
     

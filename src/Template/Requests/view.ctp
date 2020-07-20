@@ -4,9 +4,10 @@
  * @var \App\Model\Entity\Request $request
  */
 ?>
-
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
 <div class="requests view large-9 medium-8 columns content">
-    <h3 class="mb-0">Solicitud<?= h(' Folio '.$request->folio) ?></h3>
+    <h2 class="mb-0">Solicitud<?= h(' Folio '.$request->folio) ?></h2>
     <p class="mb-3">Jornada del <?= $request->journey->date ?> en <?= $request->has('journey') ? $this->Html->link($request->journey->ubicacion.', '.$request->journey->municipio, ['controller' => 'Journeys', 'action' => 'view', $request->journey->id]) : '' ?></p>
 
     <div class="card">
