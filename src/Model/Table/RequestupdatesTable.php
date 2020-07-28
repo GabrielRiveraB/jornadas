@@ -57,6 +57,8 @@ class RequestupdatesTable extends Table
             ->scalar('description')
             ->maxLength('description', 250)
             ->allowEmptyString('description');
+          
+
 
         return $validator;
     }

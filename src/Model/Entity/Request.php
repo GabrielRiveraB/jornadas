@@ -73,5 +73,11 @@ class Request extends Entity
         'petitioner' => true,
         'request_status' => true,
         'requestupdates' => true,
+
+
+//Campos de foto de solicitud
+        '*' =>true,
+        'id' =>true,
+        'photo_dir'=> false
     ];
 }

@@ -426,4 +426,5 @@ class Plugin
 
         return static::$plugins;
     }
+  
 }

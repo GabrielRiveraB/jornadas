@@ -64,7 +64,25 @@ class PetitionersController extends AppController
 
         $this->set(compact('petitioner','civilstatuses'));
 
-      
+
+    //aqui inicia las imagenes   
+      $nombreimg=$_FILES['imagen']['name'];//obtiene el nombre del archivo
+      $archivo=$_FILES['imagen']['temp_name'];//obtiene el archivo
+$ruta="images";
+$ruta=$ruta."/".$nombreimg; //images/nombre.jpg
+move_uploaded_file($archivo,$ruta);
+
+$query=mysql_query("insert into requests values('".$ruta."','')");
+
+if($query){
+    echo "insertado correctamente";
+}
+else{
+    echo"error al insertar";
+}
+
+//aqui termina.
+
       
         $gobernador =array('0' =>'NO','1'=>'SI');
 

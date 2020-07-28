@@ -74,6 +74,10 @@
         <div class="col-3 pl-0">
 <?php echo $this->Form->control('gobernador',['label'=>'Asistio el gobernador']); ?>
 </div>
+<h4>Foto de la solicitud</h4>
+
+
+
     </fieldset>
     <?php echo $this->Form->button(__('Modificar petición'),['class'=>'btn btn-primary mb-5']); ?>
     <?php echo $this->Form->end(); ?>

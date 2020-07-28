@@ -29,5 +29,6 @@ class Requestupdate extends Entity
         'description' => true,
         'created' => true,
         'modified' => true,
+        'photo_dir'=> false,
     ];
 }

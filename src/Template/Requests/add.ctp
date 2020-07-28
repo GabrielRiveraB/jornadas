@@ -32,7 +32,7 @@ $solicitantes = $solicitantes->toArray();
           </div>
 
 
-
+   
 
           <div class="col-6 pr-0">
             <?php
@@ -100,22 +100,57 @@ $solicitantes = $solicitantes->toArray();
                 echo $this->Form->control('juventud');
                 echo $this->Form->control('other',['label'=>'Otro']);
             }
+?>
+
+
+
+
+
+
+
+
+<?php
             echo $this->Form->control('request_status_id', ['options' => $requestStatuses, 'value'=>'1', 'type'=>'hidden']);
         ?>
 
-
 <div class="row m-0">
 <div class="col-3 pl-0">
+
+
+
+
+
+
+
+
+
+<br>
+</br>
 <?php echo $this->Form->control('gobernador',['label'=>'Asistio el gobernador']); ?>
 </div>
 
 
- 
+<h4>Foto de la solicitud</h4>
+
+<?php
+
+ // Dont miss this out or no files will upload
+echo $this->Form->create ($request, ['type' =>'file']);
+echo $this->Form->input('photo', ['type' => 'file']);
+?>
+<fieldset>
+
+
+</fieldset>
+
+
 
 
     </fieldset>
     <?php echo $this->Form->button(__('Guardar'),['class'=>'btn btn-primary']); ?>
     <?php echo $this->Form->button(__('Guardar y capturar otra'),['class'=>'btn btn-primary ml-3']); ?>
     <?php echo $this->Form->end(); ?>
+  
   </div>
+  
 </div>

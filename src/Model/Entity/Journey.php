@@ -40,7 +40,7 @@ class Journey extends Entity
         'created' => true,
         'modified' => true,
         'requests' => true,
-       
+        'photo_dir'=> false,
         
     ];
 }

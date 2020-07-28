@@ -85,7 +85,7 @@
 
                     <!-- <?= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-lg fa-eye pr-1')), array('action' => 'view', $dependency->id), array('escape' => false)) ?>                   -->
                     <!-- <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-lg fa-trash')), array('action' => 'delete', $dependency->id), array('escape' => false), __('Deseas eliminar esta dependencia?')); ?> -->
-
+                   
                 </td>
             </tr>
             <?php endforeach; ?>

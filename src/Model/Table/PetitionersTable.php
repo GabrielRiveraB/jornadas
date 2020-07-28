@@ -87,8 +87,7 @@ class PetitionersTable extends Table
             $validator 
             ->scalar('gobernador')
             ->maxKebgth('gobernador', 20);
-
-           
+        
         return $validator;
     }
 

@@ -22,5 +22,6 @@ class Requeststatus extends Entity
      */
     protected $_accessible = [
         'name' => true,
+        'photo_dir'=> false,
     ];
 }

@@ -289,6 +289,14 @@ class JourneysController extends AppController
         $municipios = array('Mexicali'=>'Mexicali','Tijuana'=>'Tijuana','Ensenada'=>'Ensenada','Tecate'=>'Tecate','Playas de Rosarito'=>'Playas de Rosarito');
 
         $this->set(compact('journey','municipios'));
+
+
+
+
+        $gobernador =array('0' =>'NO','1'=>'SI');
+
+        $this->set(compact('journeys','gobernador'));
+    
  
     
     }
@@ -342,4 +350,5 @@ class JourneysController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
 }

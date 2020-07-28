@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "879cfbfea180244002dec447e2ba7cc3",
+    "content-hash": "f88ec7ad276695a654062ce88d8244a6",
     "packages": [
         {
             "name": "aura/intl",
@@ -335,27 +335,27 @@
         },
         {
             "name": "davidyell/proffer",
-            "version": "1.0.2",
+            "version": "0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/davidyell/CakePHP3-Proffer.git",
-                "reference": "d0fb682d1fa73ce35605042ae1da8c680c5e9d29"
+                "reference": "d27a80c7bbf05b5c1603670676dfa1b08305d203"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/davidyell/CakePHP3-Proffer/zipball/d0fb682d1fa73ce35605042ae1da8c680c5e9d29",
-                "reference": "d0fb682d1fa73ce35605042ae1da8c680c5e9d29",
+                "url": "https://api.github.com/repos/davidyell/CakePHP3-Proffer/zipball/d27a80c7bbf05b5c1603670676dfa1b08305d203",
+                "reference": "d27a80c7bbf05b5c1603670676dfa1b08305d203",
                 "shasum": ""
             },
             "require": {
                 "cakephp/orm": "3.*",
                 "intervention/image": "^2.3",
-                "php": ">=5.6.0"
+                "php": ">=5.6"
             },
             "require-dev": {
-                "cakephp/cakephp": "~3.4",
-                "cakephp/cakephp-codesniffer": "~3.0",
-                "phpunit/phpunit": "^5|^6"
+                "cakephp/cakephp": "~3.0",
+                "cakephp/cakephp-codesniffer": "^2.0",
+                "phpunit/phpunit": "^5.5"
             },
             "type": "cakephp-plugin",
             "autoload": {
@@ -383,7 +383,7 @@
                 "orm",
                 "upload"
             ],
-            "time": "2019-08-02T08:26:16+00:00"
+            "time": "2017-01-09T09:15:34+00:00"
         },
         {
             "name": "friendsofcake/bootstrap-ui",
@@ -2227,6 +2227,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -2273,6 +2274,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
@@ -4316,12 +4318,12 @@
             "version": "4.3.8",
             "source": {
                 "type": "git",
-                "url": "https://github.com/WyriHaximus/TwigView.git",
+                "url": "https://github.com/cakephp/legacy-twig-view.git",
                 "reference": "a5ec66690aa045d6eda17ab1c8a5baf0efdcfa45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WyriHaximus/TwigView/zipball/a5ec66690aa045d6eda17ab1c8a5baf0efdcfa45",
+                "url": "https://api.github.com/repos/cakephp/legacy-twig-view/zipball/a5ec66690aa045d6eda17ab1c8a5baf0efdcfa45",
                 "reference": "a5ec66690aa045d6eda17ab1c8a5baf0efdcfa45",
                 "shasum": ""
             },
@@ -4380,5 +4382,6 @@
     "platform": {
         "php": ">=5.6"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

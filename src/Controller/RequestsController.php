@@ -12,8 +12,10 @@ use App\Controller\AppController;
  */
 class RequestsController extends AppController
 {
+    
     public function isAuthorized($user)
     {
+        
         if(in_array($this->request->action, ['index','view','add','edit','btns']))
         {
             return true;
@@ -112,6 +114,8 @@ class RequestsController extends AppController
             $petitioner->phone = $this->request->data('phone');
             $petitioner->email = $this->request->data('email');
             $petitioner->gobernador =$this->request->data('gobernador');
+            $petitioner->photo =$this->request->data('photo');
+          
 
             if ($this->Petitioners->save($petitioner)) {
                 // $this->Flash->success(__('La solicitud se ha guardado.'));
@@ -174,6 +178,7 @@ class RequestsController extends AppController
             $petitioner->address = $this->request->data('address');
             $petitioner->phone = $this->request->data('phone');
             $petitioner->email = $this->request->data('email');
+            $petitioner->photo =$this->request->file('photo');
 
 
             if ($this->Petitioners->save($petitioner)) {
@@ -235,4 +240,6 @@ class RequestsController extends AppController
         $this->Requests->get($id);
         // if ($this->Request)
     }
+    
+  
 }
