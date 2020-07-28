@@ -34,6 +34,9 @@
                     echo $this->element('menu_secretaria');     
                 break;
 
+                case 'Responsable':
+                    echo $this->element('menu_responsable');     
+                break;
             }
 
         ?>

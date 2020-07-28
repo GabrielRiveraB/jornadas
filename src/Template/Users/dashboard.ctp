@@ -14,6 +14,10 @@ switch($userrole)
         echo $this->element('secretaria_dashboard');     
     break;
 
+    case 'Responsable':
+        echo $this->element('responsable_dashboard');     
+    break;    
+
 }
 
 ?>

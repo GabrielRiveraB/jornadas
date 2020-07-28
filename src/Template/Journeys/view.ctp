@@ -379,11 +379,12 @@ endforeach;
 
 
            
-            <?php $this->loadModel('Activities');
-            $activities = $this->Activities->find('all',
-            ['conditions'=> ['Activities.dependency_id' => $id],
-            'contain' => ['dependencies','Requests'],
-            ]);?>
+            <?php //$this->loadModel('Activities');
+            // $activities = $this->Activities->find('all',
+            // ['conditions'=> ['Activities.dependency_id' => $id],
+            // 'contain' => ['dependencies','Requests'],
+            // ]);
+            ?>
 
 
 
@@ -395,7 +396,7 @@ endforeach;
             <td><?= $this->Html->link($request->petitioner->name, ['controller' => 'requests', 'action' => 'view', $request->id]) ?></td>
             
             <td class="text-center"><?= $this->Html->link($request->activities[0]['cantidad'], ['controller' => 'requests', 'action' => 'view', $request->id]) ?></td>
-            <td class="text-center"><?= $this->Html->link($request->dependencies[0]['cantidad'], ['controller' => 'requests','action' => 'view', $request->id]) ?></td>              ])
+            <td class="text-center"><?= $this->Html->link($request->dependencies[0]['cantidad'], ['controller' => 'requests','action' => 'view', $request->id]) ?></td>
             
             <!-- <td><?= $request->has('concept') ? $this->Html->link($request->concept->name, ['controller' => 'Concepts', 'action' => 'view', $request->concept->id]) : '' ?></td> -->
                
