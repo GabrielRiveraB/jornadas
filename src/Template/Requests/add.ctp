@@ -134,6 +134,7 @@ $solicitantes = $solicitantes->toArray();
 
 <?php
 
+
  // Dont miss this out or no files will upload
 echo $this->Form->create ($request, ['type' =>'file']);
 echo $this->Form->input('photo', ['type' => 'file']);
