@@ -63,6 +63,10 @@ class DependenciesTable extends Table
             ->maxLength('longname', 250)
             ->allowEmptyString('longname');
 
+            $this->belongsTo('Users', [
+                'foreignKey' => 'user_id',
+            ]);            
+
         return $validator;
     }
 }

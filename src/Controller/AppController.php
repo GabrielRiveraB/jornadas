@@ -65,9 +65,17 @@ class AppController extends Controller
 
     public function beforeFilter(Event $event)
     {
-        $this->set('current_user', $this->Auth->user());
         $this->Auth->allow(['display','Users'=>'login']);
+        $this->set('current_user', $this->Auth->user());
         $this->set('userrole', $this->Auth->user('role'));
+
+        if($this->Auth->user('role')=="Responsable")
+        {
+            $this->loadModel("Dependencies");
+            $responsableID = $this->Dependencies->find('all', ['conditions' => ['user_id'=>$this->Auth->user('id')]])->first();
+            $this->set(compact('responsableID'));
+    
+        }
     }
 
     public function isAuthorized($user)

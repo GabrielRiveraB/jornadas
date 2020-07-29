@@ -105,6 +105,23 @@ class UsersController extends AppController
 
     }
 
+    if ( isset($user['role']) and $user['role'] == "Responsable" ) {
+
+        if(in_array($this->request->action, ['dashboard']))
+        {
+            return true;
+        }
+
+        // The owner of an article can edit and delete it
+        if (in_array($this->request->getParam('action'), [''])) {
+            $JourneyId = (int)$this->request->getParam('pass.0');
+            if ($this->Journeys->isOwnedBy($JourneyId, $user['id'])) {
+                return true;
+            }
+        }
+
+    }    
+
         return parent::isAuthorized($user);
     }    
 
@@ -260,6 +277,35 @@ class UsersController extends AppController
                 $this->set(compact('actividades','fechaUltimaJornada')); 
                 // debug($actividades->toarray());                
             break;
+
+            case 'Responsable': 
+                // Elementos necesarios para el dashboard del responsable del seguimiento
+                
+                $responsableID = $this->Dependencies->find('all', ['conditions' => ['user_id'=>$this->Auth->user('id')]])->first();
+
+                //debug($responsableID);
+
+                $actividades = $this->activities->find();
+                $actividades->contain(['Concepts','Requests.Petitioners','Requests.Journeys','Journeys']);
+                $actividades->where(['dependency_id' => $responsableID->id ]);  
+
+                // $actividades->select(['mun'=>'journeys.municipio', 
+                //                     'jornada'=>'journeys.ubicacion',
+                //                     'id'=>'journeys.id',
+                //                     'concepto'=>'concepts.name',
+                //                     'concepto_id'=>'concepts.id',
+                //                     'cantidad' => $actividades->func()->count('*'),
+                //                     'fecha'=>'journeys.date',]);
+                
+                
+                // $actividades->group(['activities.concept_id']);
+                // $actividades->group(['jornada']);
+                // $actividades->order(['jornada'=>'DESC']);
+                // $actividades->order(['jornada'=>'DESC']);
+                // debug($actividades->toarray());
+                $this->set(compact('actividades')); 
+           
+            break;            
 
         }
     }

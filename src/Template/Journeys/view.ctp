@@ -162,7 +162,7 @@ endforeach;
                       <th class="text-center" style="width: 26%">ESTATUS</th>
 
                       <th class="text-center" style="width: 36%">ASIGNADA A</th>
-                      <th class="text-center" style="with:  36%">UBICACION</th>
+                      <th class="text-center" style="width:  36%">UBICACION</th>
 
                       <th class="text-center" style="width: 16%">ML</th>
                       <th class="text-center" style="width: 10%">MDP</th>
@@ -391,18 +391,6 @@ endforeach;
 
 
 
-            <?php //$this->loadModel('Activities');
-            //$activities = $this->Activities->find('all',
-            //['conditions'=> ['Activities.dependency_id' => $id],
-            //'contain' => ['dependencies','Requests'],
-            //]);
-            ?>
-
-
-
-
-
-
 
             
             <td><?= $this->Html->link($request->petitioner->name, []) ?></td>
@@ -410,6 +398,8 @@ endforeach;
             <td class="text-center"><?= $this->Html->link($request->activities[0]['cantidad'], []) ?></td>
             
             <td>
+            <td class="text-center"><?= $this->Html->link($request->activities[0]['cantidad'], ['controller' => 'requests', 'action' => 'view', $request->id]) ?></td>
+            <td class="text-center"><?= $this->Html->link($request->dependencies[0]['cantidad'], ['controller' => 'requests','action' => 'view', $request->id]) ?></td>
             
             <?= $this->Html->link($this->Html->tag('i', '', array('class' =>'fa fa-arrow-right')), array('controller' =>'activities','action'=>'create', $request->id), array('escape' =>false))?>
             <?= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-list-alt')), array('controller' => 'requests','action'=>'edit', $request->id), array('escape' => false)) ?>                    
