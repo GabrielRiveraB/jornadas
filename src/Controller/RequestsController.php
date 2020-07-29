@@ -114,18 +114,23 @@ class RequestsController extends AppController
             $petitioner->phone = $this->request->data('phone');
             $petitioner->email = $this->request->data('email');
             $petitioner->gobernador =$this->request->data('gobernador');
-            $petitioner->photo =$this->request->data('photo');
+           // $petitioner->photo =$this->request->data('photo');
           
+            //debug( $this->request->getData());
 
             if ($this->Petitioners->save($petitioner)) {
                 // $this->Flash->success(__('La solicitud se ha guardado.'));
                 $request->petitioner_id = $petitioner->id;
+
+                $request->photo = $this->request->data('photo');
+                
+
                 if ($this->Requests->save($request)) {
                     $this->Flash->success(__('La solicitud se ha guardado.'));
                     // debug($petitioner->id);
                     return $this->redirect(['controller'=>'requests','action' => 'add']);
                 } else {
-                debug($this->validationErrors);
+                //debug($this->validationErrors);
                 $this->Flash->error(__('No se puedo guardar la solicitud, intenta de nuevo.'));
                 // debug($this->validationErrors);
                 }

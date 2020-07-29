@@ -76,7 +76,6 @@ class RequestsTable extends Table
         ]);
 
 
-
         $this->addBehavior('Proffer.Proffer', [
             'photo' => [	// The name of your upload field
                 'root' => WWW_ROOT . 'files', // Customise the root upload folder here, or omit to use the default
@@ -96,13 +95,6 @@ class RequestsTable extends Table
             ]
         ]);
         
-
-    
-
-        
-
-
-
     }
     
 

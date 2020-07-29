@@ -22,34 +22,25 @@ $solicitantes = $solicitantes->toArray();
     <h6 class="m-0 font-weight-bold text-primary">Captura los datos de la solicitud</h6>
   </div>
   <div class="card-body">
-  <?= $this->Flash->render() ?>
-    <?= $this->Form->create($request) ?>
-    <fieldset>
-
+    <?= $this->Flash->render() ?>
+    <?= $this->Form->create($request,['type' => 'file']) ?>
+      <fieldset>
         <div class="row m-0">
+
           <div class="col-6 pl-0">
             <?php echo $this->Form->control('folio'); ?>
           </div>
-
-
-   
 
           <div class="col-6 pr-0">
             <?php
                 echo $this->Form->control('journey_id', ['placeholder'=>'Selecciona una jornada','options' => $journeys, 'label'=>'Jornada',
                 'onchange'=>'', 'class'=>'selectpicker', 'data-live-search'=>'true', 'data-size'=>'8']);
-            ?>
-
-
-
-            
+            ?>           
           </div>
         </div>
 
-          <div class="col-6 pr-0">
-          
-          
-</div>
+        <div class="col-6 pr-0">
+        </div>
 
         <?php
             // DATOS DE LA PETICIÓN
@@ -72,11 +63,6 @@ $solicitantes = $solicitantes->toArray();
           <div class="col-3 pl-0">
             <?php echo $this->Form->control('civilstatus',['label'=>'Estado civil']); ?>
           </div>
-
-
-
-
-
 
           <div class="col-4">
             <?php echo $this->Form->control('phone',['label'=>'Teléfono','required'=>true]); ?>
@@ -103,55 +89,26 @@ $solicitantes = $solicitantes->toArray();
 ?>
 
 
-
-
-
-
-
-
 <?php
             echo $this->Form->control('request_status_id', ['options' => $requestStatuses, 'value'=>'1', 'type'=>'hidden']);
         ?>
 
 <div class="row m-0">
-<div class="col-3 pl-0">
+  <div class="col-3 pl-0">
+  <?php
+    echo $this->Form->control('photo', ['type' => 'file','label'=>'Foto de la solicitud']);
+  ?>    
+  </div>
+  <div class="col-3 pl-0">
+  <?php echo $this->Form->control('gobernador',['label'=>' Asistio el gobernador']); ?>
 
-
-
-
-
-
-
-
-
-<br>
-</br>
-<?php echo $this->Form->control('gobernador',['label'=>'Asistio el gobernador']); ?>
+  </div>
 </div>
-
-
-<h4>Foto de la solicitud</h4>
-
-<?php
-
-
- // Dont miss this out or no files will upload
-echo $this->Form->create ($request, ['type' =>'file']);
-echo $this->Form->input('photo', ['type' => 'file']);
-?>
-<fieldset>
-
+  
 
 </fieldset>
-
-
-
-
-    </fieldset>
     <?php echo $this->Form->button(__('Guardar'),['class'=>'btn btn-primary']); ?>
     <?php echo $this->Form->button(__('Guardar y capturar otra'),['class'=>'btn btn-primary ml-3']); ?>
     <?php echo $this->Form->end(); ?>
-  
-  </div>
-  
+
 </div>

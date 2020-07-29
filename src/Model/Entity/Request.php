@@ -76,8 +76,9 @@ class Request extends Entity
 
 
 //Campos de foto de solicitud
-        '*' =>true,
-        'id' =>true,
-        'photo_dir'=> false
+     //   '*' =>true,
+      //  'id' =>true,
+        'photo'=> true,
+        'photo_dir'=> true
     ];
 }

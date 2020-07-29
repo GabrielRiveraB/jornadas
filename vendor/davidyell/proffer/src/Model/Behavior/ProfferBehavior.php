@@ -117,14 +117,16 @@ class ProfferBehavior extends Behavior
         $path = $this->createPath($entity, $field, $settings, $path);
         $tableEntityClass = $this->_table->entityClass();
 
+
         if ($tableEntityClass !== null && $entity instanceof $tableEntityClass) {
+            $fileInfos = $entity->get('photo');
             $uploadList = [
                 [
-                    'name' => $entity->get('name'),
-                    'type' => $entity->get('type'),
-                    'tmp_name' => $entity->get('tmp_name'),
-                    'error' => $entity->get('error'),
-                    'size' => $entity->get('size'),
+                    'name' => $fileInfos['name'],
+                    'type' => $fileInfos['type'],
+                    'tmp_name' => $fileInfos['tmp_name'],
+                    'error' => $fileInfos['error'],
+                    'size' => $fileInfos['size'],
                 ]
             ];
         } else {
@@ -133,6 +135,24 @@ class ProfferBehavior extends Behavior
                 $uploadList = [$entity->get($field)];
             }
         }
+
+
+        // if ($tableEntityClass !== null && $entity instanceof $tableEntityClass) {
+        //     $uploadList = [
+        //         [
+        //             'name' => $entity->get('name'),
+        //             'type' => $entity->get('type'),
+        //             'tmp_name' => $entity->get('tmp_name'),
+        //             'error' => $entity->get('error'),
+        //             'size' => $entity->get('size'),
+        //         ]
+        //     ];
+        // } else {
+        //     $uploadList = $entity->get($field);
+        //     if (count(array_filter(array_keys($entity->get($field)), 'is_string')) > 0) {
+        //         $uploadList = [$entity->get($field)];
+        //     }
+        // }
 
         foreach ($uploadList as $upload) {
             if ($this->moveUploadedFile($upload['tmp_name'], $path->fullPath())) {
