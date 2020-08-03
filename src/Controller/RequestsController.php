@@ -39,6 +39,9 @@ class RequestsController extends AppController
      */
     public function index($id = null)
     {
+        
+        // $id contiene el id de la jornada 
+
         if(!$id) {
             $requests = $this->Requests->find('all', [
                 // 'conditions'=>array('description LIKE'=>$this->request->data('search').'%')
@@ -53,7 +56,10 @@ class RequestsController extends AppController
                 'conditions'=> ['journey_id'=>$id]
                 ]);
         }
-
+        debug($requests->count());
+      
+        // si es a través de una búsqueda
+        
         if($this->request->data('search')!='') {
 
             $requestsFol = $requests->match(['folio' => $this->request->data('search')]);
@@ -62,10 +68,24 @@ class RequestsController extends AppController
             // ENCONTRAR LA MANERA DE BUSCAR POR PALABRAS EN LA DESCRIPCION
 
             $tapeexists = $this->Requests->find('all', array('conditions'=>array('description LIKE'=>$this->request->data('search').'%')));
+
             //  debug($this->paginate($tapeexists));
         }
 
        
+
+        if($this->Auth->user('role') == 'Responsable')
+        {
+            $this->loadModel("activities");
+            $responsableID = $this->Dependencies->find('all', ['conditions' => ['user_id'=>$this->Auth->user('id')]])->first();
+            //
+            debug($responsableID->id);
+            $requests = $this->activities->find('all', [
+              //  'contain' => ['Journeys', 'Types', 'Petitioners', 'Requestupdates','Activities'],
+                'conditions'=> ['dependency_id' => $responsableID->id]
+            ]);
+            debug($requests->count()); 
+        }
 
         // $requests = $requests->append($tapeexists);
 
