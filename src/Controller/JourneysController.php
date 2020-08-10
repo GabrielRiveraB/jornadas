@@ -158,7 +158,7 @@ class JourneysController extends AppController
             'contain' => ['Requests','Requests.Petitioners','Requests.requeststatuses','Works','Requests.activities' => function ($q) {
                 return $q->select(
                     [
-                        
+
                         'request_id',
                         'cantidad' => $q->func()->count('*')
                    ])
@@ -185,7 +185,7 @@ class JourneysController extends AppController
             'conditions' => ['Activities.journey_id' =>$id],
             'contain'=> ['Requests','Concepts','dependencies'],
         ]);
-        
+
         $total_peticiones = count($activities->toArray());
 
         // PETICIONES ORDENADAS POR CATEGORIA
@@ -194,19 +194,19 @@ class JourneysController extends AppController
         // TOTAL DE PETICIONES TURNADAS
         $peticionesTurnadas = $activities->match(['status' => 'turnada']);
         $total_peticionesTurnadas = count($peticionesTurnadas->toArray());
-        
+
         // TOTAL DE PETICIONES ATENDIDAS
         $peticionesAtendidas = $activities->match(['status' => 'atendida']);
         $total_peticionesAtendidas = count($peticionesAtendidas->toArray());
 
         $this->set(compact('total_solicitudes','total_peticiones','municipios','total_peticionesTurnadas','total_peticionesAtendidas'));
 
-        
+
 
         $pavimentaciones = $activities->match(['concept_id' => '25']);
         $espaciosPublicos = $activities->match(['concept_id' => '30']);
         $regularizaciones = $activities->match(['concept_id' => '29']);
-       
+
         $otros = $activities->filter(function ($value, $key) {
             return $value->concept_id != 25 && $value->concept_id != 30 && $value->concept_id != 29;
         });
@@ -216,23 +216,23 @@ class JourneysController extends AppController
         $totalPavimentaciones = count($pavimentaciones->toArray());
         $totalEspaciosPublicos = count($espaciosPublicos->toArray());
         $totalRegularizaciones = count($regularizaciones->toArray());
-        $totalOtros = count($otros->toArray());      
-        
+        $totalOtros = count($otros->toArray());
+
         $this->set(compact('totalPavimentaciones','totalEspaciosPublicos','totalRegularizaciones','totalOtros'));
 
 
         $actividades = $this->Activities->find();
         $actividades->contain(['Concepts','Requests.Journeys']);
 
-        $actividades->select(['mun'=>'journeys.municipio', 
+        $actividades->select(['mun'=>'journeys.municipio',
                             'jornada'=>'journeys.ubicacion',
                             'id'=>'journeys.id',
                             'concepto'=>'concepts.name',
                             'concepto_id'=>'concepts.id',
                             'cantidad' => $actividades->func()->count('*'),
                             'fecha'=>'journeys.date',]);
-        
-        $actividades->where(['journeys.id' => $id]);  
+
+        $actividades->where(['journeys.id' => $id]);
         $actividades->group(['activities.concept_id']);
         $actividades->group(['jornada']);
         $actividades->order(['jornada'=>'DESC']);
@@ -240,12 +240,12 @@ class JourneysController extends AppController
 
 
 
-        
-        $this->set(compact('actividades','fechaUltimaJornada')); 
+
+        $this->set(compact('actividades','fechaUltimaJornada'));
 
 
 
-      
+
 
         // $requestsGobConFolio = $this->Requests->find('all', ['conditions' => ['journey_id' =>$id,'gobernador'=>'1','folio IS NOT NULL']]);
         // $GobernadorConFolio = $requestsGobConFolio->match(['gobernador' => '1']);
@@ -286,7 +286,7 @@ class JourneysController extends AppController
             }
             $this->Flash->error(__('The journey could not be saved. Please, try again.'));
         }
-        $municipios = array('Mexicali'=>'Mexicali','Tijuana'=>'Tijuana','Ensenada'=>'Ensenada','Tecate'=>'Tecate','Playas de Rosarito'=>'Playas de Rosarito');
+        $municipios = array('Mexicali'=>'Mexicali','Tijuana'=>'Tijuana','Ensenada'=>'Ensenada','Tecate'=>'Tecate','Playas de Rosarito'=>'Playas de Rosarito','San Quintín'=>'San Quintín');
 
         $this->set(compact('journey','municipios'));
 
@@ -296,9 +296,9 @@ class JourneysController extends AppController
         $gobernador =array('0' =>'NO','1'=>'SI');
 
         $this->set(compact('journeys','gobernador'));
-    
- 
-    
+
+
+
     }
 
     /**
@@ -350,5 +350,5 @@ class JourneysController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    
+
 }

@@ -5,7 +5,7 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
 ?>
 
 <div class="row">
-  
+
     <div class="col-sm-12 col-md-3 mb-2 ">
         <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body py-0">
@@ -70,8 +70,8 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
                 </div>
               </div>
               </div>
-              
-              
+
+
               <div class="col-sm-12 col-md-3 mb-2">
         <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body py-0">
@@ -91,7 +91,7 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
                   </div>
                 </div>
               </div>
-              </div>              
+              </div>
 </div>
 
 <div class="row mt-3">
@@ -105,7 +105,7 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
                         <div class="table-responsive">
 
 
-                        
+
 
                             <table class="table table-striped table-bordered">
                                 <thead>
@@ -113,9 +113,9 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
                                         <th scope="col">Capturada</th>
                                         <th scope="col">Folio</th>
                                         <th scope="col">Solicitante</th>
-                                        
+
                                         <th scope="col" colspan="2">Jornada</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -123,23 +123,23 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
                               <tr>
                                 <td class="bg-light" colspan="4">No existen solicitudes asignadas</td>
                               </tr>
-                            
-                            <?php } else { ?>                                  
+
+                            <?php } else { ?>
                                 <?php foreach ($actividades as $request): ?>
                                 <?php //debug($request->request); ?>
-                                    <tr style="<?php if(h ($request->gobernador)) { echo "background-color:yellow;";}?>">
+                                    <tr style="<?php if(h ($request->gobernador)) { echo "background-color:yellow;"; } ?>">
                                         <td><?php echo h(date("d-M-y", strtotime($request->modified))); ?></td>
                                         <td><?php echo h($request->request->folio); ?></td>
                                         <td><?php echo h($request->request->petitioner['name']); ?></td>
 
-                                    
+
 
                                         <td><?php echo h($request->journey['ubicacion']) . ', '. strtoupper($request->journey['ubicacion']); ?></td>
 
                                         <td><?= $this->Html->link(__('Editar'), ['controller'=>'requests','action' => 'edit', $request->id]) ?>
                                         <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $request->id], ['confirm' => __('Estas seguro?', $request->id)]) ?></td>
                                     </tr>
-                                <?php endforeach; ?>  
+                                <?php endforeach; ?>
                                 <?php } ?>
                                 </tbody>
                             </table>
@@ -157,7 +157,7 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
     </div>
         <div class="card-body">
                     <div class="table-responsive">
-                    
+
 
                         <table class="table table-striped table-bordered">
                             <thead>
@@ -165,9 +165,9 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
                                     <th scope="col">Capturada</th>
                                     <th scope="col">Folio</th>
                                     <th scope="col">Solicitante</th>
-                                    
+
                                     <th scope="col" colspan="2">Jornada</th>
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -175,22 +175,22 @@ $municipios = ["Mexicali", "Tijuana", "Playas de Rosarito", "Tecate", "San Quint
                               <tr>
                                 <td class="bg-light" colspan="4">No existen solicitudes prioritarias</td>
                               </tr>
-                            
+
                             <?php } else { ?>
                             <?php foreach ($prioritarias as $request): ?>
-                                <tr style="<?php if(h ($request->gobernador)) { echo "background-color:yellow;";}?>">
+                                <tr style="<?php if(h ($request->gobernador)) { echo "background-color:yellow;"; }?>">
                                     <td><?php echo h(date("d-M-y", strtotime($request->modified))); ?></td>
                                     <td><?php echo h($request->folio); ?></td>
                                     <td><?php echo h($request->Petitioners['name']); ?></td>
 
-                                
+
 
                                     <td><?php echo h($request->Journeys['ubicacion']) . ', '. strtoupper($request->Journeys['municipio']); ?></td>
 
                                     <td><?= $this->Html->link(__('Editar'), ['controller'=>'requests','action' => 'edit', $request->id]) ?>
                                     <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $request->id], ['confirm' => __('Estas seguro?', $request->id)]) ?></td>
                                 </tr>
-                            <?php endforeach; ?>  
+                            <?php endforeach; ?>
                             <?php } ?>
                             </tbody>
                         </table>
