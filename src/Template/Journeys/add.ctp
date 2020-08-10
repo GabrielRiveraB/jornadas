@@ -4,23 +4,47 @@
  * @var \App\Model\Entity\Journey $journey
  */
 ?>
-<div class="journeys form large-9 medium-8 columns content">
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Captura los datos de la jornada</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
     <?= $this->Form->create($journey,['type' => 'file']) ?>
     <fieldset>
-        <legend><?= __('Datos de la jornada') ?></legend>
+
+
+        <div class="row m-0">
+            <div class="col-6 pl-0">
+                <?php echo $this->Form->control('municipio'); ?>
+            </div>
+
+            <div class="col-6 pr-0">
+                <?php
+                echo $this->Form->control('fecha', ['label'=>'Fecha','empty' => true, 'placeholder'=>'Ej. 2020-01-01', 'required']);
+                ?>
+            </div>
+        </div>
+
+
+
         <?php
-            echo $this->Form->control('municipio');
-            echo $this->Form->control('ubicacion');
-            echo $this->Form->control('fecha', ['label'=>'Fecha','empty' => true]);
-            echo $this->Form->control('inicio', ['label'=>'Hora de inicio','empty' => true]);
-            echo $this->Form->control('termino', ['label'=>'Hora de tterminación','empty' => true]);
+
+            echo $this->Form->control('ubicacion',['label'=>'Colonia / ubicación','required']);
+
+           // echo $this->Form->control('inicio', ['label'=>'Hora de inicio','empty' => true]);
+           //  echo $this->Form->control('termino', ['label'=>'Hora de sterminación','empty' => true]);
             echo $this->Form->control('geolocalizacion', ['label'=>'URL de Google','empty' => true]);
-            echo $this->Form->control('photo', ['label'=>'Foto de la jornada','type'=>'file']);
+           // echo $this->Form->control('photo', ['label'=>'Foto de la jornada','type'=>'file']);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Crear Jornada')) ?>
+    <?php echo $this->Form->button(__('Crear Jornada'),['class'=>'btn btn-primary']); ?>
     <?= $this->Form->end() ?>
+    </div>
+  </div>
 </div>
+
 
 <script>
 // http://www.daterangepicker.com/

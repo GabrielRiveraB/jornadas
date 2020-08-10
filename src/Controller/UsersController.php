@@ -287,7 +287,14 @@ class UsersController extends AppController
 
                 $actividades = $this->activities->find();
                 $actividades->contain(['Concepts','Requests.Petitioners','Requests.Journeys','Journeys']);
-                $actividades->where(['dependency_id' => $responsableID->id ]);  
+                $actividades->order(['Activities.created' => 'DESC']);
+                $actividades->where(['dependency_id' => $responsableID->id ]);
+                $actividades->limit(8);
+               
+
+                $prioritarias = $this->activities->find();
+                $prioritarias->contain(['Concepts','Requests.Petitioners','Requests.Journeys','Journeys']);
+                $prioritarias->where(['activities.dependency_id' => $responsableID->id,'Requests.gobernador'=>1 ]);  
 
                 // $actividades->select(['mun'=>'journeys.municipio', 
                 //                     'jornada'=>'journeys.ubicacion',
@@ -302,8 +309,8 @@ class UsersController extends AppController
                 // $actividades->group(['jornada']);
                 // $actividades->order(['jornada'=>'DESC']);
                 // $actividades->order(['jornada'=>'DESC']);
-                // debug($actividades->toarray());
-                $this->set(compact('actividades')); 
+                // debug($prioritarias->toarray());
+                $this->set(compact('actividades','prioritarias')); 
            
             break;            
 

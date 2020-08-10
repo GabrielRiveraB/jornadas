@@ -12,10 +12,10 @@ use App\Controller\AppController;
  */
 class RequestsController extends AppController
 {
-    
+
     public function isAuthorized($user)
     {
-        
+
         if(in_array($this->request->action, ['index','view','add','edit','btns']))
         {
             return true;
@@ -39,6 +39,9 @@ class RequestsController extends AppController
      */
     public function index($id = null)
     {
+
+        // $id contiene el id de la jornada
+
         if(!$id) {
             $requests = $this->Requests->find('all', [
                 // 'conditions'=>array('description LIKE'=>$this->request->data('search').'%')
@@ -53,6 +56,9 @@ class RequestsController extends AppController
                 'conditions'=> ['journey_id'=>$id]
                 ]);
         }
+        debug($requests->count());
+
+        // si es a través de una búsqueda
 
         if($this->request->data('search')!='') {
 
@@ -62,17 +68,31 @@ class RequestsController extends AppController
             // ENCONTRAR LA MANERA DE BUSCAR POR PALABRAS EN LA DESCRIPCION
 
             $tapeexists = $this->Requests->find('all', array('conditions'=>array('description LIKE'=>$this->request->data('search').'%')));
+
             //  debug($this->paginate($tapeexists));
         }
 
-       
+
+
+        if($this->Auth->user('role') == 'Responsable')
+        {
+            $this->loadModel("activities");
+            $responsableID = $this->Dependencies->find('all', ['conditions' => ['user_id'=>$this->Auth->user('id')]])->first();
+            //
+            debug($responsableID->id);
+            $requests = $this->activities->find('all', [
+              //  'contain' => ['Journeys', 'Types', 'Petitioners', 'Requestupdates','Activities'],
+                'conditions'=> ['dependency_id' => $responsableID->id]
+            ]);
+            debug($requests->count());
+        }
 
         // $requests = $requests->append($tapeexists);
 
         // $requests = $this->paginate($all);
 
         // debug($requests->count());
-        
+
         $this->set(compact('requests'));
 
     }
@@ -115,7 +135,7 @@ class RequestsController extends AppController
             $petitioner->email = $this->request->data('email');
             $petitioner->gobernador =$this->request->data('gobernador');
            // $petitioner->photo =$this->request->data('photo');
-          
+
             //debug( $this->request->getData());
 
             if ($this->Petitioners->save($petitioner)) {
@@ -123,7 +143,7 @@ class RequestsController extends AppController
                 $request->petitioner_id = $petitioner->id;
 
                 $request->photo = $this->request->data('photo');
-                
+
 
                 if ($this->Requests->save($request)) {
                     $this->Flash->success(__('La solicitud se ha guardado.'));
@@ -141,9 +161,9 @@ class RequestsController extends AppController
         }
 
         if(!$jid){
-            $journeys = $this->Requests->Journeys->find('list', ['limit' => 200]);
+            $journeys = $this->Requests->Journeys->find('list', ['limit' => 200,'order'=> ['date DESC']] );
         } else {
-            $journeys = $this->Requests->Journeys->find('list', ['conditions' => ['id' => $jid]]);
+            $journeys = $this->Requests->Journeys->find('list', ['conditions' => ['id' => $jid,'order'=> ['date DESC']]]);
         }
 
         // $promoters = $this->Requests->Promoters->find('list', ['limit' => 200]);
@@ -234,7 +254,7 @@ class RequestsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    /** 
+    /**
     *add method
     *   @param string|null $id Request id.
     * @return \Cake\Http\Response|null Redirects to index
@@ -245,6 +265,6 @@ class RequestsController extends AppController
         $this->Requests->get($id);
         // if ($this->Request)
     }
-    
-  
+
+
 }

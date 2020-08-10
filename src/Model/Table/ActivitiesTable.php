@@ -38,6 +38,8 @@ class ActivitiesTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->addBehavior('Timestamp');
+
         $this->belongsTo('Requests', [
             'foreignKey' => 'request_id',
         ]);
