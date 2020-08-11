@@ -40,7 +40,8 @@ endforeach;
 <div class="card shadow mb-4">
   <div class="card-body">
     <h5 class="mb-1 font-weight-bold text-primary">Jornada <?= h($journey->ubicacion . ", " .$journey->municipio) ?></h5>
-    <p class="m-0"><?= "Día " . date("d-M-y", strtotime($journey->date)) . " | De las " . date("H:i A", strtotime($journey->horainicio)) . " a las " . date("H:i A", strtotime($journey->horatermino)) ?></p>
+    <!-- <p class="m-0"><?= "Día " . date("d-M-y", strtotime($journey->date)) . " | De las " . date("H:i A", strtotime($journey->horainicio)) . " a las " . date("H:i A", strtotime($journey->horatermino)) ?></p> -->
+    <p class="m-0"><?= date("d-M-y", strtotime($journey->date)) ?></p>
   </div>
 </div>
 
@@ -362,7 +363,7 @@ endforeach;
 
 <div class="card shadow my-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Solicitudes de la </h6>
+    <h6 class="m-0 font-weight-bold text-primary">Solicitudes de la jornada</h6>
   </div>
   <div class="card-body">
     <div class="table-responsive">
@@ -372,18 +373,24 @@ endforeach;
                 <th style="width: 10%">Folio</th>
                 <th style="width: 45%">Solicitante</th>
                 <th style="width: 15%">Peticiones</th>
-                <th style="width:  16">Activities</th>
-
+                <!-- <th style="width: 16%">Activities</th> -->
+                <th style="width: 14%"></th>
             </tr>
         </thead>
         <tbody>
+        <?php if(empty($journey->requests)) { ?>
+                              <tr>
+                                <td class="bg-light" colspan="4">No existen solicitudes</td>
+                              </tr>
+
+                            <?php } else { ?>
 
 
 
             <?php foreach ($journey->requests as $request): ?>
               <tr style="<?php if(h ($request->gobernador)) { echo "background-color:yellow;";}?>">
             <td> <?php if($request->folio) { ?>
-            <?= $this->Html->link($request->folio, ['action' => 'edit', $request->id]) ?>
+            <?= $this->Html->link($request->folio, ['controller' => 'requests','action' => 'view', $request->id]) ?>
             <?php } else { ?>
                 Sin Folio
             <?php } ?>
@@ -394,17 +401,19 @@ endforeach;
 
 
 
-            <td><?= $this->Html->link($request->petitioner->name, []) ?></td>
+            <td><?= $this->Html->link($request->petitioner->name, ['controller' => 'requests', 'action' => 'view', $request->id]) ?></td>
 
-            <td class="text-center"><?= $this->Html->link($request->activities[0]['cantidad'], []) ?></td>
+            <td class="text-center">
+              <?= isset($request->activities[0]['cantidad']) ? $this->Html->link($request->activities[0]['cantidad'], ['controller' => 'requests', 'action' => 'view', $request->id]) : "Sin turnar" ?>
+            </td>
+            <?php ?>
 
+            <!-- <td class="text-center"><?= $this->Html->link($request->activities[0]['cantidad'], ['controller' => 'requests', 'action' => 'view', $request->id]) ?></td> -->
+            <!-- <td class="text-center"><?= $this->Html->link($request->dependencies[0]['cantidad'], ['controller' => 'requests','action' => 'view', $request->id]) ?></td> -->
             <td>
-            <td class="text-center"><?= $this->Html->link($request->activities[0]['cantidad'], ['controller' => 'requests', 'action' => 'view', $request->id]) ?></td>
-            <td class="text-center"><?= $this->Html->link($request->dependencies[0]['cantidad'], ['controller' => 'requests','action' => 'view', $request->id]) ?></td>
-
-            <?= $this->Html->link($this->Html->tag('i', '', array('class' =>'fa fa-arrow-right')), array('controller' =>'activities','action'=>'create', $request->id), array('escape' =>false))?>
-            <?= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-list-alt')), array('controller' => 'requests','action'=>'edit', $request->id), array('escape' => false)) ?>
-                                        <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-lg fa-trash')), array('controller' => 'requests', 'action' =>'delete', $request->id), array('escape' => false), __('Deseas eliminar esta dependencia?')); ?>
+              <?= $this->Html->link($this->Html->tag('i', '', array('class' =>'fa fa-arrow-right')), array('controller' =>'activities','action'=>'create', $request->id), array('escape' =>false))?>
+              <?= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-list-alt')), array('controller' => 'requests','action'=>'edit', $request->id), array('escape' => false)) ?>
+              <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-lg fa-trash')), array('controller' => 'requests', 'action' =>'delete', $request->id), array('escape' => false), __('Deseas eliminar esta dependencia?')); ?>
             </td>
             <!-- <td><?= $request->has('concept') ? $this->Html->link($request->concept->name, ['controller' => 'Concepts', 'action' => 'view', $request->concept->id]) : '' ?></td> -->
 
@@ -418,19 +427,13 @@ endforeach;
 
 
                 </td>
-
-
-
-
-
-
-<tr>
+        <tr>
 
 
 
             <?php endforeach; ?>
 
-
+            <?php } ?>
 
 
         </tbody>
