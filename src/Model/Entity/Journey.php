@@ -35,12 +35,13 @@ class Journey extends Entity
         'date' => true,
         'horainicio' => true,
         'horatermino' => true,
+        'geolocalizacion' => true,
         'photo' => true,
         'photo_dir' => true,
         'created' => true,
         'modified' => true,
         'requests' => true,
         'photo_dir'=> false,
-        
+
     ];
 }

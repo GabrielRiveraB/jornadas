@@ -56,7 +56,7 @@ class RequestsController extends AppController
                 'conditions'=> ['journey_id'=>$id]
                 ]);
         }
-        debug($requests->count());
+        //debug($requests->count());
 
         // si es a través de una búsqueda
 

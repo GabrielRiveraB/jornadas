@@ -13,14 +13,14 @@ $jornadaprevia = '';
 // debug($actividades->toarray());
 
 foreach ($actividades as $actividad):
-  
+
     if($jornadaprevia != $actividad->jornada && $jornadaprevia!='') {
         $contador = $contador + 1;
         $resumen[$contador]['otros']=0;
     }
     $resumen[$contador]['id']=$actividad->id;
     $resumen[$contador]['ubicacion']=$actividad->jornada;
-    $resumen[$contador]['municipio']=$actividad->mun; 
+    $resumen[$contador]['municipio']=$actividad->mun;
     $resumen[$contador]['dependencia']=$actividad->dep;
 
     if($actividad->concepto=='PAVIMENTACIÓN') {
@@ -45,7 +45,7 @@ endforeach;
 </div>
 
 <div class="row">
-  
+
 <div class="col-sm-12 col-md-2 mb-2 ">
         <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body py-0">
@@ -110,8 +110,8 @@ endforeach;
                 </div>
               </div>
               </div>
-              
-              
+
+
               <div class="col-sm-12 col-md-2 mb-2">
         <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body py-0">
@@ -131,26 +131,26 @@ endforeach;
                   </div>
                 </div>
               </div>
-              </div>              
+              </div>
 </div>
 
 
 <div class="journeys view large-9 medium-8 columns content">
-    
+
     <?php if (isset($current_user['role']) && $current_user['role'] === 'Secretaria') { ?>
 
-        <div class="row">        
+        <div class="row">
         <div class="card-body">
-              
-             
-             
-             
+
+
+
+
               <div class="table-responsive">
-              
+
                 <table class="table table-bordered table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                  
+
                   <thead>
-                  
+
                     <tr class="bg-danger">
                         <th colspan="9 " class="text-left text-white">PAVIMENTACIONES</th>
                         <th colspan="2" class="text-center text-white"><?= $totalPavimentaciones . " EN TOTAL" ?></th>
@@ -161,12 +161,12 @@ endforeach;
                        <th class="text-center" style="width: 36%">TIPO</th>
                       <th class="text-center" style="width: 26%">ESTATUS</th>
 
-                      <th class="text-center" style="width: 36%">ASIGNADA A</th>
+                      <th class="text-center" style="width: 20%">ASIGNADA A</th>
                       <th class="text-center" style="width:  36%">UBICACION</th>
 
                       <th class="text-center" style="width: 16%">ML</th>
                       <th class="text-center" style="width: 10%">MDP</th>
-                      <th class="text-center" style="width: 2%">PROY</th> 
+                      <th class="text-center" style="width: 2%">PROY</th>
                       <th class="text-center" style="width: 2%">LICI</th>
                       <th class="text-center" style="width: 2%">EJEC</th>
                     </tr>
@@ -174,20 +174,21 @@ endforeach;
                   <tbody>
                   <?php foreach ($pavimentaciones as $pavimentacion): ?>
                   <tr>
+
                       <td class="text-center"></td>
                       <td class="text-center"><?= $pavimentacion->request['folio'] ?  $pavimentacion->request['folio'] : ""; ?></td>
                       <td class="text-center"><?= $pavimentacion->concept['name'] ?  $pavimentacion->concept['name'] : ""; ?></td>
                       <td class="text-center"><?= $pavimentacion->status ?></td>
-                     
-                     
-                     <td class="text-center"><?= $pavimentacion->dependency_id?>  
-                    
-                       
-                      
+
+
+                     <td class="text-center"><?= $pavimentacion->Dependencies['name'] ?>
+
+
+
                       </td>
 
                       <td class="text-center"><?= $pavimentacion->dependencie['name'] ? $pavimentacion->dependencie['name'] : ""; ?></td>
-                      
+
                       <td class="text-center"><?= $pavimentacion->ubicacion ?></td>
 
                       <td class="text-center"></td>
@@ -204,8 +205,8 @@ endforeach;
               </div>
             </div>
 
-          
-          
+
+
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -235,9 +236,9 @@ endforeach;
                       <td class="text-center"><?= $espacio->request['folio'] ?  $espacio->request['folio'] : ""; ?></td>
                       <td class="text-center"><?= $espacio->concept['name'] ?  $espacio->concept['name'] : ""; ?></td>
                       <td class="text-center"><?= $espacio->status ?></td>
-                      <td class="text-center"><?= $espacio->dependency_id?></td>
+                      <td class="text-center"><?= $espacio->Dependencies['name']?></td>
                       <td class="text-center"><?= $espacio->ubicacion ?></td>
-                      
+
                       <td class="text-center"></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
@@ -245,13 +246,13 @@ endforeach;
                       <td class="text-center"></td>
                     </tr>
                 <?php endforeach; ?>
-                  
+
                   </tbody>
 
                 </table>
               </div>
             </div>
-            
+
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -281,7 +282,7 @@ endforeach;
                       <td class="text-center"><?= $regularizacion->request['folio'] ?  $regularizacion->request['folio'] : ""; ?></td>
                       <td class="text-center"><?= $regularizacion->concept['name'] ?  $regularizacion->concept['name'] : ""; ?></td>
                       <td class="text-center"><?= $regularizacion->status ?></td>
-                      <td class="text-center"><?= $regularizacion->dependency_id?></td>
+                      <td class="text-center"><?= $regularizacion->Dependencies['name']?></td>
                       <td class="text-center"><?= $regularizacion->ubicacion ?></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
@@ -290,13 +291,13 @@ endforeach;
                       <td class="text-center"></td>
                     </tr>
                 <?php endforeach; ?>
-                  
+
                   </tbody>
 
                 </table>
               </div>
             </div>
-            
+
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -320,39 +321,39 @@ endforeach;
                     </tr>
                   </thead>
                   <tbody>
-                  
+
                   <?php foreach ($otros as $otro): ?>
                     <tr>
-                  
-                  
+
+
                       <td class="text-center"></td>
                       <td class="text-center"><?= $otro->request['folio'] ?  $otro->request['folio'] : ""; ?></td>
                       <td class="text-center"><?= $otro->concept['name'] ?  $otro->concept['name'] : ""; ?></td>
                      <td class="text-center"><?= $otro->status ?></td>
 
-                   <td class="text-center"><?= $otro->dependency_id?></td>
+                   <td class="text-center"><?= $otro->Dependencies['name']?></td>
                      <td class="text-center"><?= $otro->ubicacion ?></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
                       <td class="text-center"></td>
-                      
+
                     </tr>
                 <?php endforeach; ?>
-                  
+
                   </tbody>
 
                 </table>
               </div>
-            </div>            
+            </div>
         </div>
 
 
 
     <?php } else { ?>
-    
-    
+
+
     <?= $this->Html->link(__('Nueva solicitud'), ['controller' => 'Requests', 'action' => 'add', $journey->id],['class'=>'btn btn-info mt-4']) ?>
 
     <?php } ?>
@@ -368,17 +369,17 @@ endforeach;
     <table class="table table-striped table-bordered table-hover" id="myTable">
         <thead class="thead-light">
             <tr>
-                <th style="width: 10%">Folio</th>                
+                <th style="width: 10%">Folio</th>
                 <th style="width: 45%">Solicitante</th>
                 <th style="width: 15%">Peticiones</th>
                 <th style="width:  16">Activities</th>
-               
+
             </tr>
         </thead>
         <tbody>
-       
-        
-   
+
+
+
             <?php foreach ($journey->requests as $request): ?>
               <tr style="<?php if(h ($request->gobernador)) { echo "background-color:yellow;";}?>">
             <td> <?php if($request->folio) { ?>
@@ -392,48 +393,48 @@ endforeach;
 
 
 
-            
+
             <td><?= $this->Html->link($request->petitioner->name, []) ?></td>
-            
+
             <td class="text-center"><?= $this->Html->link($request->activities[0]['cantidad'], []) ?></td>
-            
+
             <td>
             <td class="text-center"><?= $this->Html->link($request->activities[0]['cantidad'], ['controller' => 'requests', 'action' => 'view', $request->id]) ?></td>
             <td class="text-center"><?= $this->Html->link($request->dependencies[0]['cantidad'], ['controller' => 'requests','action' => 'view', $request->id]) ?></td>
-            
+
             <?= $this->Html->link($this->Html->tag('i', '', array('class' =>'fa fa-arrow-right')), array('controller' =>'activities','action'=>'create', $request->id), array('escape' =>false))?>
-            <?= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-list-alt')), array('controller' => 'requests','action'=>'edit', $request->id), array('escape' => false)) ?>                    
+            <?= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-list-alt')), array('controller' => 'requests','action'=>'edit', $request->id), array('escape' => false)) ?>
                                         <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-lg fa-trash')), array('controller' => 'requests', 'action' =>'delete', $request->id), array('escape' => false), __('Deseas eliminar esta dependencia?')); ?>
             </td>
             <!-- <td><?= $request->has('concept') ? $this->Html->link($request->concept->name, ['controller' => 'Concepts', 'action' => 'view', $request->concept->id]) : '' ?></td> -->
-               
-            
-                
+
+
+
 
                     <?php if (isset($current_user['role']) && $current_user['role'] === 'Coordinador') { ?>
-                    
-                    
-                    <?php } ?>
-                    
-                
-                </td>
-            
 
-                
-            
-            
-              
+
+                    <?php } ?>
+
+
+                </td>
+
+
+
+
+
+
 <tr>
 
 
 
             <?php endforeach; ?>
-            
-           
+
+
 
 
         </tbody>
-    </table>      
+    </table>
     </div>
   </div>
 </div>
