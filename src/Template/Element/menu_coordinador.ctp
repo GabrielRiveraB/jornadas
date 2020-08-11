@@ -9,6 +9,11 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
           <?= $this->Html->link(
+                __(' Listado'),
+                ['controller' => 'Journeys', 'action' => 'index'],
+                ['escape' => false, 'class' => 'collapse-item']
+            ) ?>
+                      <?= $this->Html->link(
                 __(' Nueva Jornada'),
                 ['controller' => 'Journeys', 'action' => 'add'],
                 ['escape' => false, 'class' => 'collapse-item']
@@ -28,6 +33,11 @@
 
         <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
+          <?= $this->Html->link(
+                __(' Listado'),
+                ['controller' => 'Requests', 'action' => 'index'],
+                ['escape' => false, 'class' => 'collapse-item']
+            ) ?>
           <?= $this->Html->link(
                 __(' Nueva Solicitud'),
                 ['controller' => 'Requests', 'action' => 'add'],

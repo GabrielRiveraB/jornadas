@@ -94,9 +94,9 @@ class RequestsTable extends Table
                 'thumbnailMethod' => 'gd'	// Options are Imagick or Gd
             ]
         ]);
-        
+
     }
-    
+
 
     /**
      * Default validation rules.
@@ -154,11 +154,11 @@ class RequestsTable extends Table
         $validator
             ->integer('priority')
             ->allowEmptyString('priority');
-        $validator
-            ->requirePresence('photo', 'create')
-           ->notEmpty('photo');
-         
-          
+       // $validator
+            //->requirePresence('photo', 'create')
+           //->notEmpty('photo');
+
+
         return $validator;
     }
 
@@ -179,6 +179,6 @@ class RequestsTable extends Table
         $rules->add($rules->existsIn(['request_status_id'], 'RequestStatuses'));
 
         return $rules;
-        
+
     }
 }
