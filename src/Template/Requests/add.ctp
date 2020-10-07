@@ -97,7 +97,7 @@ $solicitantes = $solicitantes->toArray();
   <div class="col-3 pl-0">
   <?php
     echo $this->Form->control('photo', ['type' => 'file','label'=>'Foto de la solicitud']);
-  ?>    
+ ?>    
   </div>
   <div class="col-3 pl-0">
   <?php echo $this->Form->control('gobernador',['label'=>' Asistio el gobernador']); ?>

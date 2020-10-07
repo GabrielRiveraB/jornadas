@@ -16,7 +16,7 @@ class RequestsController extends AppController
     public function isAuthorized($user)
     {
         
-        if(in_array($this->request->action, ['index','view','add','edit','btns']))
+        if(in_array($this->request->action, ['index','view','add','edit','btns','delete']))
         {
             return true;
         }
@@ -226,7 +226,7 @@ class RequestsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $request = $this->Requests->get($id);
         if ($this->Requests->delete($request)) {
-            $this->Flash->success(__('The request has been deleted.'));
+            $this->Flash->success(__('Solicitud Eliminada.'));
         } else {
             $this->Flash->error(__('The request could not be deleted. Please, try again.'));
         }

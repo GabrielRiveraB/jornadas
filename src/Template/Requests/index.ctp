@@ -3,6 +3,9 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Request[]|\Cake\Collection\CollectionInterface $requests
  */
+$municipio ="";
+$sinfolio = $confolio=0;
+$municipios =  ["Mexicali"."Tijuana","Playas de Rosarito","Tecate","San Quíntin","Ensenada"];
 //  debug($requests);
 ?>
 

@@ -102,7 +102,7 @@ class JourneysController extends AppController
             [
                 'order'=>['Journeys.municipio' => 'desc','Journeys.date'=>'DESC'],
                 'contain'=>['Requests'],
-                'limit'=>100
+                'limit'=>100,
             ]);
 
         } else {

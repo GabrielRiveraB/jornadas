@@ -397,17 +397,17 @@ endforeach;
             
             <td class="text-center"><?= $this->Html->link($request->activities[0]['cantidad'], []) ?></td>
             
-            <td>
-            <td class="text-center"><?= $this->Html->link($request->activities[0]['cantidad'], ['controller' => 'requests', 'action' => 'view', $request->id]) ?></td>
-            <td class="text-center"><?= $this->Html->link($request->dependencies[0]['cantidad'], ['controller' => 'requests','action' => 'view', $request->id]) ?></td>
             
-            <?= $this->Html->link($this->Html->tag('i', '', array('class' =>'fa fa-arrow-right')), array('controller' =>'activities','action'=>'create', $request->id), array('escape' =>false))?>
+           
+         <!--<td class="text-center"><//?= $this->Html->link($request->dependencies[0]['cantidad'], ['controller' => 'requests','action' => 'view', $request->id]) ?></td>  -->
+            
+            <td><?= $this->Html->link($this->Html->tag('i', '', array('class' =>'fa fa-arrow-right')), array('controller' =>'activities','action'=>'create', $request->id), array('escape' =>false))?>
             <?= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-list-alt')), array('controller' => 'requests','action'=>'edit', $request->id), array('escape' => false)) ?>                    
-                                        <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-lg fa-trash')), array('controller' => 'requests', 'action' =>'delete', $request->id), array('escape' => false), __('Deseas eliminar esta dependencia?')); ?>
+            <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-lg fa-trash')), array('controller' => 'requests', 'action' =>'delete', $request->id), array('escape' => false), __('Deseas eliminar esta dependencia?')); ?>
             </td>
             <!-- <td><?= $request->has('concept') ? $this->Html->link($request->concept->name, ['controller' => 'Concepts', 'action' => 'view', $request->concept->id]) : '' ?></td> -->
                
-            
+           
                 
 
                     <?php if (isset($current_user['role']) && $current_user['role'] === 'Coordinador') { ?>

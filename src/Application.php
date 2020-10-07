@@ -36,6 +36,8 @@ class Application extends BaseApplication
     {
         $this->addPlugin('Proffer');
 
+        $this->addPlugin('Proffer');
+
 
 
         $this->addPlugin('BootstrapUI');

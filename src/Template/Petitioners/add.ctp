@@ -23,6 +23,7 @@
             echo $this->Form->control('address',['label'=>'Dirección']);
             echo $this->Form->control('phone',['label'=>'Teléfono']);
             echo $this->Form->control('email',['label'=>'Correo electrónico']);
+            echo $this->Form->control('photo',['file'=>'photo']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Agregar solicitante')) ?>

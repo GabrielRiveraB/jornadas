@@ -74,7 +74,16 @@
         <div class="col-3 pl-0">
 <?php echo $this->Form->control('gobernador',['label'=>'Asistio el gobernador']); ?>
 </div>
-<h4>Foto de la solicitud</h4>
+<<?php
+            echo $this->Form->control('request_status_id', ['options' => $requestStatuses, 'value'=>'1', 'type'=>'hidden']);
+        ?>
+
+<div class="row m-0">
+  <div class="col-3 pl-0">
+  <?php
+    echo $this->Form->control('photo', ['type' => 'file','label'=>'Foto de la solicitud']);
+  ?>    
+  <div class="col-3 pl-0">
 
 
 
