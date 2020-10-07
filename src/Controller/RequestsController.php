@@ -115,7 +115,7 @@ class RequestsController extends AppController
             $petitioner->email = $this->request->data('email');
             $petitioner->gobernador =$this->request->data('gobernador');
            // $petitioner->photo =$this->request->data('photo');
-          
+          //ejemplo
             //debug( $this->request->getData());
 
             if ($this->Petitioners->save($petitioner)) {
