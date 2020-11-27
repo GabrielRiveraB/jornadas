@@ -16,7 +16,7 @@ class RequestsController extends AppController
     public function isAuthorized($user)
     {
 
-        if(in_array($this->request->action, ['index','view','add','edit','btns']))
+        if(in_array($this->request->action, ['index','view','add','edit','btns','rubro']))
         {
             return true;
         }
@@ -266,5 +266,81 @@ class RequestsController extends AppController
         // if ($this->Request)
     }
 
+
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function rubro($id = null)
+    {
+        $this->loadModel("Journeys");
+        $this->loadModel('Concepts');
+        $this->loadModel('Activities');
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $jornada = $this->request->data('journeys');
+            $rubro = $this->request->data('concepts');
+            $municipio = $this->request->data('municipios');
+        }
+
+
+        // $peticiones = $this->Activities->find('all', [
+        //     'contain' => ['Journeys','Concepts'],
+        //     // 'order'=>['peticiones' => 'DESC'],
+        //     ]);
+
+        $peticiones = $this->Activities->find('all', [
+            'contain' => ['Journeys','Concepts'],
+            'fields' => [
+                'rubro'=>'name',
+                'peticiones'=>'COUNT(*)',
+                'atendidas'=>'SUM(if(status = "turnada", 1, 0))',
+                'cumplidas'=>'SUM(if(status = "cumplida", 1, 0))',
+                'journey_id',
+                'concept'=>'concept_id'
+            ],
+            'order'=>['peticiones' => 'DESC'],
+            ]);
+
+
+            // if(isset($jornada)!=''){
+            // $peticiones = $this->Activities->find('all', [
+            //     'contain' => ['Journeys','Concepts'],
+            //     'fields' => [
+            //         'rubro'=>'name',
+            //         'peticiones'=>'COUNT(*)',
+            //         'atendidas'=>'SUM(if(status = "turnada", 1, 0))',
+            //         'cumplidas'=>'SUM(if(status = "cumplida", 1, 0))',
+            //         'journey_id',
+            //         'concept'=>'concept_id'
+            //     ],
+            //     'order'=>['peticiones' => 'DESC'],
+            //     'where'=>['journey_id' => $jornada]
+            //     ]);
+            // }
+
+       //debug($peticiones->toArray());
+
+
+        //if(isset($rubro)!=''){  debug($rubro); $peticiones = $peticiones->where(['concept_id'=>$rubro]); }
+        // if(isset($jornada)!=''){  $peticiones = $peticiones->where(['journey_id'=>$jornada]); }
+
+        //$pavimentaciones = $this->activities->find()->where(['concept_id' => 25 ]);
+        $peticiones = $peticiones->group(['activities.concept_id']);
+
+        //debug($peticiones->toArray());
+
+        $this->set(compact('peticiones'));
+
+        $journeys = $this->Journeys->find('list', ['limit' => 200]);
+        // $promoters = $this->Requests->Promoters->find('list', ['limit' => 200]);
+        $concepts = $this->Concepts->find('list', ['limit' => 200]);
+        // $types = $this->Requests->Types->find('list', ['limit' => 200]);
+        $municipios = array('Mexicali'=>'MEXICALI','Tijuana'=>'TIJUANA','Ensenada'=>'ENSENADA','Tecate'=>'TECATE','Playas de Rosarito'=>'PLAYAS DE ROSARITO','San Quintín'=>'SAN QUINTÍN');
+
+        $this->set(compact('journeys','concepts','municipios'));
+
+    }
 
 }

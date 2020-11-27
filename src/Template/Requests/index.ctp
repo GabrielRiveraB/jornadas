@@ -19,11 +19,11 @@
     <table class="table table-striped table-bordered table-hover" id="myTable">
         <thead class="thead-light">
             <tr>
-                <th>Folio</th>
-                <th>Jornada</th>
-                <th>Fecha</th>
-                <th>Solicitante</th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <th style="width:10%">Folio</th>
+                <th style="width:35%">Jornada</th>
+                <th style="width:10%">Fecha</th>
+                <th style="width:35%">Solicitante</th>
+                <th scope="col" class="actions" style="width:10%"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -42,21 +42,21 @@
 
             <td><?= $request->has('journey') ? $this->Html->link($request->journey->ubicacion, ['controller' => 'Journeys', 'action' => 'view', $request->journey->id]) : '' ?></td>
             <td> <?php echo h(date("d-M-y", strtotime($request->modified))); ?></td>
-           
-           
-           
+
+
+
             <td><?= $this->Html->link($request->petitioner->name, ['controller' => 'Petitioners', 'action' => 'view', $request->petitioner->id]) ?></td>
                 <!-- <td><?= $request->has('concept') ? $this->Html->link($request->concept->name, ['controller' => 'Concepts', 'action' => 'view', $request->concept->id]) : '' ?></td> -->
-                
-                
+
+
                 <td class="actions">
                     <?php if (isset($current_user['role']) && $current_user['role'] === 'Coordinador') { ?>
                         <?= $this->Html->link($this->Html->tag('i', '', array('class' =>'fa fa-arrow-right')), array('controller' =>'activities','action'=>'create', $request->id), array('escape' =>false))?>
                     <?php } ?>
-                   
-                    <?= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-list-alt')), array('controller' => 'requests','action'=>'edit', $request->id), array('escape' => false)) ?>                    
+
+                    <?= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-list-alt')), array('controller' => 'requests','action'=>'edit', $request->id), array('escape' => false)) ?>
                                         <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-lg fa-trash')), array('controller' => 'requests', 'action' =>'delete', $request->id), array('escape' => false), __('Deseas eliminar esta dependencia?')); ?>
-                    
+
                 </td>
             </tr>
             <?php endforeach; ?>

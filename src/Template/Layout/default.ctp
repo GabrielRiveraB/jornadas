@@ -34,10 +34,12 @@ $cakeDescription = 'Jornadas de la paz | Gobierno de Baja California';
 
     <!-- Bootstrap core JavaScript-->
     <?= $this->Html->script(['jquery.min','bootstrap.bundle.min.js']) ?>
-  
+
     <!-- Custom styles for this template-->
-    <?= $this->Html->css(['sb-admin-2.min','dataTables.bootstrap4.min']) ?>
-    
+    <?= $this->Html->css(['sb-admin-2.min']) ?>
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.21/b-1.6.3/b-colvis-1.6.3/b-html5-1.6.3/b-print-1.6.3/r-2.2.5/sp-1.1.1/datatables.min.css"/>
 
 
     <?= $this->fetch('meta') ?>
@@ -57,7 +59,7 @@ $cakeDescription = 'Jornadas de la paz | Gobierno de Baja California';
       <!-- Main Content -->
       <div id="content">
       <?php echo $this->element("topbar");?>
-      
+
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -65,7 +67,7 @@ $cakeDescription = 'Jornadas de la paz | Gobierno de Baja California';
             <div>
                 <?= $this->fetch('content') ?>
             </div>
-        
+
         </div>
         <!-- /.container-fluid -->
 
@@ -87,7 +89,7 @@ $cakeDescription = 'Jornadas de la paz | Gobierno de Baja California';
 
     <!-- Core plugin JavaScript-->
     <?= $this->Html->script(['jquery.easing.min']) ?>
-  
+
     <!-- Custom scripts for all pages-->
     <?= $this->Html->script(['sb-admin-2.min']) ?>
 
@@ -98,9 +100,12 @@ $cakeDescription = 'Jornadas de la paz | Gobierno de Baja California';
     <?= $this->Html->script(['chart-area-demo','chart-pie-demo']) ?>
 
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.21/b-1.6.3/b-colvis-1.6.3/b-html5-1.6.3/b-print-1.6.3/r-2.2.5/sp-1.1.1/datatables.min.js"></script>
 
   <!-- Page level plugins -->
-  <?= $this->Html->script(['jquery.dataTables.min','dataTables.bootstrap4.min','datatables-demo']) ?>
+  <!-- <?= $this->Html->script(['jquery.dataTables.min','dataTables.bootstrap4.min','datatables-demo','buttons.print.min']) ?> -->
 
     <div>
 
